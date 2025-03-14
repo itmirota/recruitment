@@ -1,0 +1,11 @@
+.sidebar-content{
+    background-color: #004aad;
+  }
+
+  a.sidebar-link{
+    background-color:#004aad;
+  }
+
+  a.sidebar-link:hover{
+    background-color:rgba(28,136,227,0.8);
+  }

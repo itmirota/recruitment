@@ -1,0 +1,1029 @@
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap");
+
+body{
+  font-family: "Gabarito", sans-serif;
+}
+
+.text-light{
+  color:#fff;
+}
+
+.text-blue{
+  color: #0D67BB;
+}
+
+.text-grey{
+  color: #505050;
+}
+
+.text-red{
+  color: #2b8fec;
+}
+
+.text-carousel-tittle{
+  font-size: 52px;
+  font-weight: 700;
+}
+
+.text-tittle{
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.text-header{
+  font-size: 28px;
+  /* font-weight: 700; */
+}
+
+.text-subheader{
+  font-size: 21px;
+  color: #E52028;
+}
+
+.text-deskripsi{
+  font-size: 18px;
+}
+
+.btn-biru{
+  background-color: #0D67BB;
+  color:#fff;
+}
+
+.btn-daftar{
+  background-color: #fff;
+  color: #004aad;
+}
+
+.btn-login{
+  border-color: #fff;
+  color: #fff;
+}
+
+:root {
+  --d: 700ms;
+  --e: cubic-bezier(0.19, 1, 0.22, 1);
+  --font-sans: "Rubik", sans-serif;
+  --font-serif: "Cardo", serif;
+  --font-poppin: "Poppins";
+  --font-fredoka: "Fredoka One";
+  --font-tilt: "Tilt Warp", cursive;
+  --font-secular: "Secular One", sans-serif;
+
+
+  --warna-background: #4dc247; /* Warna background header dan tombol chat */
+  --warna-bg-chat: #f0f5fb;
+  --warna-icon: #fff; /* Warna icon chat */
+  --warna-text: #505050;
+  --warna-text-alt: #989b9f;
+  --lebar-chatbox: 320px;
+}
+
+/* ==========================HOME================================== */
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 4px solid rgba(0,74,173,1);
+  box-shadow: 0 2px 4px 0 rgba(0,74,173,1);
+
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+
+/* Container holding the image and the text */
+.header-image {
+  position: relative;
+}
+
+/* Bottom right text */
+.text-block {
+  position: absolute;
+  bottom: 0px;
+  top:0px;
+  color: white;
+  background-image: linear-gradient(to right, #004aad 60%, transparent 100%);
+  padding: 35vh 20vh;
+  width: 70%;
+}
+
+.text-block h1{
+  margin-right:30%;
+}
+
+.text-block p{
+  margin-right:50%;
+}
+
+/* .carousel-inner{
+    border-radius: 0 0 50% 50%/0 0 15% 15%;
+} */
+
+.headerperusahaan{
+    background-color: #004aad;
+    height: 400px;
+}
+
+.img-carousel{
+  height:100vh;
+}
+
+/* Container holding the image and the text */
+/*.contaner {*/
+/*    position: relative;*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+  
+/* Bottom left text */
+.carousel-caption {
+    width: 80%;
+    text-align: left;
+    padding-top: 22%;
+    padding-left: 12%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    background:linear-gradient(270deg, rgba(255,255,255,0) 5%, rgba(0,74,173,1) 40%);
+}
+
+a{
+   text-decoration:none;
+ }
+
+/* Home section */
+.header {
+    background-color: #004aad;
+    background-position: center top;
+    /* background-size:cover; */
+}
+
+
+/* /Home section */
+
+/* Navbar section */
+.con{
+    width: 100%;
+    padding-left: 5%;
+}
+
+.navBar {
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    line-height: 65px;
+    text-align: center;  
+}
+
+.navBar div.logo {
+    float: left;
+    /*width: auto;*/
+    /*height: auto;*/
+    /* padding-left: 3rem; */
+}
+
+.img-logo{
+    float:left;
+    margin-top : 10px;
+    width: 50%;
+}
+
+.navBar div.logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+.navBar div.logo a:hover {
+    color: #E52128;
+}
+
+.navBar div.main_list {
+    height: 65px;
+    float: right;
+}
+
+.navBar div.main_list ul {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navBar div.main_list ul li {
+    width: auto;
+    height: 65px;
+    padding: 0;
+    padding-right: 10px;
+}
+
+.navBar div.main_list ul li a {
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 1px 1px 4px #004aad, 0 0 5px #004aad;
+    /* text-shadow: 1px 1px 2px #031b3a, 0 0 25px #083a7c, 0 0 5px #004aad; */
+    line-height: 65px;
+    font-size: 16px;
+    padding: 5px 10px;
+    font-family: "Gabarito", sans-serif;
+}
+
+.navBar div.main_list ul li a:hover {
+    color: #ffff;
+    background-color: #033e8b;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px #06336e;
+}
+
+.navTrigger {
+    display: none;
+}
+
+.navBar {
+    padding-bottom: 0px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.link-akun{
+  background-color: #0D67BB;
+  border-radius: 5px;
+  text-shadow: 1px 1px 4px white, 0 0 5px white;
+  color: white;
+  padding: 90vh;
+  /* padding: 14px 25px; */
+}
+
+.link-logout{
+  background-color: #b81111;
+  border-radius: 5px;
+  text-shadow: 1px 1px 4px white, 0 0 5px white;
+  color: white;
+  padding: 90vh;
+  /* padding: 14px 25px; */
+}
+
+
+@media screen and (max-width:1050px) {
+
+    .con {
+        margin-top: -5px;
+    }
+    
+    .navTrigger {
+        display: block;
+    }
+    
+    .img-logo{
+        width: 30%;
+    }
+    
+    .logo{
+        padding-top: 0;
+        left: 0;
+    }
+
+    .navBar div.main_list {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .navBar div.button_nav {
+      width: 100%;
+      height: 0;
+      overflow: hidden;
+  }
+
+    .navBar div.show_list {
+        height: auto;
+        display: none;
+    }
+
+    .navBar div.main_list ul {
+        margin-top:5%;
+        flex-direction: column;
+        width: 100%;
+        opacity: 80%;
+        height: 100vh;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: #004aad;
+        /*same background color of navbar*/
+        background-position: center bottom;
+    }
+    .navBar div.main_list ul li {
+        width: 100%;
+        text-align: right;
+    }
+    .navBar div.main_list ul li a {
+        text-align: center;
+        width: 100%;
+        font-size: 16px;
+    }
+    .navBar div.media_button {
+        display: block;
+    }
+}
+
+/* Animation */
+.navTrigger {
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    margin: 10px;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    bottom: 0;
+}
+
+/*.navBar div.main_list ul {*/
+/*  cursor: pointer;*/
+/*  margin-top:30px;*/
+/*  bottom: 0;*/
+/*}*/
+
+.navTrigger i {
+    background-color: #fff;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    box-shadow: 1px 1px 4px #004aad, 0 0 5px #004aad;
+
+}
+
+.navTrigger i:nth-child(1) {
+    -webkit-animation: outT 0.8s backwards;
+    animation: outT 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger i:nth-child(2) {
+    margin: 5px 0;
+    -webkit-animation: outM 0.8s backwards;
+    animation: outM 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger i:nth-child(3) {
+    -webkit-animation: outBtm 0.8s backwards;
+    animation: outBtm 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger.active i:nth-child(1) {
+    -webkit-animation: inT 0.8s forwards;
+    animation: inT 0.8s forwards;
+}
+
+.navTrigger.active i:nth-child(2) {
+    -webkit-animation: inM 0.8s forwards;
+    animation: inM 0.8s forwards;
+}
+
+.navTrigger.active i:nth-child(3) {
+    -webkit-animation: inBtm 0.8s forwards;
+    animation: inBtm 0.8s forwards;
+}
+
+@-webkit-keyframes inM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes inM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes outM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes outM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes inT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes inT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes outT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes inBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes inBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes outBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+.affix {
+    padding: 0;
+    /* background:linear-gradient(180deg, rgba(0,74,173,1) 35%, rgba(255, 255, 255, 0) 100%); */
+    background-color: rgba(0,74,173,0.8);
+    height:70px;
+    /* border-radius:  0 0 15px 15px; */
+}
+
+.affixlogo {
+    padding: 0;
+}
+
+@media all and (max-width:900px){
+    .myP {
+    padding:2%;
+    font-size: 14px;
+    }
+    
+    .affix {
+    height:50px;
+    }
+}
+/* /navbar section */
+
+.layanan{
+  padding: 5%;
+  background-color: rgba(0,74,173,0.2);
+}
+
+.layanan .header-text{
+    padding: 0% 20%;
+}
+
+.artikel{
+  margin: 5% 0 5% 0;
+}
+
+.card-artikel{
+  width: 350px;
+  border-radius: 15px;
+  margin: 10px 0 10px 0;
+  border:none;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.judul-artikel-preview{
+  font-size: 16px;
+  color: rgba(0,74,173,1);
+  font-weight: 600;
+}
+
+.subjudul{
+  font-size: 14px;
+  color: rgb(230,33,40); 
+}
+
+.judul{
+  font-size: 24px;
+  font-weight: 600;
+  margin-right: 10%;
+  color: rgba(0,74,173,1); 
+}
+
+.judul-artikel{
+  font-size: 34px;
+  color: rgba(0,74,173,1);
+  font-weight: 600;
+}
+
+.info-artikel{
+  font-size: 11px;
+}
+
+.btn-artikel{
+  float:right;
+  color: rgba(0,74,173,1);
+  font-size: 11px;
+}
+
+.card-img-artikel{
+  border-radius:5px;
+  margin-bottom:2vh;
+}
+
+.judul-menu{
+  font-size: 20px;
+  font-weight: 600;
+  color : rgb(230,33,40)
+}
+
+.text-artikel-preview{
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-artikel p{
+  text-align: justify;
+}
+
+.judul-baru{
+  font-size: 18px;
+  background: linear-gradient(90deg, rgba(0,74,173,1) 0%, rgba(0,212,255,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-artikel-baru{
+  font-size: 12px;
+}
+
+.item{
+  background-color: #25d366;
+  padding: 20px;
+}
+
+.konten-artikel{
+  padding: 100px 0 0 0;
+}
+
+.card-konten{
+  margin: 0 0 10px 0;
+  padding: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+  /* Add WA floating button CSS */
+.floating {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #3f3e3e;
+  z-index: 100;
+  }
+  
+  .fab-icon {
+  margin-top: 16px;
+  }
+  /* END CTA */
+
+
+/* FOOTER */
+footer {
+  margin-top: -10px;
+    padding: 0;
+    border-radius: 15px 15px 0 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    font-size: 12px;
+    background-color: #004aad;
+}
+
+.header-footer{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.menu-footer a{
+    color: #ffffff;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.menu-footer nav ul{
+  margin: 0;
+  padding: 0;
+  float: center;
+}
+
+.menu-footer nav ul li::after{
+content: "|";
+}
+
+.menu-footer nav ul li:last-child::after{
+  content: none;
+}
+
+.menu-footer nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    line-height: 40px;
+ }
+/* /FOOTER */
+
+
+.card-content{
+  margin-top: -25vh;
+}
+/* ==========================/HOME================================== */
+
+/* ==========================CAROUSEL================================== */
+
+/* Container holding the image and the text */
+.carousel-item {
+  position: relative;
+}
+
+/* Bottom right text */
+
+.deskripsi-carousel{
+  position: absolute;
+  background-color:#004aad;
+  width: 100vh;
+  height: 100vh;
+  z-index: 2;
+}
+/* ==========================CAROUSEL================================== */
+
+/* ==========================TENTANG KAMI================================== */
+.tentangkami{
+padding: 10vh 0;
+background-color: #EBE5E5;
+}
+
+.tentangkami .content{
+  padding: 10vh 0;
+}
+
+.content-image{
+  position: relative;
+}
+
+.imagetentangkami{
+position: relative;
+width: 100%;
+max-width: 600px;
+max-height: 300px;
+border-radius: 15px;
+border: 2px solid #ddd;
+/* padding: 5px; */
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+/* transform: rotate(-20deg); */
+z-index: 2;
+}
+
+.tentangkami .bg-circle-1{
+  position: absolute;
+  width: 50%;
+  height: 280px;
+  background: radial-gradient(circle, #004aad 10%, transparent 11%);
+  background-size: 2.5em 2.5em;
+  background-color: transparent;
+  opacity: 1;
+  right: -30px;
+  /* bottom: 2; */
+  top: -40px;
+  /* border-radius:50%; */
+  /* box-shadow: 2px -2px 4px 0.2px #8b8b8b; */
+}
+
+.tentangkami .bg-circle-2{
+  position: absolute;
+  width: 50%;
+  height: 200px;
+  background: radial-gradient(circle, #004aad 10%, transparent 11%);
+  background-size: 2.5em 2.5em;
+  background-color: transparent;
+  opacity: 1;
+  left: -40px;
+  /* bottom: 2; */
+  bottom: -30px;
+  /* border-radius:50%; */
+  /* box-shadow: 2px 4px 4px 0.2px #8b8b8b; */
+}
+
+.tentangkami .deskripsi{
+  margin: 2vh 4vh 2vh 0;
+}
+
+@media screen and (max-width:767px) {
+  .imagetentang{
+    width: 100%;
+  }  
+
+  .tentangkami .content-image{
+    margin: 10vh 0;
+  }
+
+  .tentangkami .bg-circle-2, .tentangkami .bg-circle-1{
+    display: none;
+  }
+}
+/* ==========================TENTANG KAMI================================== */
+
+/* ==========================KONTAK KAMI================================== */
+.kontakami{
+  background: linear-gradient(to right, rgba(11, 79, 138, 0.8), rgba(8, 47, 82, 0.8)), url("../images/building.jpg");
+  padding: 10vh 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.imagekontakkami{
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 300px;
+  border-radius: 15px;
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 2;
+}
+
+.kontakami .bg-circle-1{
+  position: absolute;
+  width: 50%;
+  height: 280px;
+  background: radial-gradient(circle, #ffffff 10%, transparent 11%);
+  background-size: 2.5em 2.5em;
+  background-color: transparent;
+  opacity: 1;
+  right: 10px;
+  /* bottom: 2; */
+  top: -40px;
+  /* border-radius:50%; */
+  /* box-shadow: 2px -2px 4px 0.2px #8b8b8b; */
+}
+
+.kontakami .bg-circle-2{
+  position: absolute;
+  width: 50%;
+  height: 200px;
+  background: radial-gradient(circle, #ffffff 10%, transparent 11%);
+  background-size: 2.5em 2.5em;
+  background-color: transparent;
+  opacity: 1;
+  left: -30px;
+  /* bottom: 2; */
+  bottom: -30px;
+  /* border-radius:50%; */
+  /* box-shadow: 2px 4px 4px 0.2px #8b8b8b; */
+}
+
+.kontakkami .content{
+  margin: 10vh 0;
+}
+
+@media screen and (max-width:767px) { 
+
+  .kontakami .content-image{
+    margin: 10vh 0;
+  }
+
+  .kontakami .bg-circle-2, .kontakami .bg-circle-1{
+    display: none;
+  }
+}
+/* ==========================/KONTAK KAMI================================== */
+
+/* ========================== LOWONGAN ================================== */
+.lowongan{
+  background-color: #EBE5E5;
+}
+.lowongan .parallax {
+  position: relative;
+  /* The image used */
+  background-image: url("../images/building.jpg");
+
+  /* Set a specific height */
+  min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header-lowongan{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lowongan .main{
+  padding: 10vh 0;
+}
+
+.lowongan .main .card{
+  border:none;
+}
+/* ========================== /LOWONGAN ================================== */
+
+/* ========================== DETAIL PEKERJAAN ================================== */
+.detail-pekerjaan{
+  background-color: #EBE5E5;
+}
+.detail-pekerjaan .parallax {
+  /* The image used */
+  background-image: url("../images/building.jpg");
+
+  /* Set a specific height */
+  min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.detail-pekerjaan .main {
+  margin: -25vh 0 0 0;
+}
+
+.detail-pekerjaan .card-header{
+  border:none;
+}
+
+.detail-pekerjaan .deskripsi{
+  margin:0;
+}
+
+.detail-pekerjaan .syarat{
+  background-color: #004aad;
+}
+/* ========================== /DETAIL PEKERJAAN ================================== */
+
+/* ========================== pertanyaan-umum ================================== */
+.pertanyaan-umum{
+  background-color: #EBE5E5;
+  height:100vh;
+}
+.pertanyaan-umum .parallax {
+  /* The image used */
+  background-image: url("../images/building.jpg");
+
+  /* Set a specific height */
+  min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.pertanyaan-umum .main {
+  margin: -25vh 0 0 0;
+}
+
+.pertanyaan-umum .main .text-header{
+  margin: 5vh 0;
+}
+
+/* ========================== /pertanyaan-umum ================================== */
+
+/* ========================== /pertanyaan-umum ================================== */
+
+.halaman-user .parallax {
+  position: relative;
+  /* The image used */
+  background-image: url("../images/building.jpg");
+
+  /* Set a specific height */
+  min-height: 200px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.halaman-user .main{
+  margin: 5vh 0;
+}
+
+  
