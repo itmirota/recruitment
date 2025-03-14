@@ -342,6 +342,54 @@ class kandidat extends BaseController
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
   }
 
+  public function save_document_pendukung()
+  {
+    $config['upload_path']          = './assets/document/';
+    $config['allowed_types']        = 'gif|jpg|png|pdf';
+    // $config['max_size']             = 100;
+    // $config['max_width']            = 1024;
+    // $config['max_height']           = 768;
+
+    $this->load->library('upload', $config);
+
+    if ($this->upload->do_upload('identitas'))
+    {
+      $identitas = $this->upload->data();
+    }
+
+    if ($this->upload->do_upload('cv'))
+    {
+      $cv = $this->upload->data();
+    }
+
+    if ($this->upload->do_upload('ijazah'))
+    {
+      $ijazah = $this->upload->data();
+    }
+    
+    if ($this->upload->do_upload('doc_pendukung'))
+    {
+      $doc_pendukung = $this->upload->data();
+    }
+
+
+    $data = array(
+        //Document pendukung
+        'kandidat_id' => $this->kandidat_id,
+        'identitas' => $identitas['file_name'],
+        'cv' => $cv['file_name'],
+        'ijazah' => $ijazah['file_name'],
+        'doc_pendukung' => $doc_pendukung['file_name']
+      
+    );
+
+    $this->crud_model->input($data, 'tbl_kandidat_berkas');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+
+    $data_kandidat = $this->data();
+    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+  }
+
   public function biodata()
   {
     $data = $this->data();
