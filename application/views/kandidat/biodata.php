@@ -369,7 +369,7 @@
         </div>
 
         <!-- //data sertifikasi -->
-        <div class="tab-pane fade" id="Sertifikasi" role="tabpanel" aria-labelledby="sertifikat" tabindex="0">
+        <div class="tab-pane fade <?= $page == 'sertifikat' ? 'show active':''?>" id="Sertifikasi" role="tabpanel" aria-labelledby="sertifikat" tabindex="0">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-end mb-3">
@@ -445,7 +445,7 @@
         </div>
 
         <!-- ///Data pengalaman pekerjaan -->
-        <div class="tab-pane fade" id="pengalaman" role="tabpanel" aria-labelledby="pengalaman-kerja" tabindex="0">
+        <div class="tab-pane fade <?= $page == 'pengalman-kerja' ? 'show active':''?>" id="pengalaman" role="tabpanel" aria-labelledby="pengalaman-kerja" tabindex="0">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-end mb-3">
@@ -545,7 +545,7 @@
         </div>
 
         <!-- ///Data media sosial -->
-        <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="medsos" tabindex="0">
+        <div class="tab-pane fade <?= $page == 'medsos' ? 'show active':''?>" id="akun" role="tabpanel" aria-labelledby="medsos" tabindex="0">
           <div class="card">
             <div class="card-body">
               <form action="<?=base_url('kandidat/update')?>" role="form" method="post">
@@ -589,10 +589,10 @@
         </div>
         <!-- ///Data keterangan lain -->
         
-        <div class="tab-pane fade" id="keterangan" role="tabpanel" aria-labelledby="lain-lain" tabindex="0">
+        <div class="tab-pane fade <?= $page == 'lain-lain' ? 'show active':''?>" id="keterangan" role="tabpanel" aria-labelledby="lain-lain" tabindex="0">
           <div class="card">
             <div class="card-body">
-              <form action="<?=base_url('kandidat/update')?>" role="form" method="post">
+              <form action="<?=base_url('kandidat/save_keterangan')?>" role="form" method="post">
                 <div class="row">
                   <div class="mb-3 mb-3">
                     <label for="inputNama" class="form-label">Kegemaran/Hobi</label>

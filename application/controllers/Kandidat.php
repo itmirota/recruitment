@@ -1,6 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 require APPPATH . '/libraries/BaseController.php';
+require 'vendor/autoload.php';
 
 /**
  * @author : Tri Cahya Wibawa
@@ -229,6 +230,7 @@ class kandidat extends BaseController
 
     $this->crud_model->input($data, 'tbl_kandidat_sertifikasi');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    $this->session->set_userdata('page', 'riwayat-pendidikan');
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
@@ -256,6 +258,7 @@ class kandidat extends BaseController
 
     $this->crud_model->input($data, 'tbl_kandidat_pengalamankerja');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    $this->session->set_userdata('page', 'riwayat-pendidikan');
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
@@ -283,6 +286,7 @@ class kandidat extends BaseController
     );
     $this->crud_model->update($where, $data, 'tbl_kandidat');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    $this->session->set_userdata('page', 'riwayat-pendidikan');
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
@@ -292,51 +296,37 @@ class kandidat extends BaseController
   {
     $id_kandidat = $this->kandidat_id;
     $hobi = $this->input->post('kegemaran_hobi');
-    $soal1 = $this->input->post('soal1');
-    $soal2_ya = $this->input->post('soal2_ya');
-    $soal2_tidak = $this->input->post('soal2_tidak');
-    $soal3 = $this->input->post('soal3');
-    $soal4_ya = $this->input->post('soal4_ya');
-    $soal4_tidak = $this->input->post('soal4_tidak');
-    $soal5 = $this->input->post('soal5');
-    $soal6_ya = $this->input->post('soal6_ya');
-    $soal6_tidak = $this->input->post('soal6_tidak');
-    $soal7_ya = $this->input->post('soal7_ya');
-    $soal7_tidak = $this->input->post('soal7_tidak');
-    $soal8_ya = $this->input->post('soal8_ya');
-    $soal8_tidak = $this->input->post('soal8_tidak');
-    $soal9_ya = $this->input->post('soal9_ya');
-    $soal9_tidak = $this->input->post('soal9_tidak');
-    $soal10 = $this->input->post('soal10');
-    $soal11 = $this->input->post('soal11');
-    $soal12 = $this->input->post('soal12');
-    $soal13 = $this->input->post('soal13');
+    $sakit_ringan = $this->input->post('sakit_ringan');
+    $riwayat_penyakit = $this->input->post('riwayat_penyakit');
+    $kecelakaan = $this->input->post('kecelakaan');
+    $dampak_kecelakaan = $this->input->post('dampak_kecelakaan');
+    $merokok = $this->input->post('merokok');
+    $alkoholik = $this->input->post('alkoholik');
+    $bekerja_shift = $this->input->post('bekerja_shift');
+    $luar_kota = $this->input->post('luar_kota');
+    $alasan = $this->input->post('alasan');
+    $tgl_bergabung = $this->input->post('tgl_bergabung');
+    $gaji_terakhir = $this->input->post('gaji_terakhir');
+    $gaji_diharapkan = $this->input->post('gaji_diharapkan');
     $pernyataan = $this->input->post('pernyataan');
 
 
     $data = array(
 
     //Data keterangan lain
-      'kegemaran_bobi' => $hobi,
-      'soal1' => $soal1,
-      'soal2_ya' => $soal2_ya,
-      'soal2_tidak' => $soal2_tidak,
-      'soal3' => $soal3,
-      'soal4_ya' => $soal4_ya,
-      'soal4_tidak' => $soal4_tidak,
-      'soal5' => $soal5,
-      'soal6_ya' => $soal6_ya,
-      'soal6_tidak' => $soal6_tidak,
-      'soal7_ya' => $soal7_ya,
-      'soal7_tidak' => $soal7_tidak,
-      'soal8_ya' => $soal8_ya,
-      'soal8_tidak' => $soal8_tidak,
-      'soal9_ya' => $soal9_ya,
-      'soal9_tidak' => $soal9_tidak,
-      'soal10' => $soal10,
-      'soal11' => $soal11,
-      'soal12' => $soal12,
-      'soal13' => $soal13,
+      'hobi' => $hobi,
+      'sakit_ringan' => $sakit_ringan,
+      'riwayat_penyakit' => $riwayat_penyakit,
+      'kecelakaan' => $kecelakaan,
+      'dampak_kecelakaan' => $dampak_kecelakaan,
+      'merokok' => $merokok,
+      'alkoholik' => $alkoholik,
+      'bekerja_shift' => $bekerja_shift,
+      'luar_kota' => $luar_kota,
+      'alasan' => $alasan,
+      'tgl_bergabung' => $tgl_bergabung,
+      'gaji_terakhir' => $gaji_terakhir,
+      'gaji_diharapkan' => $gaji_diharapkan,
       'pernyataan' => $pernyataan
     );
 
@@ -345,7 +335,8 @@ class kandidat extends BaseController
     );
 
     $this->crud_model->update($where, $data, 'tbl_kandidat');
-    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    $this->set_notifikasi_swal('success','Data Berhasil Disimpan');
+    $this->session->set_userdata('page', 'lain-lain');
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
