@@ -11,15 +11,16 @@ class KategoriPsikotes extends BaseController
   {
     parent::__construct();
     $this->load->model('crud_model');
+    $this->load->model('psikotes_model');
     $this->load->library('form_validation');
 
     $this->isLoggedIn();
   }
 
   public function list_kategoriPsikotes(){
-    $this->global['pageTitle'] = 'Mirota KSM | List FAQ';
+    $this->global['pageTitle'] = 'Mirota KSM | Kategori Tes';
 
-    $data['list_data'] = $this->crud_model->tampildata('tbl_psikotes_kategori');
+    $data['list_data'] = $this->psikotes_model->getKategoriWithCountSubtest();
 
     $this->loadViewsAdmin("psikotes/kategori/data", $this->global, $data, NULL);
   }
@@ -27,9 +28,11 @@ class KategoriPsikotes extends BaseController
   public function save(){
 
     $nama_kategoriPsikotes = $this->input->post('nama_kategoriPsikotes');
+    $slug = str_replace(" ", "-", $nama_kategoriPsikotes);
 
     $data = array(
-        'nama_kategoriPsikotes' => $nama_kategoriPsikotes,
+      'nama_kategoriPsikotes' => $nama_kategoriPsikotes,
+      'slug' => strtolower($slug),
     );
 
     $this->crud_model->input($data, 'tbl_psikotes_kategori');
@@ -49,12 +52,15 @@ class KategoriPsikotes extends BaseController
     public function update(){
       $id_kategoriPsikotes = $this->input->post('id_kategoriPsikotes');
       $nama_kategoriPsikotes = $this->input->post('nama_kategoriPsikotes');
-
+      $slug = str_replace(" ", "-", $nama_kategoriPsikotes);
+  
       $data = array(
-          'nama_kategoriPsikotes' => $nama_kategoriPsikotes,
+        'nama_kategoriPsikotes' => $nama_kategoriPsikotes,
+        'slug' => strtolower($slug),
       );
+
       $where = array(
-          'id_kategoriPsikotes' => $id_kategoriPsikotes
+        'id_kategoriPsikotes' => $id_kategoriPsikotes
       );
   
       $this->crud_model->update($where, $data, 'tbl_psikotes_kategori');
@@ -64,14 +70,14 @@ class KategoriPsikotes extends BaseController
     }
   
     public function delete(){
-        $id_kategoriPsikotes = $this->uri->segment(3);
-  
-        $where = array(
-            'id_kategoriPsikotes' => $id_kategoriPsikotes
-        );
-  
-        $sql = $this->crud_model->delete($where, 'tbl_psikotes_kategori');
-        $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus!');
-        redirect('kategori-psikotes');
+      $id_kategoriPsikotes = $this->uri->segment(3);
+
+      $where = array(
+        'id_kategoriPsikotes' => $id_kategoriPsikotes
+      );
+
+      $sql = $this->crud_model->delete($where, 'tbl_psikotes_kategori');
+      $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus!');
+      redirect('kategori-psikotes');
     }
 }

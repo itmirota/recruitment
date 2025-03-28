@@ -78,21 +78,34 @@ class kandidat extends BaseController
         $password = $this->input->post('password');
 
         $checkid = $this->crud_model->ShowData('MAX(id_kandidat) AS id', 'tbl_kandidat');
-        $id = $checkid[0]->id +1;
+        $id = $checkid->id +1;
+
+        $checkUserid = $this->crud_model->ShowData('MAX(userId) AS userId', 'tbl_users');
+        $userId = $checkUserid->userId +1;
     
         $data = array(
+            'id_kandidat' => $id,
             'nama_kandidat' => $nama,
             'email' => $email
         );
+
         $user = array(
+            'userId' => $userId,
+            'nama_lengkap' => $nama,
             'username' => $username,
-            'pelamar_id' => $id,
-            'password' => getHashedPassword($password)
+            'kandidat_id' => $id,
+            'email' => $email,
+            'roleId' => 2,
+            'password' => getHashedPassword($password),
+            'createdBy' => $userId,
+            'createdDtm' => DATE('Y-m-d H:i:s')   
         );
     
         $sql = $this->crud_model->input($data,'tbl_kandidat');
         $sql = $this->crud_model->input($user, 'tbl_users');
-        redirect('kandidat');
+
+        $this->set_notifikasi_swal('success','Selamat! Akun anda berhasil dibuat');
+        redirect(base_url());
     }
     
   }

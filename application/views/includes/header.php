@@ -126,50 +126,46 @@
               <h1 class="text-header text-blue fs-5" id="registerLabel">Masuk Ke akun anda</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="<?= base_url('kandidat/save');?>" method="post">
             <div class="modal-body">
-            <form action="<?= base_url('pelamar/save');?>" method="post">
-        <div class="mb-3">
-          <label class="form-label">nama</label>
-          <input class="form-control form-control-lg" type="text" name="nama_pelamar" value="<?= set_value('nama_pelamar'); ?>" placeholder="Masukkan Nama disini" />
-          <span style="color:red"><?= form_error('nama'); ?></span>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">username</label>
-          <input class="form-control form-control-lg" type="username" name="username" placeholder="Masukkan username disini" />
-          <span style="color:red">
-          <?= form_error('username'); ?>
-          </span>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input class="form-control form-control-lg" type="email" name="email" placeholder="Masukkan Email disini" />
-          <span style="color:red">
-          <?= form_error('email'); ?>
-          </span>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input class="form-control form-control-lg" type="password" name="password" placeholder="Masukkan password disini" />
-          <span style="color:red">
-          <?= form_error('password'); ?>
-          </span>
-        </div>
-        <div class="mb-3">
-          <label class="form-label"> Konfirmasi Password</label>
-          <input class="form-control form-control-lg" type="password" name="passconf" placeholder="" />
-          <span style="color:red">
-          <?= form_error('passconf'); ?>
-          </span>
-        </div>
-        <div class="d-grid gap-2 mt-3">
-          <button type="input" class="btn btn-lg btn-biru">Sign Up</button>
-        </div>
-      </form>
+              <div class="mb-3">
+                <label class="form-label">nama</label>
+                <input class="form-control form-control-lg" type="text" name="nama_kandidat" value="<?= set_value('nama_kandidat'); ?>" placeholder="Masukkan Nama disini" />
+                <span style="color:red"><?= form_error('nama_kandidat'); ?></span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">username</label>
+                <input class="form-control form-control-lg" type="username" name="username" placeholder="Masukkan username disini" />
+                <span style="color:red">
+                <?= form_error('username'); ?>
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control form-control-lg" type="email" name="email" placeholder="Masukkan Email disini" />
+                <span style="color:red">
+                <?= form_error('email'); ?>
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input class="form-control form-control-lg" type="password" name="password" placeholder="Masukkan password disini" />
+                <span style="color:red">
+                <?= form_error('password'); ?>
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label"> Konfirmasi Password</label>
+                <input class="form-control form-control-lg" type="password" name="passconf" placeholder="" />
+                <span style="color:red">
+                <?= form_error('passconf'); ?>
+                </span>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary">Daftar</button>
             </div>
+            </form>
           </div>
         </div>
       </div>

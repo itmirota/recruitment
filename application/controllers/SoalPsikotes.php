@@ -48,6 +48,7 @@ class SoalPsikotes extends BaseController
         'soal' => $this->input->post('soal'),
         'jawaban'   => $this->input->post('jawaban'),
         'bobot'     => $this->input->post('bobot'),
+        'jumlah_opsi'     => $this->input->post('jumlah_opsi'),
     );
 
     $abjad = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];

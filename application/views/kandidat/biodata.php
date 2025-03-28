@@ -42,7 +42,7 @@
           </li>
           <li class="nav-item" role="presentation">
               <button class="nav-link" id="document-pendukung" data-bs-toggle="pill" data-bs-target="#berkas" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
-                Document Pendukung</button>
+                Dokumen Pendukung</button>
           </li>
       </ul>
       <div class="tab-content" id="pills-tabContent">
@@ -742,29 +742,29 @@
             </div>
           </div>
         </div>
+
         <div class="tab-pane fade" id="berkas" role="tabpanel" aria-labelledby="document-pendukung" tabindex="0">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body p-4">
               <form action="<?=base_url('kandidat/save_document_pendukung')?>" role="form" method="post" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="mb-6">
+                    <div class="col-md-6 mb-3">
                       <label for="formFile" class="form-label">Upload Identitas</label>
                       <input class="form-control" type="file" name="identitas" id="formFile">
                     </div>
-                    <div class="mb-6">
+                    <div class="col-md-6 mb-3">
                       <label for="formFile" class="form-label">Upload CV</label>
                       <input class="form-control" type="file" name="cv" id="formFile">
                     </div>
-                    <div class="mb-6">
+                    <div class="col-md-6 mb-3">
                       <label for="formFile" class="form-label">Upload ijazah</label>
                       <input class="form-control" type="file" name="ijazah" id="formFile">
                     </div>
-                    <div class="mb-6">
-                      <label for="formFile" class="form-label">Upload Document pendukung lainnya</label>
+                    <div class="col-md-6 mb-3">
+                      <label for="formFile" class="form-label">Upload Dokumen pendukung lainnya</label>
                       <input class="form-control" type="file" name="doc_pendukung" id="formFile">
                     </div>
-                  <div class="mb-6">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                  <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                   </div>
                 </div>

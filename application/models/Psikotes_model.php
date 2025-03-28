@@ -2,11 +2,19 @@
 
 class Psikotes_model extends CI_Model
 {
+    function getKategoriWithCountSubtest(){
+        $this->db->select('*');
+        $this->db->from('tbl_psikotes_kategori a');
+        $this->db->join('tbl_psikotes_ujian b','a.id_kategoriPsikotes = b.kategoriPsikotes_id');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 
     function getSoal(){
         $this->db->select('*, FROM_UNIXTIME(a.created_on) as created_on');
         $this->db->from('tbl_psikotes_soal a');
-        $this->db->join('tbl_psikotes_kategori b','b.id_kategoriPsikotes = a.kategoriPsikotes_id');
+        $this->db->join('tbl_psikotes_ujian b','b.id_ujian = a.ujian_id');
         $this->db->order_by('created_on','DESC');
         $query = $this->db->get();
 
@@ -16,7 +24,7 @@ class Psikotes_model extends CI_Model
     function getSoalWhere($where){
         $this->db->select('*, FROM_UNIXTIME(a.created_on) as created_on');
         $this->db->from('tbl_psikotes_soal a');
-        $this->db->join('tbl_psikotes_kategori b','b.id_kategoriPsikotes = a.kategoriPsikotes_id');
+        $this->db->join('tbl_psikotes_ujian b','b.id_ujian = a.ujian_id');
         $this->db->where($where);
         // $this->db->limit($jumlah);
         $query = $this->db->get();
@@ -27,7 +35,7 @@ class Psikotes_model extends CI_Model
     function getRowSoal($where){
         $this->db->select('*, FROM_UNIXTIME(a.created_on) as created_on');
         $this->db->from('tbl_psikotes_soal a');
-        $this->db->join('tbl_psikotes_kategori b','b.id_kategoriPsikotes = a.kategoriPsikotes_id');
+        $this->db->join('tbl_psikotes_ujian b','b.id_ujian = a.ujian_id');
         $this->db->where($where);
         $query = $this->db->get();
 

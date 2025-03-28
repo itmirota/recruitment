@@ -83,7 +83,7 @@
 </footer>
 <!-- Footer -->
 <?php } ?> 
-<div class="flash-data" data-icon="<?= $this->session->flashdata('swal_icon')?>"  data-text="<?= $this->session->flashdata('swal_text')?>"></div>
+<div class="notifikasi-alert" data-icon="<?= $this->session->flashdata('swal_icon')?>"  data-text="<?= $this->session->flashdata('swal_text')?>"></div>
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -110,30 +110,10 @@
     });
 
     function alert(){
-        const icon = $('.flash-data').data('icon');
-        const text = $('.flash-data').data('text');
+        const icon = $('.notifikasi-alert').data('icon');
+        const text = $('.notifikasi-alert').data('text');
 
-        console.log(text);
-
-        toastr['success'](text);
-
-        toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-bottom-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-        } 
+        toastr[icon](text);
     }
 
     function swal(){

@@ -219,4 +219,13 @@
     ['view', ['fullscreen', 'codeview', 'help']]
     ]
   });
+
+  var nameValidationInput = document.getElementById('nameValidation');
+  function useValue() {
+      var NameValue = nameValidationInput.value;
+      // use it
+      alert(NameValue); // just to show the new value
+  }
+  nameValidationInput.onchange = useValue;  
+  nameValidationInput.onblur = useValue;
 </script>

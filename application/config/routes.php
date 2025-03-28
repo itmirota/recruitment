@@ -34,8 +34,11 @@ $route['kategori-psikotes'] = 'kategoriPsikotes/list_kategoriPsikotes';
 $route['soal-psikotes'] = 'soalPsikotes/list_soalPsikotes';
 // ujian
 $route['ujian-psikotes'] = 'ujianPsikotes/list_ujianPsikotes';
-$route['detail-ujian/(:num)'] = 'ujianPsikotes/detailujianPsikotes/$1';
-$route['ujian'] = 'ujianPsikotes/ujian';
+$route['detail-ujian/(:any)'] = 'ujianPsikotes/detailujianPsikotes/$1';
+$route['detail-ujian'] = 'ujianPsikotes/detailujianPsikotes';
+// $route['ujian'] = 'ujianPsikotes/ujian'; 
+$route['ujian/(:any)/(:any)'] = 'ujianPsikotes/ujian/$1/$2';  
+$route['ujian'] = 'ujianPsikotes/ujian';  
 
 $route['404_override'] = '';
 

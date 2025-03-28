@@ -4,10 +4,6 @@
   <!-- PARALAX -->
   <div class="main">
     <div class="container">
-
-      <div class="d-flex justify-content-end">
-        <a href="" class="btn btn-solid btn-md btn-biru"> Data Diri</a>
-      </div>
       <h2 class="text-blue">Informasi</h2>
       <div class="col-md-12">
         <div class="row">

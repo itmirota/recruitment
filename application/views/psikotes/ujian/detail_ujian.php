@@ -12,7 +12,7 @@
     <div class="container">
         <div class="card card-content p-4">
           <div class="alert alert-info" role="alert">
-              <h4>Instruksi <?=$ujian->nama_kategoriPsikotes?></h4>
+              <h4>Instruksi <?=$ujian->nama_kategoriPsikotes?> | <?=$ujian->nama_ujian?></h4>
               <p><?=$ujian->instruksi?></p>
           </div>
           <div class="card card-primary">
@@ -55,7 +55,10 @@
                                   Waktu boleh mengerjakan ujian adalah saat tombol "MULAI" berwarna hijau.
                               </p>
                               </div>
-                              <?php
+                              <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
+                                  <i class="fa fa-pencil"></i> Mulai
+                              </a>
+                              <!-- <?php
                               $mulai = strtotime($ujian->tgl_mulai);
                               $terlambat = strtotime($ujian->terlambat);
                               $now = time();
@@ -67,7 +70,7 @@
                                   <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->tgl_mulai))?>" id="demo"></strong><br/>
                               </div>
                               <?php elseif( $terlambat > $now ) : ?>
-                              <a href="<?= base_url('ujian?key='.$encrypted_id)?>" class="btn btn-success btn-lg mb-4">
+                              <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
                                   <i class="fa fa-pencil"></i> Mulai
                               </a>
                               <div class="alert alert-danger" role="alert">
@@ -79,7 +82,7 @@
                                   Waktu untuk menekan tombol <strong>"MULAI"</strong> sudah habis.<br/>
                                   Sesi ujian sudah berakhir.
                               </div>
-                              <?php endif;?>
+                              <?php endif;?> -->
                           </div>
                       </div>
                   </div>

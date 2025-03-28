@@ -51,7 +51,7 @@
                     <a class="ragu_ragu btn btn-warning" rel="1" onclick="return tidak_jawab();">Ragu-ragu</a>
                     <a class="action next btn btn-info" rel="2" onclick="return next();"><i class="glyphicon glyphicon-chevron-right"></i> Next</a>
                     <a class="selesai action submit btn btn-danger" onclick="return simpan_akhir();"><i class="glyphicon glyphicon-stop"></i> Selesai</a>
-                    <input type="text" name="jml_soal" id="jml_soal" value="<?=$no; ?>">
+                    <input type="hidden" name="jml_soal" id="jml_soal" value="<?=$no; ?>">
                 </div>
               </div>
               <?=form_close();?>
@@ -66,6 +66,8 @@
 <script type="text/javascript">
     var base_url        = "<?=base_url(); ?>";
     var id_tes          = "<?=$id_tes; ?>";
+    var test          = "<?=$test; ?>";
+    var nextUjian      = "<?=$nextUjian; ?>";
     var widget          = $(".step");
     var total_widget    = widget.length;
 </script>
@@ -304,21 +306,46 @@ function selesai() {
         success: function (r) {
             console.log(r);
             if (r.status) {
-                window.location.href = base_url + 'psikotes-online';
+                window.location.href = base_url + 'detail-ujian?test=' +test+'&&subtest='+nextUjian;
             }
         }
     });
 }
 
 function waktuHabis() {
-    selesai();
-    alert('Waktu ujian telah habis!');
+    let timerInterval;
+    Swal.fire({
+    title: "Waktu Sudah Habis!",
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: () => {
+        Swal.showLoading();
+    },
+    willClose: () => {
+        clearInterval(timerInterval);
+    }
+    }).then((result) => {
+    /* Read more about handling dismissals below */
+    if (result.dismiss === Swal.DismissReason.timer) {
+        selesai();
+    }
+    });
 }
 
 function simpan_akhir() {
     simpan();    
-    if (confirm('Yakin ingin mengakhiri tes?')) {
+    Swal.fire({
+        title: "Apakah sudah yakin akan mengkahiri?",
+        text: "Periksa terlebih dahulu dengan teliti",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, akhiri ujian",
+        cancelButtonText: "Periksa"
+    }).then((result) => {
+    if (result.isConfirmed) {
         selesai();
     }
+    });
 }
 </script>

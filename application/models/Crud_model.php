@@ -10,6 +10,14 @@ class Crud_model extends CI_Model
         return $query->result();
 	}
 
+    function ShowData($parameter,$table){
+        $this->db->select($parameter);
+        $this->db->from($table);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
     function GetDataByWhere($where,$table){
         $this->db->select('*');
         $this->db->from($table);

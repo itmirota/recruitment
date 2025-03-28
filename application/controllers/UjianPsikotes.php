@@ -80,29 +80,38 @@ class UjianPsikotes extends BaseController
       redirect('ujian-psikotes');
   }
 
-  public function detailujianPsikotes($id){
+  public function detailujianPsikotes(){
   $this->global['pageTitle'] = 'Mirota KSM | Detail ujianPsikotes';
 
-  $encrypted_id = $this->encryption->encrypt($id);
-  $data['ujian'] = $this->psikotes_model->getRowUjian(['id_ujian' => $id]);
-  $data['encrypted_id'] = $encrypted_id;
+  $kategori = $this->input->get('test');
+  $subtest = $this->input->get('subtest');
 
-  $plain_text = 'This is a plain-text message!';
-  $ciphertext = $this->encryption->encrypt($plain_text);
+  $ujian = $this->psikotes_model->getUjianWhere(['id_ujian' => $subtest]);
+  // $encrypted_id = $this->encryption->encrypt($id);
+  $data['ujian'] = $ujian[0];
+  // $data['encrypted_id'] = $encrypted_id;
+  $data['id'] = $ujian[0]->id_ujian;
+  $data['kategori'] = $ujian[0]->kategoriPsikotes_id;
+
+  // $plain_text = 'This is a plain-text message!';
+  // $ciphertext = $this->encryption->encrypt($plain_text);
   
   // Outputs: This is a plain-text message!
-  $back = $this->encryption->decrypt($encrypted_id);
+  // $back = $this->encryption->decrypt($encrypted_id);
 
   $this->loadViews("psikotes/ujian/detail_ujian", $this->global, $data, NULL);
   }
 
   public function ujian(){
     {
-      $key = $this->input->get('key', true);
-      $id  = $this->encryption->decrypt(rawurldecode($key));
+      // $key = $this->input->get('key', true);
+      // $id  = $this->encryption->decrypt(rawurldecode($key));
+      $test = $this->input->get('test');
+      $id = $this->input->get('subtest');
       
       $ujian 		= $this->psikotes_model->getRowUjian(['id_ujian' => $id]);
-      $soal 		= $this->psikotes_model->getSoalWhere(['kategoriPsikotes_id'=>$ujian->id_kategoriPsikotes]);
+      $soal 		= $this->psikotes_model->getSoalWhere(['ujian_id'=>$id]); 
+
       $kandidat_id		= $this->kandidat_id;
       $hasil_ujian 	= $this->psikotes_model->getHasilUjianWhere(['ujian_id' => $ujian->id_ujian, 'kandidat_id' => $kandidat_id]);
 
@@ -156,7 +165,7 @@ class UjianPsikotes extends BaseController
         $this->crud_model->input($input, 'tbl_psikotes_hasil');
   
         // Setelah insert wajib refresh dulu
-        redirect('ujian?key='.urlencode($key));
+        redirect('ujian?test='.$test.'&&subtest='.$id);
       }
       
       $q_soal = $hasil_ujian->row();
@@ -196,13 +205,13 @@ class UjianPsikotes extends BaseController
           $html .= '<div class="step" id="widget_'.$no.'">';
   
           $html .= '<div class="text-center"><div class="w-80">'.tampil_media($path.$s->file).'</div></div>'.$s->soal.'<div class="funkyradio">';
-          for ($j = 0; $j < $ujian->jumlah_opsi; $j++) {
+          for ($j = 0; $j < $s->jumlah_opsi; $j++) {
             $opsi 			= "opsi_".$arr_opsi[$j];
             $file 			= "file_".$arr_opsi[$j];
             $checked 		= $arr_jawab[$s->id_soalPsikotes]["j"] == strtoupper($arr_opsi[$j]) ? "checked" : "";
             $pilihan_opsi 	= !empty($s->$opsi)? $s->$opsi : "";
             $tampil_media_opsi = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? tampil_media($path.$s->$file) : "";
-            if($ujian->jumlah_opsi == 1){
+            if($s->jumlah_opsi == 1){
             $html .= '<div class="card text-bg-secondary m-4">
                         <div class="card-body">
                           <div class="form-check funkyradio-success" onclick="return simpan_sementara();">
@@ -234,12 +243,24 @@ class UjianPsikotes extends BaseController
       }
   
       // Enkripsi Id Tes
-      $id_tes = $this->encryption->encrypt($detail_tes->id);
+      // $id_tes = $this->encryption->encrypt($detail_tes->id);
+      $id_tes = $detail_tes->id;
 
+      // var_dump('urutan ='.$ujian->urutan);
       $this->global['pageTitle'] = "Halaman Psikotes Online";
+      $getUjian = $this->psikotes_model->getUjianWhere(['kategoriPsikotes_id'=>$ujian->id_kategoriPsikotes]);
+
+      if(COUNT($getUjian) != $ujian->urutan){
+        $nextUjian = $getUjian[$ujian->urutan]->id_ujian;
+      }else{
+        $i = $ujian->urutan - 1;
+        $nextUjian = $getUjian[$i]->id_ujian;
+      }
   
       $data = [
         'soal'		=> $detail_tes,
+        'test'  => $test,
+        'nextUjian' => $nextUjian,
         'no' 		=> $no,
         'html' 		=> $html,
         'id_tes'	=> $id_tes
@@ -254,7 +275,7 @@ class UjianPsikotes extends BaseController
 	{
 		// Decrypt Id
 		$id_tes = $this->input->post('id', true);
-		$id_tes = $this->encryption->decrypt($id_tes);
+		// $id_tes = $this->encryption->decrypt($id_tes);
 
     $jml_soal = $this->input->post('jml_soal');
 		
@@ -274,14 +295,14 @@ class UjianPsikotes extends BaseController
 		
 		// Simpan jawaban
 		$this->crud_model->update(['id' => $id_tes], $d_simpan,'tbl_psikotes_hasil');
-		$this->output->set_content_type('application/json')->set_output(json_encode(['status'=>TRUE]));
+		$this->output->set_content_type('application/json')->set_output(json_encode(['status'=>TRUE, 'id'=> $id_tes]));
 	}
 
 	public function simpan_akhir()
 	{
 		// Decrypt Id
 		$id_tes = $this->input->post('id', true);
-		$id_tes = $this->encryption->decrypt($id_tes);
+		// $id_tes = $this->encryption->decrypt($id_tes);
 		
 		// Get Jawaban
 		$list_jawaban = $this->psikotes_model->getJawaban($id_tes);
