@@ -111,12 +111,6 @@
           <ul class="submenu collapse">
             <!-- MENU DEPARTEMENT -->
             <li class="sidebar-item">
-              <a href="<?php echo base_url('kategori-psikotes'); ?>" class="sidebar-link">
-                <i class="fa-solid fa-people-roof"></i>
-                <span>Kategori Soal</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
               <a href="<?php echo base_url('soal-psikotes'); ?>" class="sidebar-link">
                 <i class="fa-solid fa-people-line"></i>
                 <span>Soal</span>

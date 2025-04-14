@@ -1,21 +1,56 @@
 <div class="col-md-12">
+
+  <div class="d-flex justify-content-end mb-3">
+    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add"> Tambah Soal</button>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <div class="p-2">
+          <form action="<?=base_url('soalPsikotes/list_soalPsikotes')?>" role="form" method="post">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nama_kategoriPsikotes" class="col-sm-6 control-label">Kategori :</label>
+                  <select class="form-select" id="id_kategori" name="id_kategori" onchange="getUjianByKategori()" aria-label="Default select example">
+                    <option value="0" disabled selected>Pilih Kategori</option>
+                    <?php foreach($kategori as $k){?>
+                    <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
+                    <?php } ?>
+                  </select>
+                  <span style="color:red"><?= form_error('id_kategori'); ?></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nama_kategoriPsikotes" class="col-sm-6 control-label">Subtest :</label>
+                  <select class="form-select" id="ujian" name="ujian" aria-label="Default select example">
+                  </select>
+                  <span style="color:red"><?= form_error('ujian'); ?></span>
+                </div>
+              </div>
+            </div>
+            <input type="submit" value="Tampilkan" class="btn pull-right btn btn-success"></input>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <div class="p-2">
           <h2 class="text-blue">Soal</h2>
         </div>
-        <div class="p-2">
-          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add"> Tambah Soal</button>
-        </div>
       </div>
-
+      <?php if(isset($id_subtest)) { ?>
       <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th>Kategori</th>
-            <th width="10px">Soal</th>
+            <th>Soal</th>
             <th class="text-center" >Aksi</th>
           </tr>
         </thead>
@@ -25,7 +60,6 @@
             <?php foreach($list_data as $ld): ?>
             <tr>
                 <td><?=$no?></td>
-                <td><?=$ld->nama_kategoriPsikotes?></td>
                 <td>
                   <?=$ld->soal?>
                   <?php
@@ -33,7 +67,6 @@
                     <img src="<?= base_url('assets/psikotes/soal/'.$ld->file)?>" class="img-thumbnail" alt="...">
                   <?php } ?>
                 </td>
-                <td><?=$ld->created_on?></td>
                 <td class="text-center">
                 <a type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal-edit" onclick="editData(<?=$ld->id_soalPsikotes?>)"><i class="fa fa-pencil"></i></a>
                 <a type="button" class="btn btn-red btn-sm btn-delete"  href="<?=base_url('soalPsikotes/delete/'.$ld->id_soalPsikotes)?>" name="btn_delete" style="margin:auto;" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -45,6 +78,10 @@
           <?php } ?>
         </tbody>
       </table>
+      <?php } else { ?> 
+      tidak ada data
+      <?php } ?>
+
     </div>
   </div>
 </div>
@@ -60,15 +97,27 @@
       <form action="<?=base_url('soalPsikotes/save')?>" role="form" method="post">
         <div class="modal-body">
           <div class="mb-3">
-          <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
-          <select class="form-select" name="kategoriPsikotes_id" aria-label="Default select example">
-            <option value="" disabled selected>Pilih Kategori</option>
-            <?php foreach($kategori as $k){?>
-            <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
-            <?php } ?>
-          </select>
-          <span style="color:red"><?= form_error('kategoriPsikotes_id'); ?></span>
+            <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
+            <select class="form-select" name="kategoriPsikotes_id" aria-label="Default select example">
+              <option value="" disabled selected>Pilih Kategori</option>
+              <?php foreach($kategori as $k){?>
+              <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
+              <?php } ?>
+            </select>
+            <span style="color:red"><?= form_error('kategoriPsikotes_id'); ?></span>
           </div>
+
+          <div class="mb-3">
+            <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
+            <select class="form-select" name="kategoriPsikotes_id" aria-label="Default select example">
+              <option value="" disabled selected>Pilih Kategori</option>
+              <?php foreach($kategori as $k){?>
+              <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
+              <?php } ?>
+            </select>
+            <span style="color:red"><?= form_error('kategoriPsikotes_id'); ?></span>
+          </div>
+          
           <div class="mb-3">  
             <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Soal :</label>
             <input class="form-control mb-3" type="file" name="file_soal">
@@ -206,6 +255,29 @@
     });
   }
 
+  function getUjianByKategori(){
+    let kategori = $("#id_kategori").val();
+    $.ajax({
+      type : "POST",
+      dataType : "JSON",
+      url:"<?php echo site_url("soalPsikotes/getUjianByKategori")?>/"+kategori,
+      success : function(data){
+
+        let html = ' ';
+        let i;
+
+        html += 
+            '<option>---pilih subtest---</option>';
+        for ( i=0; i < data.length ; i++){
+            html += 
+            '<option value="'+ data[i].id_ujian +'">'+ data[i].nama_ujian +'</option>';
+        }
+
+        $("#ujian").html(html);
+      }
+    });
+  }
+
   $('.summernote').summernote({
     tabsize: 2,
     height: 120,
@@ -219,13 +291,4 @@
     ['view', ['fullscreen', 'codeview', 'help']]
     ]
   });
-
-  var nameValidationInput = document.getElementById('nameValidation');
-  function useValue() {
-      var NameValue = nameValidationInput.value;
-      // use it
-      alert(NameValue); // just to show the new value
-  }
-  nameValidationInput.onchange = useValue;  
-  nameValidationInput.onblur = useValue;
 </script>

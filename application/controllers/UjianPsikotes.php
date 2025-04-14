@@ -17,6 +17,10 @@ class UjianPsikotes extends BaseController
     $this->isLoggedIn();
   }
 
+  public function getUjianByKategori(){
+    
+  }
+
   public function list_ujianPsikotes(){
     $page =$this->uri->segment(1);
 
@@ -34,7 +38,7 @@ class UjianPsikotes extends BaseController
     $data['list_data'] = $this->psikotes_model->getUjian();
     $data['kandidat_id'] = $this->kandidat_id;
 
-    $this->loadViews("pelamar/ujian", $this->global, $data, NULL);
+    $this->loadViews("psikotes/halaman_awal", $this->global, $data, NULL);
   }
 
   public function save(){
@@ -250,11 +254,16 @@ class UjianPsikotes extends BaseController
       $this->global['pageTitle'] = "Halaman Psikotes Online";
       $getUjian = $this->psikotes_model->getUjianWhere(['kategoriPsikotes_id'=>$ujian->id_kategoriPsikotes]);
 
+      // var_dump(COUNT($getUjian));
+
       if(COUNT($getUjian) != $ujian->urutan){
         $nextUjian = $getUjian[$ujian->urutan]->id_ujian;
       }else{
-        $i = $ujian->urutan - 1;
-        $nextUjian = $getUjian[$i]->id_ujian;
+        $test = $ujian->urutan_kategori + 1;
+
+        $getUjian = $this->psikotes_model->getUjianWhere(['urutan_kategori'=>$test,'urutan'=>1]);
+        var_dump($getUjian[0]);
+        // $nextUjian = $getUjian[0]->id_ujian;
       }
   
       $data = [
