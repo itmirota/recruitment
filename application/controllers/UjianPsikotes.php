@@ -26,7 +26,11 @@ class UjianPsikotes extends BaseController
 
     $this->global['pageTitle'] = 'Mirota KSM | Ujian Psikotes';
 
-    $data['list_data'] = $this->psikotes_model->getUjian();
+    $id_kategori = $this->input->post('id_kategori');
+
+    $data['kategori'] = $this->crud_model->tampildata('tbl_psikotes_kategori');
+    $data['list_data'] = $this->psikotes_model->getUjianWhere(['kategoriPsikotes_id' => $id_kategori]);
+    $data['id_kategori'] = $id_kategori;
     $data['page'] = $page;
 
       $this->loadViewsAdmin("psikotes/ujian/data", $this->global, $data, NULL);
@@ -35,7 +39,7 @@ class UjianPsikotes extends BaseController
   public function data_psikotes(){
     $this->global['pageTitle'] = 'Mirota KSM | Ujian Psikotes';
 
-    $data['list_data'] = $this->psikotes_model->getUjian();
+    $data['ujian'] = $this->psikotes_model->getRowUjian(['urutan_kategori' => 1]);
     $data['kandidat_id'] = $this->kandidat_id;
 
     $this->loadViews("psikotes/halaman_awal", $this->global, $data, NULL);

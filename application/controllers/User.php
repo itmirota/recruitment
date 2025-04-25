@@ -16,14 +16,18 @@ class User extends BaseController
   {
     parent::__construct();
     $this->load->model('auth_model');
+    $this->load->model('pelamar_model');
     $this->load->library('form_validation');
     $this->isLoggedIn();
   }
 
   public function dashboardUser(){
     $this->global['pageTitle'] = 'Rekrutmen Mirota KSM';
+    $kandidat = $this->kandidat_id;
 
-		$this->loadViews("pelamar/dashboard", $this->global, NULL, NULL);
+    $data['histori_pelamar'] = $this->pelamar_model->GetDataByWhere(['kandidat_id' => $kandidat]);
+
+		$this->loadViews("kandidat/dashboard", $this->global, $data, NULL);
   }
 
   public function dashboardAdmin(){

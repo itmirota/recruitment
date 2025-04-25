@@ -29,22 +29,25 @@ class Landingpage extends BaseController {
 
 		$data['list_data'] = $this->crud_model->tampildata('tbl_lowongan');
 
-
 		$this->loadViews("lowongan", $this->global, $data, NULL);
 	}
 
 	public function detail_lowongan(){
+		$id_lowongan = $this->uri->segment(2);
+		$kandidat = $this->kandidat_id;
 
 		$this->global['pageTitle'] = 'Mirota KSM | Lowongan';
+		$data['detail']  = $this->crud_model->GetRowById(['id_lowongan' => $id_lowongan],'tbl_lowongan');
+		$data['kandidat']  = $this->crud_model->GetRowById(['id_kandidat' => $kandidat],'tbl_kandidat');
 
-		$this->loadViews("lowongan/detail_lowongan", $this->global, NULL, NULL);
+		$this->loadViews("lowongan/detail_lowongan", $this->global, $data, NULL);
 	}
 
 	public function pertanyaan_umum(){
 		
 		$this->global['pageTitle'] = 'Mirota KSM | FAQ';
-		$dat['list_data'] = $this->crud_model->tampildata('tbl_faq');
+		$data['list_data'] = $this->crud_model->tampildata('tbl_faq');
 
-		$this->loadViews("pertanyaan_umum", $this->global, $dat, NULL);
+		$this->loadViews("pertanyaan_umum", $this->global, $data, NULL);
 	}
 }

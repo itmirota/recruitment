@@ -9,3 +9,11 @@
   a.sidebar-link:hover{
     background-color:rgba(28,136,227,0.8);
   }
+
+  .sidebar li .submenu{ 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+    padding-left: 1rem; 
+    /* padding-right: 1rem; */
+  }

@@ -57,7 +57,7 @@ public function detaillowongan(){
 
   $data = array(
       'list_data'   => $this->crud_model->GetRowById(['id_lowongan' => $id_lowongan],'tbl_lowongan'),
-      'id_lowongan' => $this->uri->segment(3)
+      'id_lowongan' => $this->uri->segment(3),
     );
 
   $this->loadViewsAdmin("lowongan/edit_data", $this->global, $data , NULL);
@@ -101,5 +101,62 @@ public function detaillowongan(){
       $sql = $this->crud_model->delete($where, 'tbl_lowonga');
       $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus!');
       redirect('list-lowongan');
+  }
+
+  public function submit_lowongan(){
+    $config['upload_path']          = './assets/document/';
+    $config['allowed_types']        = 'gif|jpg|png|pdf';
+    // $config['max_size']             = 100;
+    // $config['max_width']            = 1024;
+    // $config['max_height']           = 768;
+
+
+    $id_lowongan = $this->input->post('id_lowongan');
+    $id_kandidat = $this->kandidat_id;
+    $alamat_domisili = $this->input->post('alamat_domisili');
+    $nomor_hp = $this->input->post('nomor_hp');
+
+    $this->load->library('upload', $config);
+
+    if ($this->upload->do_upload('file_lamaran'))
+    {
+      $lamaran = $this->upload->data();
+    }
+
+
+    if ($this->upload->do_upload('file_cv'))
+    {
+      $cv = $this->upload->data();
+    }
+
+    if ($this->upload->do_upload('file_ijazah'))
+    {
+      $ijazah = $this->upload->data();
+    }
+    
+    if ($this->upload->do_upload('file_lampiran'))
+    {
+      $lampiran = $this->upload->data();
+    }
+
+    $data = array(
+      'lowongan_id' => $id_lowongan,
+      'kandidat_id' => $id_kandidat,
+      'lamaran' => $lamaran['file_name'],
+      'cv' => $cv['file_name'],
+      'ijazah' => $ijazah['file_name'],
+      'lampiran' => $lampiran['file_name'],
+      'datecreated' => DATE('Y-m-d H:i:s')
+    );
+
+    $update = array(
+      'alamat_domisili' => $alamat_domisili,
+      'nomor_hp' => $nomor_hp,
+    );
+
+    $sql_input = $this->crud_model->input($data, 'tbl_pelamar');
+    $sql_update = $this->crud_model->update(['id_kandidat' => $id_kandidat], $update, 'tbl_kandidat');
+
+    redirect('halaman-pelamar');
   }
 }

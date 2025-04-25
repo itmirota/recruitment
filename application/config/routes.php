@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // LANDINGPAGE
 $route['default_controller'] = 'landingpage';
 $route['lowongan-kerja'] = 'landingpage/lowongan';
-$route['detail-lowongan'] = 'landingpage/detail_lowongan';
+$route['detail-lowongan/(:num)'] = 'landingpage/detail_lowongan/$1';
 $route['pertanyaan-umum'] = 'landingpage/pertanyaan_umum';
 
 //LOGIN 

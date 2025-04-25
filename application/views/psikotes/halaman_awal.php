@@ -38,20 +38,15 @@
                           <th>Waktu</th>
                           <td></td>
                       </tr>
-                      <tr>
-                          <th>Batas Akhir</th>
-                          <td>
-                          </td>
-                      </tr>
                   </table>
                   </div>
                   <div class="col-sm-6">
                       <div class="card card-solid">
                           <div class="card-body pb-0">
                               <div class="alert alert-info" role="alert">
-                              <p>
-                                  Waktu boleh mengerjakan ujian adalah saat tombol "MULAI" berwarna hijau.
-                              </p>
+                              <a href="<?= base_url('detail-ujian?test='.$ujian->kategoriPsikotes_id.'&&subtest='.$ujian->id_ujian)?>" class="btn btn-success btn-lg mb-4">
+                                  <i class="fa fa-pencil"></i> Mulai
+                              </a>
                               </div>
                           </div>
                       </div>

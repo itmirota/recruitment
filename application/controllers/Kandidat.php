@@ -171,8 +171,6 @@ class kandidat extends BaseController
  
   public function save_keluarga()
   {
-    
-
     //Data keluarga
     $id_kandidat = $this->kandidat_id;
     $nama_keluarga = $this->input->post('nama_keluarga');

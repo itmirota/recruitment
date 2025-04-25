@@ -10,86 +10,79 @@
   <!-- MAIN -->
   <div class="main">
     <div class="container">
-        <div class="card card-content p-4">
-          <div class="alert alert-info" role="alert">
-              <h4>Instruksi <?=$ujian->nama_kategoriPsikotes?> | <?=$ujian->nama_ujian?></h4>
-              <p><?=$ujian->instruksi?></p>
-          </div>
-          <div class="card card-primary">
-              <div class="card-body">
-              <h3 class="card-title">Data Diri</h3>
+      <div class="card card-content p-4">
+        <div class="alert alert-info" role="alert">
+            <h4>Instruksi <?=$ujian->nama_kategoriPsikotes?> | <?=$ujian->nama_ujian?></h4>
+            <p><?=$ujian->instruksi?></p>
+        </div>
+        <div class="card card-primary">
+          <div class="card-body">
+            <h3 class="card-title">Data Diri</h3>
 
-              <div class="row">
-                  <div class="col-sm-6">
-                  <table class="table">
-                      <tr>
-                          <th>Nama</th>
-                          <td><?=$nama_lengkap?></td>
-                      </tr>
-                      <tr>
-                          <th>Nama Ujian</th>
-                          <td><?=$ujian->nama_ujian?></td>
-                      </tr>
-                      <tr>
-                          <th>Jumlah Soal</th>
-                          <td><?=$ujian->jumlah_soal?></td>
-                      </tr>
-                      <tr>
-                          <th>Waktu</th>
-                          <td><?=$ujian->waktu?> Menit</td>
-                      </tr>
-                      <tr>
-                          <th>Batas Akhir</th>
-                          <td>
-                              <?=strftime('%d %B %Y', strtotime($ujian->terlambat))?> 
-                              <?=date('H:i:s', strtotime($ujian->terlambat))?>
-                          </td>
-                      </tr>
-                  </table>
-                  </div>
-                  <div class="col-sm-6">
-                      <div class="card card-solid">
-                          <div class="card-body pb-0">
-                              <div class="alert alert-info" role="alert">
-                              <p>
-                                  Waktu boleh mengerjakan ujian adalah saat tombol "MULAI" berwarna hijau.
-                              </p>
-                              </div>
-                              <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
-                                  <i class="fa fa-pencil"></i> Mulai
-                              </a>
-                              <!-- <?php
-                              $mulai = strtotime($ujian->tgl_mulai);
-                              $terlambat = strtotime($ujian->terlambat);
-                              $now = time();
-                              if($mulai > $now) : 
-                              ?>
-                              <div class="alert alert-success" role="alert">
-                                  <strong><i class="fa fa-clock-o"></i> Ujian akan dimulai pada</strong>
-                                  <br>
-                                  <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->tgl_mulai))?>" id="demo"></strong><br/>
-                              </div>
-                              <?php elseif( $terlambat > $now ) : ?>
-                              <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
-                                  <i class="fa fa-pencil"></i> Mulai
-                              </a>
-                              <div class="alert alert-danger" role="alert">
-                                  <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->terlambat))?>" id="demo"></strong><br/>
-                                  Batas waktu menekan tombol mulai.
-                              </div>
-                              <?php else : ?>
-                              <div class="alert alert-danger" role="alert">
-                                  Waktu untuk menekan tombol <strong>"MULAI"</strong> sudah habis.<br/>
-                                  Sesi ujian sudah berakhir.
-                              </div>
-                              <?php endif;?> -->
+            <div class="row">
+              <div class="col-sm-6">
+                <table class="table">
+                  <tr>
+                      <th>Nama</th>
+                      <td><?=$nama_lengkap?></td>
+                  </tr>
+                  <tr>
+                      <th>Nama Ujian</th>
+                      <td><?=$ujian->nama_ujian?></td>
+                  </tr>
+                  <tr>
+                      <th>Jumlah Soal</th>
+                      <td><?=$ujian->jumlah_soal?></td>
+                  </tr>
+                  <tr>
+                      <th>Waktu</th>
+                      <td><?=$ujian->waktu?> Menit</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-sm-6">
+                  <div class="card card-solid">
+                      <div class="card-body pb-0">
+                          <div class="alert alert-info" role="alert">
+                          <p>
+                              tekan tombol "MULAI" berwarna hijau jika anda sudah siap mengerjakan soal.
+                          </p>
                           </div>
+                          <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
+                              <i class="fa fa-pencil"></i> Mulai
+                          </a>
+                          <!-- <?php
+                          $mulai = strtotime($ujian->tgl_mulai);
+                          $terlambat = strtotime($ujian->terlambat);
+                          $now = time();
+                          if($mulai > $now) : 
+                          ?>
+                          <div class="alert alert-success" role="alert">
+                              <strong><i class="fa fa-clock-o"></i> Ujian akan dimulai pada</strong>
+                              <br>
+                              <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->tgl_mulai))?>" id="demo"></strong><br/>
+                          </div>
+                          <?php elseif( $terlambat > $now ) : ?>
+                          <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
+                              <i class="fa fa-pencil"></i> Mulai
+                          </a>
+                          <div class="alert alert-danger" role="alert">
+                              <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->terlambat))?>" id="demo"></strong><br/>
+                              Batas waktu menekan tombol mulai.
+                          </div>
+                          <?php else : ?>
+                          <div class="alert alert-danger" role="alert">
+                              Waktu untuk menekan tombol <strong>"MULAI"</strong> sudah habis.<br/>
+                              Sesi ujian sudah berakhir.
+                          </div>
+                          <?php endif;?> -->
                       </div>
                   </div>
               </div>
-              </div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

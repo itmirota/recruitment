@@ -43,7 +43,7 @@
                 <p class="m-0"><strong>Jenjang Karir : </strong><?=$ld->pendidikan?></p>
                 <p class="m-0 mb-2">Ditutup<strong> 9 </strong>Hari Lagi</p>
 
-                <a href="<?= base_url('detail-lowongan')?>" class="btn btn-md btn-biru">Detail Pekerjaan</a>
+                <a href="<?= base_url('detail-lowongan/'.$ld->id_lowongan)?>" class="btn btn-md btn-biru">Detail Pekerjaan</a>
               </div>
             </div>
           </div>

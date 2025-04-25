@@ -4,10 +4,6 @@
   <!-- PARALAX -->
   <div class="main">
     <div class="container">
-
-      <!-- <div class="d-flex justify-content-end">
-        <a href="" class="btn btn-solid btn-md btn-biru"> Data Diri</a>
-      </div> -->
       <h2 class="text-blue">Informasi</h2>
       <div class="col-md-12">
         <div class="row">
@@ -42,7 +38,7 @@
                   <h1 class="text-header text-blue mb-0">
                     Ujian Psikotes Online
                   </h1>
-                  <a href="http://" class="btn btn-sm btn-biru mt-2">Psikotest Online</a>
+                  <a href="<?= base_url('psikotes-online')?>" class="btn btn-sm btn-biru mt-2">Psikotest Online</a>
                 </div>
                 <!-- <div class="p-0">
                   <span class="text-grey">
@@ -70,12 +66,18 @@
                 </tr>
               </thead>
               <tbody>
+                <?php 
+                $no = 1;
+                foreach($histori_pelamar as $data){ ?>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Staff IT</td>
-                  <td>12 Nov 2025</td>
-                  <td><span class="badge text-bg-success">Lolos</span></td>
+                  <th scope="row"><?= $no ?></th>
+                  <td><?= $data->nama_lowongan ?></td>
+                  <td><?= mediumdate_indo($data->tgl_melamar).' '.$data->waktu_melamar?></td>
+                  <td><span class="badge text-bg-<?= $data->progres_lamaran == 0 ? 'secondary':($data->progres_lamaran == 1 ? 'info':($data->progres_lamaran == 2 ? 'success':'danger'))?>"> <?= $data->progres_lamaran == 0 ? 'lamaran dikirim':($data->progres_lamaran == 1 ? 'lamaran diperiksa':($data->progres_lamaran == 2 ? 'lolos '.$data->keterangan_progres:'gagal '.$data->keterangan_progres))?></span></td>
                 </tr>
+                <?php 
+                $no++;
+                } ?>
               </tbody>
             </table>
           </div>
