@@ -70,7 +70,9 @@
     font-size:10px;
     margin:0;
     }
+    
   </style>
+  
 </head>
 
   <!-- <body class="sidebar-mini skin-black-light"> -->
@@ -94,14 +96,20 @@
         </li>
 
         <li class="sidebar-item">
+          <a href="<?php echo base_url('list-pelamar');?>" class="sidebar-link">
+            <i class="fa fa-user"></i> <span>Data Pelamar</span></i>
+          </a>
+        </li>
+
+        <li class="sidebar-item">
           <a href="<?php echo base_url('/list-lowongan');?>" class="sidebar-link">
-            <i class="fa fa-user"></i> <span>Data Lowongan</span></i>
+            <i class="fa-solid fa-file-lines"></i> <span>Data Lowongan</span></i>
           </a>
         </li>
 
         <li class="sidebar-item">
           <a href="<?php echo base_url('/list-faq');?>" class="sidebar-link">
-            <i class="fa fa-user"></i> <span>List FAQ</span></i>
+            <i class="fa-solid fa-file-lines"></i> <span>List FAQ</span></i>
           </a>
         </li>
 
@@ -112,18 +120,24 @@
             <!-- MENU DEPARTEMENT -->
             <li class="sidebar-item">
               <a href="<?php echo base_url('soal-psikotes'); ?>" class="sidebar-link">
-                <i class="fa-solid fa-people-line"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span>Soal</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a href="<?php echo base_url('ujian-psikotes'); ?>" class="sidebar-link">
-                <i class="fa-solid fa-people-line"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span>Data Ujian</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a href="<?php echo base_url('hasil-psikotes'); ?>" class="sidebar-link">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Hasil Ujian</span>
+              </a>
+            </li>
             <!-- MENU PEGAWAI -->
-            <li class="sidebar-item has-submenu">
+            <!-- <li class="sidebar-item has-submenu">
               <a class="sidebar-link" href="#"><i class="fa-solid fa-users"></i> Data Karyawan <i class="fa fa-angle-down" style="float: right;"></i> </a>
               <ul class="submenu collapse">
                 <li class="sidebar-item">
@@ -138,7 +152,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </li>
         <!-- PSIKOTES -->

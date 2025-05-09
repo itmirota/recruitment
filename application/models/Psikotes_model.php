@@ -95,4 +95,36 @@ class Psikotes_model extends CI_Model
         $this->db->where('id', $id_tes);
         return $this->db->get()->row()->list_jawaban;
     }
+
+    public function List_hasil(){
+        $this->db->select('*,DATE(tgl_mulai) as tgl_mulai');
+        $this->db->from('tbl_psikotes_hasil a');
+        $this->db->join('tbl_lowongan b','b.id_lowongan = a.lowongan_id');
+        $this->db->join('tbl_kandidat c','c.id_kandidat = a.kandidat_id');
+        $this->db->group_by('a.lowongan_id');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function detail_hasil($where){
+        $this->db->select('*');
+        $this->db->from('tbl_psikotes_hasil a');
+        $this->db->join('tbl_psikotes_ujian b','b.id_ujian = a.ujian_id');
+        $this->db->join('tbl_psikotes_kategori c','c.id_kategoriPsikotes = b.kategoriPsikotes_id');
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+
+    public function detail_jawaban($where){
+        $this->db->select('*');
+        $this->db->from('tbl_psikotes_hasil a');
+        // $this->db->join('tbl_psikotes_soal b','b.ujian_id = a.ujian_id');
+        $this->db->where($where);
+
+        return $this->db->get()->row();
+    }
 }

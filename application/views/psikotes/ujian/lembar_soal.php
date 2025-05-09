@@ -15,6 +15,8 @@
   </div>
   <!-- PARALAX -->
 
+
+
   <!-- MAIN -->
   <div class="main">
     <div class="container">
@@ -27,6 +29,13 @@
                   </div>
                   <div class="card-body text-center" id="tampil_jawaban">
                   </div>
+              </div>
+
+              <div>
+                <div class="col-md-6 mb-4">
+                  <div class="m-0" id="my_camera">
+                  </div>
+                </div>
               </div>
           </div>
           <div class="col-sm-9">
@@ -62,12 +71,12 @@
   </div>
 </div>
       
+<script src="<?= base_url().'assets/dist/js/webcam.js'?>"></script>
 
 <script type="text/javascript">
     var base_url        = "<?=base_url(); ?>";
+    var url          = "<?=$url; ?>";
     var id_tes          = "<?=$id_tes; ?>";
-    var test          = "<?=$test; ?>";
-    var nextUjian      = "<?=$nextUjian; ?>";
     var widget          = $(".step");
     var total_widget    = widget.length;
 </script>
@@ -306,7 +315,8 @@ function selesai() {
         success: function (r) {
             console.log(r);
             if (r.status) {
-                window.location.href = base_url + 'detail-ujian?test=' +test+'&&subtest='+nextUjian;
+                // window.location.href = base_url + 'detail-ujian?test=' +test+'&&subtest='+nextUjian+'&&posisi='+posisi;
+                window.location.href = url;
             }
         }
     });

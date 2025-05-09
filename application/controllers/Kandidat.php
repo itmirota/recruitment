@@ -18,6 +18,7 @@ class kandidat extends BaseController
     parent::__construct();
     // $this->load->model('pelamar_model');
     $this->load->model('crud_model');
+    $this->load->model('pelamar_model');
     $this->load->library('form_validation');
 
     $nama_lengkap = $this->session->userdata ( 'nama_lengkap' );
@@ -199,6 +200,7 @@ class kandidat extends BaseController
     //Data pendidikan
     $id_kandidat = $this->kandidat_id;
     $jenjang_pendidikan = $this->input->post('jenjang_pendidikan');
+    $nama_instansi = $this->input->post('nama_instansi');
     $jurusan = $this->input->post('jurusan');
     $tahun_masuk = $this->input->post('tahun_masuk');
     $tahun_lulus = $this->input->post('tahun_lulus');
@@ -207,6 +209,7 @@ class kandidat extends BaseController
         //Data pendidikan
         'kandidat_id' => $id_kandidat,
         'jenjang_pendidikan' => $jenjang_pendidikan,
+        'nama_instansi' => $nama_instansi,
         'jurusan' => $jurusan,
         'tahun_masuk' => $tahun_masuk,
         'tahun_lulus' => $tahun_lulus,
@@ -410,6 +413,19 @@ class kandidat extends BaseController
     $this->session->set_userdata('page', 'Data-diri');
     
     $this->loadViews("kandidat/biodata", $this->global, $data, NULL);
+  }
+
+  public function list_pelamar(){
+    $this->global['pageTitle'] = "Detail Hasil Psikotes Online";
+
+    $data['list_data'] = $this->pelamar_model->GetData();
+
+    $this->loadViewsAdmin("pelamar/data", $this->global, $data, NULL);
+  }
+
+  function getDataPelamar($id){
+    $pelamar = $this->crud_model->GetDataById('id_pelamar='.$id,'tbl_pelamar');
+    echo json_encode($pelamar);
   }
   
 }

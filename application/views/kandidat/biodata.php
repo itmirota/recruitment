@@ -292,7 +292,6 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
                     <th scope="col">Nama Sekolah/Instansi</th>
                     <th scope="col">Jenjang</th>
                     <th scope="col">Jurusan</th>
@@ -307,7 +306,6 @@
                   foreach($data_pendidikan as $data){
                   ?>
                   <tr>
-                    <th scope="row"><?= $no ?></th>
                     <td><?= $data->nama_instansi?></td>
                     <td><?= $data->jenjang_pendidikan?></td>
                     <td><?= $data->jurusan?></td>
@@ -334,10 +332,7 @@
                 </div>
                 <form action="<?=base_url('kandidat/save_pendidikan')?>" role="form" method="post">
                 <div class="modal-body">
-                  <div class="mb-3">
-                      <label for="nama_instansi" class="form-label">Nama Instansi/Sekolah</label>
-                      <input type="text" class="form-control" name="nama_instansi">
-                  </div>
+
                   <div class="mb-3">
                       <label for="jenjang_pendidikan" class="form-label">Jenjang Pendidikan</label>
                       <select class="form-select" aria-label="jenjang_pendidikan" name="jenjang_pendidikan">
@@ -350,6 +345,14 @@
                         <option value="S2">S2</option>
                         <option value="S3">S3</option>
                       </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="nama_instansi" class="form-label">Nama Instansi/Sekolah</label>
+                      <input type="text" class="form-control" name="nama_instansi">
+                  </div>
+                  <div class="mb-3">
+                      <label for="jurusan" class="form-label">Jurusan</label>
+                      <input type="text" class="form-control" name="jurusan">
                   </div>
                   <div class="row mb-3">
                     <div class="col-6">

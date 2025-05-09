@@ -48,7 +48,7 @@
                               tekan tombol "MULAI" berwarna hijau jika anda sudah siap mengerjakan soal.
                           </p>
                           </div>
-                          <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id)?>" class="btn btn-success btn-lg mb-4">
+                          <a href="<?= base_url('ujian?test='.$kategori.'&&subtest='.$id.'&&posisi='.$lowongan_id)?>" class="btn btn-success btn-lg mb-4">
                               <i class="fa fa-pencil"></i> Mulai
                           </a>
                           <!-- <?php

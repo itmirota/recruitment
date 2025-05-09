@@ -12,6 +12,7 @@ class UjianPsikotes extends BaseController
     parent::__construct();
     $this->load->model('crud_model');
     $this->load->model('psikotes_model');
+    $this->load->model('pelamar_model');
     $this->load->library('form_validation');
 
     $this->isLoggedIn();
@@ -39,7 +40,11 @@ class UjianPsikotes extends BaseController
   public function data_psikotes(){
     $this->global['pageTitle'] = 'Mirota KSM | Ujian Psikotes';
 
+    $pelamar = $this->pelamar_model->GetDataById(['kandidat_id' => $this->kandidat_id]);
+
     $data['ujian'] = $this->psikotes_model->getRowUjian(['urutan_kategori' => 1]);
+    $data['pelamar'] = $pelamar;
+    $data['cek_psikotes'] = $this->crud_model->GetDataById(['kandidat_id' => $this->kandidat_id,'lowongan_id' => $pelamar->id_lowongan],'tbl_psikotes_hasil');
     $data['kandidat_id'] = $this->kandidat_id;
 
     $this->loadViews("psikotes/halaman_awal", $this->global, $data, NULL);
@@ -93,6 +98,7 @@ class UjianPsikotes extends BaseController
 
   $kategori = $this->input->get('test');
   $subtest = $this->input->get('subtest');
+  $lowongan_id = $this->input->get('posisi');
 
   $ujian = $this->psikotes_model->getUjianWhere(['id_ujian' => $subtest]);
   // $encrypted_id = $this->encryption->encrypt($id);
@@ -100,6 +106,7 @@ class UjianPsikotes extends BaseController
   // $data['encrypted_id'] = $encrypted_id;
   $data['id'] = $ujian[0]->id_ujian;
   $data['kategori'] = $ujian[0]->kategoriPsikotes_id;
+  $data['lowongan_id'] = $lowongan_id;
 
   // $plain_text = 'This is a plain-text message!';
   // $ciphertext = $this->encryption->encrypt($plain_text);
@@ -116,6 +123,7 @@ class UjianPsikotes extends BaseController
       // $id  = $this->encryption->decrypt(rawurldecode($key));
       $test = $this->input->get('test');
       $id = $this->input->get('subtest');
+      $lowongan_id = $this->input->get('posisi');
       
       $ujian 		= $this->psikotes_model->getRowUjian(['id_ujian' => $id]);
       $soal 		= $this->psikotes_model->getSoalWhere(['ujian_id'=>$id]); 
@@ -161,6 +169,7 @@ class UjianPsikotes extends BaseController
         $input = [
           'ujian_id' 		=> $id,
           'kandidat_id'	=> $kandidat_id,
+          'lowongan_id'	=> $lowongan_id,
           'list_soal'		=> $list_id_soal,
           'list_jawaban' 	=> $list_jw_soal,
           'jml_benar'		=> 0,
@@ -173,7 +182,7 @@ class UjianPsikotes extends BaseController
         $this->crud_model->input($input, 'tbl_psikotes_hasil');
   
         // Setelah insert wajib refresh dulu
-        redirect('ujian?test='.$test.'&&subtest='.$id);
+        redirect('ujian?test='.$test.'&&subtest='.$id.'&&posisi='.$lowongan_id);
       }
       
       $q_soal = $hasil_ujian->row();
@@ -212,7 +221,7 @@ class UjianPsikotes extends BaseController
           $html .= '<input type="hidden" name="rg_'.$no.'" id="rg_'.$no.'" value="'.$vrg.'">';
           $html .= '<div class="step" id="widget_'.$no.'">';
   
-          $html .= '<div class="text-center"><div class="w-80">'.tampil_media($path.$s->file).'</div></div>'.$s->soal.'<div class="funkyradio">';
+          $html .= '<div class="text-center"><div class="w-100">'.tampil_media($path.$s->file).'</div></div>'.$s->soal.'<div class="funkyradio">';
           for ($j = 0; $j < $s->jumlah_opsi; $j++) {
             $opsi 			= "opsi_".$arr_opsi[$j];
             $file 			= "file_".$arr_opsi[$j];
@@ -229,14 +238,14 @@ class UjianPsikotes extends BaseController
                       </div>
                       ';
             }else{
-            $html .= '<div class="card text-bg-secondary m-2">
+            $html .= '
+                      <div class="flex-fill card text-bg-secondary m-2">
                         <div class="card-body">
                           <div class="form-check funkyradio-success" onclick="return simpan_sementara();">
                             <input class="form-check-input" type="radio" id="opsi_'.strtolower($arr_opsi[$j]).'_'.$s->id_soalPsikotes.'" name="opsi_'.$no.'" value="'.strtoupper($arr_opsi[$j]).'" '.$checked.'> 
                             <label for="opsi_'.strtolower($arr_opsi[$j]).'_'.$s->id_soalPsikotes.'">
-                              <div class="huruf_opsi">'.$arr_opsi[$j].'</div> 
-                                <p>'.$pilihan_opsi.'</p>
-                              <div class="w-25">'.$tampil_media_opsi.'</div>
+                              <div class="huruf_opsi">'.$pilihan_opsi.'</div> 
+                              <div class="w-50">'.$tampil_media_opsi.'</div>
                             </label>
                           </div>
                         </div>
@@ -260,20 +269,25 @@ class UjianPsikotes extends BaseController
 
       // var_dump(COUNT($getUjian));
 
+
       if(COUNT($getUjian) != $ujian->urutan){
         $nextUjian = $getUjian[$ujian->urutan]->id_ujian;
       }else{
         $test = $ujian->urutan_kategori + 1;
 
         $getUjian = $this->psikotes_model->getUjianWhere(['urutan_kategori'=>$test,'urutan'=>1]);
-        var_dump($getUjian[0]);
         // $nextUjian = $getUjian[0]->id_ujian;
+      }
+
+      if(empty($nextUjian)){
+        $url = base_url('halaman-pelamar');
+      }else{
+        $url = base_url('detail-ujian?test='.$test.'&&subtest='.$nextUjian.'&&posisi='.$lowongan_id);
       }
   
       $data = [
         'soal'		=> $detail_tes,
-        'test'  => $test,
-        'nextUjian' => $nextUjian,
+        'url' => $url,
         'no' 		=> $no,
         'html' 		=> $html,
         'id_tes'	=> $id_tes
@@ -355,5 +369,39 @@ class UjianPsikotes extends BaseController
 		$this->crud_model->update(['id' => $id_tes], $d_update, 'tbl_psikotes_hasil');
 		$this->output->set_content_type('application/json')->set_output(json_encode(['status'=>TRUE, 'data'=>$d_update, 'id'=>$id_tes]));
 	}
+
+
+  public function hasil(){
+    $this->global['pageTitle'] = "Hasil Psikotes Online";
+
+    $data['hasil'] = $this->psikotes_model->List_hasil();
+    $this->loadViewsAdmin("psikotes/hasil/data", $this->global, $data, NULL);
+  }
+
+  public function detail_hasil(){
+    $this->global['pageTitle'] = "Detail Hasil Psikotes Online";
+
+    $id = $this->input->get('pelamar');
+
+    $data['detail_hasil'] = $this->psikotes_model->detail_hasil(['kandidat_id' => $id]);
+    $data['pelamar'] = $this->pelamar_model->GetDataById(['kandidat_id' => $id]);
+
+    $this->loadViewsAdmin("psikotes/hasil/detail", $this->global, $data, NULL);
+  }
+
+  public function detail_jawaban(){
+    $this->global['pageTitle'] = "Detail Hasil Psikotes Online";
+
+    $id = $this->input->get('pelamar');
+    $subtest = $this->input->get('subtest');
+
+    $data['detail_jawaban'] = $this->psikotes_model->detail_jawaban(['a.kandidat_id' => $id,'a.ujian_id' => $subtest]);
+    $data['id_pelamar'] = $id;
+    $data['pelamar'] = $this->pelamar_model->GetDataById(['kandidat_id' => $id]);
+    $data['hasil'] = $this->crud_model->GetDataById(['ujian_id' => $subtest],'tbl_psikotes_hasil');
+    $data['ujian'] = $this->psikotes_model->getRowUjian(['id_ujian' => $subtest,]);
+
+    $this->loadViewsAdmin("psikotes/hasil/detail_jawaban", $this->global, $data, NULL);
+  }
 
 }

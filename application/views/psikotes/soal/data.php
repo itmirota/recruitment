@@ -68,7 +68,7 @@
                   <?php } ?>
                 </td>
                 <td class="text-center">
-                <a type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal-edit" onclick="editData(<?=$ld->id_soalPsikotes?>)"><i class="fa fa-pencil"></i></a>
+                <a href="<?= base_url('edit-soal-psikotes/'.$ld->id_soalPsikotes)?>" class="btn btn-sm"><i class="fa fa-pencil"></i></a>
                 <a type="button" class="btn btn-red btn-sm btn-delete"  href="<?=base_url('soalPsikotes/delete/'.$ld->id_soalPsikotes)?>" name="btn_delete" style="margin:auto;" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
             <?php $no++; ?>
@@ -94,28 +94,24 @@
         <h4 class="modal-title">Tambah Soal</h4>
       </div>
       <div id="loading"></div>
-      <form action="<?=base_url('soalPsikotes/save')?>" role="form" method="post">
+      <form action="<?=base_url('soalPsikotes/save')?>" role="form" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="mb-3">
             <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
-            <select class="form-select" name="kategoriPsikotes_id" aria-label="Default select example">
+            <select class="form-select" name="id_kategori_add" id="id_kategori_add" onchange="FormAddKategori()">
               <option value="" disabled selected>Pilih Kategori</option>
               <?php foreach($kategori as $k){?>
               <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
               <?php } ?>
             </select>
-            <span style="color:red"><?= form_error('kategoriPsikotes_id'); ?></span>
+            <span style="color:red"><?= form_error('id_kategori_add'); ?></span>
           </div>
 
           <div class="mb-3">
             <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
-            <select class="form-select" name="kategoriPsikotes_id" aria-label="Default select example">
-              <option value="" disabled selected>Pilih Kategori</option>
-              <?php foreach($kategori as $k){?>
-              <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
-              <?php } ?>
+            <select class="form-select" id="ujian_add" name="ujian_add" aria-label="Default select example">
             </select>
-            <span style="color:red"><?= form_error('kategoriPsikotes_id'); ?></span>
+            <span style="color:red"><?= form_error('ujian_add'); ?></span>
           </div>
           
           <div class="mb-3">  
@@ -125,7 +121,10 @@
             <textarea name="soal" class="form-control summernote"><?= set_value('soal') ?></textarea>
             <span style="color:red"><?= form_error('soal'); ?></span>
           </div>
-          
+          <div class="mb-3">  
+            <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Jumlah Opsi :</label>
+            <input class="form-control mb-3" type="text" id="jumlah_opsi" name="jumlah_opsi">
+          </div>
           <?php
           $abjad = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
           foreach($abjad as $abj){ 
@@ -238,8 +237,20 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.EDIT DATA ---->
-
 <script>
+  $('.summernote').summernote({
+    tabsize: 2,
+    height: 120,
+    toolbar: [
+    ['style', ['style']],
+    ['font', ['bold', 'underline', 'clear']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['table', ['table']],
+    ['insert', ['link', 'picture', 'video']],
+    ['view', ['fullscreen', 'codeview', 'help']]
+    ]
+  });
 
   function editData($id){
     $.ajax({
@@ -249,8 +260,8 @@
       success:function(hasil){
         // document.getElementById("id_soalPsikotes").value = hasil.id_soalPsikotes;
         document.getElementById("kategoriPsikotes_id").value = hasil.kategoriPsikotes_id;
-        document.getElementById("soal").value = hasil.soal;
-        document.getElementById("jawaban_a").summernote('code', 'hello world');
+        // document.getElementById("soal").value = hasil.soal;
+        // $soal = document.getElementById("soal").summernote('code', 'hello world');
       }
     });
   }
@@ -278,17 +289,49 @@
     });
   }
 
-  $('.summernote').summernote({
-    tabsize: 2,
-    height: 120,
-    toolbar: [
-    ['style', ['style']],
-    ['font', ['bold', 'underline', 'clear']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['table', ['table']],
-    ['insert', ['link', 'picture', 'video']],
-    ['view', ['fullscreen', 'codeview', 'help']]
-    ]
-  });
+  function FormAddKategori(){
+    let kategori = $("#id_kategori_add").val();
+    $.ajax({
+      type : "POST",
+      dataType : "JSON",
+      url:"<?php echo site_url("soalPsikotes/getUjianByKategori")?>/"+kategori,
+      success : function(data){
+
+        let html = ' ';
+        let i;
+
+        html += 
+            '<option>---pilih subtest---</option>';
+        for ( i=0; i < data.length ; i++){
+            html += 
+            '<option value="'+ data[i].id_ujian +'">'+ data[i].nama_ujian +'</option>';
+        }
+
+        $("#ujian_add").html(html);
+      }
+    });
+  }
+
+  function pilihanGanda(){
+    let abjad = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    let jumlah_opsi = $("#jumlah_opsi").val();
+
+    let length = jumlah_opsi - 1;
+
+    for(i=0; i <= length;i++){
+      let ABJ = strtoupper($abj); // Abjad Kapital
+
+      html += '<div class="mb-3">';  
+      html += '<label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Jawaban '+$ABJ+'</label>';
+      html += '<input class="form-control mb-3" type="file" name="'+$abj+'">';
+      html += '<span style="color:red"><?= form_error('file_<?= $abj; ?>'); ?></span>';
+      html += '<textarea name="jawaban_<?= $abj; ?>" class="form-control summernote"><?= set_value('jawaban_<?= $abj; ?>') ?></textarea>';
+      html += '<span style="color:red"><?= form_error('jawaban_<?= $abj; ?>'); ?></span>';
+      html += '</div>';
+    }
+    
+    // $("#pilihan_add").html(html);
+  }
+
+
 </script>

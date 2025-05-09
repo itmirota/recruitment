@@ -26,6 +26,7 @@ class User extends BaseController
     $kandidat = $this->kandidat_id;
 
     $data['histori_pelamar'] = $this->pelamar_model->GetDataByWhere(['kandidat_id' => $kandidat]);
+    $data['pelamar'] = $this->pelamar_model->GetDataById(['kandidat_id' => $kandidat]);
 
 		$this->loadViews("kandidat/dashboard", $this->global, $data, NULL);
   }

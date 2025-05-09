@@ -19,6 +19,8 @@ $route['logout'] = 'auth/logout';
 $route['login/user'] = 'auth/login';
 $route['halaman-pelamar'] = 'user/dashboardUser';
 $route['Biodata'] = 'kandidat/biodata';
+$route['list-pelamar'] = 'kandidat/list_pelamar';
+
 
 // ADMIN
 $route['halaman-admin'] = 'user/dashboardAdmin';
@@ -32,6 +34,9 @@ $route['psikotes-online'] = 'ujianPsikotes/data_psikotes';
 $route['kategori-psikotes'] = 'kategoriPsikotes/list_kategoriPsikotes';
 // soal
 $route['soal-psikotes'] = 'soalPsikotes/list_soalPsikotes';
+$route['edit-soal-psikotes/(:num)'] = 'soalPsikotes/form_update/$1';
+$route['update-soal-psikotes/(:num)'] = 'soalPsikotes/update/$1';
+
 // ujian
 $route['ujian-psikotes'] = 'ujianPsikotes/list_ujianPsikotes';
 $route['detail-ujian/(:any)'] = 'ujianPsikotes/detailujianPsikotes/$1';
@@ -39,6 +44,11 @@ $route['detail-ujian'] = 'ujianPsikotes/detailujianPsikotes';
 // $route['ujian'] = 'ujianPsikotes/ujian'; 
 $route['ujian/(:any)/(:any)'] = 'ujianPsikotes/ujian/$1/$2';  
 $route['ujian'] = 'ujianPsikotes/ujian';  
+
+// Hasil
+$route['hasil-psikotes'] = 'ujianPsikotes/hasil'; 
+$route['detail-hasil'] = 'ujianPsikotes/detail_hasil';
+$route['detail-jawaban'] = 'ujianPsikotes/detail_jawaban';
 
 $route['404_override'] = '';
 

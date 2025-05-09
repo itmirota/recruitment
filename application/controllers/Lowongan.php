@@ -159,4 +159,20 @@ public function detaillowongan(){
 
     redirect('halaman-pelamar');
   }
+
+  public function updateStatus(){
+    $kandidat = $this->input->get('kandidat');
+    $status = $this->input->get('status');
+
+    $this->crud_model->update(['kandidat_id'=>$kandidat],['status_pelamar'=>$status],'tbl_pelamar');
+    redirect('list-pelamar');
+  }
+
+  public function updateProgres(){
+    $id_kandidat = $this->input->post('id_kandidat');
+    $keterangan = $this->input->post('keterangan');
+
+    $this->crud_model->update(['kandidat_id'=>$id_kandidat],['keterangan'=>$keterangan],'tbl_pelamar');
+    redirect('list-pelamar');
+  }
 }

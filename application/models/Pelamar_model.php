@@ -2,12 +2,14 @@
 
 class Pelamar_model extends CI_Model
 {
-    function ShowData($parameter,$table){
-        $this->db->select($parameter);
-        $this->db->from($table);
+    function GetData(){
+        $this->db->select('*, DATE(datecreated) as tgl_melamar, TIME(datecreated) as waktu_melamar');
+        $this->db->from('tbl_pelamar a');
+        $this->db->join('tbl_kandidat b','a.kandidat_id = b.id_kandidat');
+        $this->db->join('tbl_lowongan c', 'a.lowongan_id = c.id_lowongan');
         $query = $this->db->get();
 
-        return $query->row();
+        return $query->result();
     }
 
     function GetDataByWhere($where){
@@ -21,9 +23,11 @@ class Pelamar_model extends CI_Model
         return $query->result();
     }
 
-    function GetDataById($where,$table){
+    function GetDataById($where){
         $this->db->select('*');
-        $this->db->from($table);
+        $this->db->from('tbl_pelamar a');
+        $this->db->join('tbl_kandidat b','a.kandidat_id = b.id_kandidat');
+        $this->db->join('tbl_lowongan c', 'a.lowongan_id = c.id_lowongan');
 		$this->db->where($where);
         $query = $this->db->get();
 
