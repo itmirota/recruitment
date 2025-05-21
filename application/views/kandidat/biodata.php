@@ -18,9 +18,6 @@
               <button class="nav-link" id="Data-diri" data-bs-toggle="pill" data-bs-target="#datadiri" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Data Diri</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="Data-keluarga" data-bs-toggle="pill" data-bs-target="#datakeluarga" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Data Keluarga</button>
-          </li>
-          <li class="nav-item" role="presentation">
               <button class="nav-link" id="riwayat-pendidikan" data-bs-toggle="pill" data-bs-target="#riwayatpendidikan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Riwayat Pendidikan</button>
           </li>
@@ -37,13 +34,16 @@
                 Media Sosial</button>
           </li>
           <li class="nav-item" role="presentation">
+              <button class="nav-link" id="Data-keluarga" data-bs-toggle="pill" data-bs-target="#datakeluarga" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Data Keluarga</button>
+          </li>
+          <li class="nav-item" role="presentation">
               <button class="nav-link" id="lain-lain" data-bs-toggle="pill" data-bs-target="#keterangan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Keterangan Lain</button>
           </li>
-          <li class="nav-item" role="presentation">
+          <!-- <li class="nav-item" role="presentation">
               <button class="nav-link" id="document-pendukung" data-bs-toggle="pill" data-bs-target="#berkas" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Dokumen Pendukung</button>
-          </li>
+          </li> -->
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade <?= $page == 'Data-diri' ? 'show active':''?>" id="datadiri" role="tabpanel" aria-labelledby="Data-diri" tabindex="0">
@@ -203,85 +203,6 @@
           </div>
         </div>
 
-        <!-- Data Keluarga -->
-        <div class="tab-pane fade <?= $page == 'Data-keluarga' ? 'show active':''?>" id="datakeluarga" role="tabpanel" aria-labelledby="Data-keluarga" tabindex="0"> 
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-end mb-3">
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-keluarga">Tambah Data</button>
-              </div>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama Keluarga</th>
-                    <th scope="col">Hubungan</th>
-                    <th scope="col">Kontak</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $no=1;
-                  foreach($data_keluarga as $data){
-                  ?>
-                  <tr>
-                    <th scope="row"><?=$no?></th>
-                    <td><?=$data->nama_keluarga?></td>
-                    <td><?=$data->hubungan_keluarga?></td>
-                    <td><?=$data->no_hp?></td>
-                    <td><button type="button" class="btn btn-success"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
-                    <button type="button" class="btn btn-danger"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
-                  </td>
-                  </tr>
-                  <?php }?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- //FORM KELUARGA -->
-          <div class="modal fade" id="modal-keluarga" tabindex="-1" aria-labelledby="modal-keluarga" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="datakeluarga">Tambahkan Data Keluarga</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="<?=base_url('kandidat/save_keluarga')?>" role="form" method="post">
-                <div class="modal-body">
-                  <div class="mb-3">
-                      <label for="nama_keluarga" class="form-label">Nama Lengkap</label>
-                      <input type="text" class="form-control" name="nama_keluarga">
-                  </div>
-                  <div class="mb-3">
-                      <label for="hubungan_keluarga" class="form-label">Hubungan Keluarga</label>
-                      <select class="form-select" aria-label="hubungan_keluarga" name="hubungan_keluarga">
-                        <option selected>-- Pilih Hubungan --</option>
-                        <option value="ayah">Ayah</option>
-                        <option value="ibu">Ibuk</option>
-                        <option value="saudara">Saudara Kandung</option>
-                        <option value="pasangan">Pasangan</option>
-                        <option value="anak">Anak</option>
-                      </select>
-                  </div>
-                  <div class="mb-3">
-                      <label for="no_hp" class="form-label">Kontak yang bisa dihubungi</label>
-                      <input type="text" class="form-control" name="no_hp">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
-                </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- //FORM KELUARGA -->
-
-        </div>
-
         <!-- //data pendidikan -->
         <div class="tab-pane fade <?= $page == 'riwayat-pendidikan' ? 'show active':''?>" id="riwayatpendidikan" role="tabpanel" aria-labelledby="riwayat-pendidikan" tabindex="0">
           <div class="card">
@@ -403,13 +324,13 @@
                     <td><?= $data->lembaga_sertifikasi?></td>
                     <td><?= $data->tanggal_sertifikasi?></td>
                     <td><?= $data->biaya_sertifikasi?></td>
-                    <td><button type="button" class="btn btn-success"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
-                    <button type="button" class="btn btn-danger"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
+                    <td><a href="<?= base_url() ?>" class="btn btn-sm btn-success">Edit</a>
+                    <a href="<?= base_url() ?>" class="btn btn-sm btn-danger">Delete</a>
                   </td>
                   </tr>
-                  <?php } ?>
+                  <?php 
+                  $no++;
+                  } ?>
                 </tbody>
               </table>
             </div>
@@ -508,7 +429,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNomor" class="form-label">Divisi Bagian</label>
-                    <input type="text" class="form-control" name="jabatan_pengalaman">
+                    <input type="text" class="form-control" name="divisi_pengalaman">
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNomor" class="form-label">Jabatan</label>
@@ -595,6 +516,85 @@
           </div>
         </div>
         <!-- ///Data keterangan lain -->
+
+        <!-- Data Keluarga -->
+        <div class="tab-pane fade <?= $page == 'Data-keluarga' ? 'show active':''?>" id="datakeluarga" role="tabpanel" aria-labelledby="Data-keluarga" tabindex="0"> 
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-end mb-3">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-keluarga">Tambah Data</button>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Keluarga</th>
+                    <th scope="col">Hubungan</th>
+                    <th scope="col">Kontak</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no=1;
+                  foreach($data_keluarga as $data){
+                  ?>
+                  <tr>
+                    <th scope="row"><?=$no?></th>
+                    <td><?=$data->nama_keluarga?></td>
+                    <td><?=$data->hubungan_keluarga?></td>
+                    <td><?=$data->no_hp?></td>
+                    <td><button type="button" class="btn btn-success"
+                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
+                    <button type="button" class="btn btn-danger"
+                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
+                  </td>
+                  </tr>
+                  <?php }?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- //FORM KELUARGA -->
+          <div class="modal fade" id="modal-keluarga" tabindex="-1" aria-labelledby="modal-keluarga" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="datakeluarga">Tambahkan Data Keluarga</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?=base_url('kandidat/save_keluarga')?>" role="form" method="post">
+                <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="nama_keluarga" class="form-label">Nama Lengkap</label>
+                      <input type="text" class="form-control" name="nama_keluarga">
+                  </div>
+                  <div class="mb-3">
+                      <label for="hubungan_keluarga" class="form-label">Hubungan Keluarga</label>
+                      <select class="form-select" aria-label="hubungan_keluarga" name="hubungan_keluarga">
+                        <option selected>-- Pilih Hubungan --</option>
+                        <option value="ayah">Ayah</option>
+                        <option value="ibu">Ibuk</option>
+                        <option value="saudara">Saudara Kandung</option>
+                        <option value="pasangan">Pasangan</option>
+                        <option value="anak">Anak</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="no_hp" class="form-label">Kontak yang bisa dihubungi</label>
+                      <input type="text" class="form-control" name="no_hp">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- //FORM KELUARGA -->
+
+        </div>
         
         <div class="tab-pane fade <?= $page == 'lain-lain' ? 'show active':''?>" id="keterangan" role="tabpanel" aria-labelledby="lain-lain" tabindex="0">
           <div class="card">
@@ -746,7 +746,7 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="berkas" role="tabpanel" aria-labelledby="document-pendukung" tabindex="0">
+        <!-- <div class="tab-pane fade" id="berkas" role="tabpanel" aria-labelledby="document-pendukung" tabindex="0">
           <div class="card">
             <div class="card-body p-4">
               <form action="<?=base_url('kandidat/save_document_pendukung')?>" role="form" method="post" enctype="multipart/form-data">
@@ -774,7 +774,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

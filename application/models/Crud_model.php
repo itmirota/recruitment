@@ -36,6 +36,16 @@ class Crud_model extends CI_Model
         return $query->row();
     }
 
+        function GetDataByIdOrder($where,$table,$orderParam,$order){
+        $this->db->select('*');
+        $this->db->from($table);
+		$this->db->where($where);
+		$this->db->order_by($orderParam,$order);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
     function GetDataByDate($param, $where,$table){
         $this->db->select('*');
         $this->db->from($table);
@@ -82,7 +92,9 @@ class Crud_model extends CI_Model
 
     function input($data,$table)
     {
-        $this->db->insert($table,$data);
+        $query = $this->db->insert($table,$data);
+
+        return $query;
     }
 
     function update($where,$data,$table){

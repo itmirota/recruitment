@@ -4,7 +4,7 @@
     <div id="carouselExampleInterval" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="3000">
-          <img src="<?= base_url().'assets/dist/images/building.jpg'?>" class="d-block w-100 img-carousel">
+          <img src="<?= base_url().'assets/dist/images/mirotaksm.jpg'?>" class="d-block w-100 img-carousel">
           <div class="text-block">
             <h1 class="text-carousel-tittle">Are You Ready to Make Impact?</h1>
             <p>Be apart of something bigger than yourself! weare looking motivated individuals who are eager to learn and grow with us. join our team and unleash your potential</p>
@@ -41,7 +41,7 @@
       </div>
       <div class="d-flex align-items-center content-image">
         <figure class="img-tentangkami">
-         <img src="<?= base_url().'assets/dist/images/building.jpg'?>" class="imagetentangkami">
+         <img src="<?= base_url().'assets/dist/images/activities.png'?>" class="imagetentangkami">
         </figure>
         <div class="bg-circle-1">
         </div>
@@ -56,7 +56,7 @@
     <div class="row">
       <div class="col-md-6 content-image">
         <figure>
-          <img src="<?= base_url().'assets/dist/images/cs-call.jpg'?>" class="imagekontakkami">
+          <img src="<?= base_url().'assets/dist/images/all_product.png'?>" class="imagekontakkami">
         </figure>
         <div class="bg-circle-1">
         </div>

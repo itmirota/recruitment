@@ -7,6 +7,14 @@
 <footer class="text-center text-lg-start text-white">
 <!-- Grid container -->
 <div class=" p-4 pb-0">
+    <div class="container">
+    <div class="col-3">
+        <h3><strong>PT. Mirota KSM</strong></h3>
+    <p>Jl. Anggrek No.141 Sambelegi Kidul, Maguwoharjo, Sambelegi Kidul, Kabupaten, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</p>
+    <p>(0274)-4332007</p>
+    <p>recruitment@mirota.id</p>
+    </div>
+
     <hr class="my-3">
 
     <!-- Section: Copyright -->
@@ -16,9 +24,9 @@
         <div class="col-md-2 col-lg-3 text-center text-md-start">
         <!-- Copyright -->
         <div>
-            © 2023
+            © <?= DATE('Y')?>
             <a class="text-white" href="https://mirota.id/"
-                >Mirota KSM</a
+                >IT Mirota KSM</a
             >
         </div>
         <!-- Copyright -->
@@ -80,6 +88,8 @@
     <!-- Section: Copyright -->
 </div>
 <!-- Grid container -->
+    </div>
+
 </footer>
 <!-- Footer -->
 <?php } ?> 

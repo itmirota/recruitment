@@ -56,9 +56,9 @@ public function detaillowongan(){
   $this->global['pageTitle'] = 'Mirota KSM | Detail Lowongan Kerja';
 
   $data = array(
-      'list_data'   => $this->crud_model->GetRowById(['id_lowongan' => $id_lowongan],'tbl_lowongan'),
-      'id_lowongan' => $this->uri->segment(3),
-    );
+    'list_data'   => $this->crud_model->GetRowById(['id_lowongan' => $id_lowongan],'tbl_lowongan'),
+    'id_lowongan' => $this->uri->segment(3),
+  );
 
   $this->loadViewsAdmin("lowongan/edit_data", $this->global, $data , NULL);
   }
@@ -170,9 +170,29 @@ public function detaillowongan(){
 
   public function updateProgres(){
     $id_kandidat = $this->input->post('id_kandidat');
+    $id_lowongan = $this->input->post('id_lowongan');
     $keterangan = $this->input->post('keterangan');
+    $tanggal = $this->input->post('tanggal');
 
-    $this->crud_model->update(['kandidat_id'=>$id_kandidat],['keterangan'=>$keterangan],'tbl_pelamar');
+    $data = array(
+      'id_kandidat' => $id_kandidat,
+      'id_lowongan' => $id_lowongan,
+      'keterangan' => $keterangan,
+      'tanggal' => $tanggal,
+    );
+
+    $this->crud_model->update(['kandidat_id'=>$id_kandidat],['keterangan'=>$keterangan, 'status_pelamar' => 0],'tbl_pelamar');
+    $this->inputHistory($data);
     redirect('list-pelamar');
+  }
+
+  public function inputHistory($data){
+    $data = array(
+      'kandidat_id' => $data['id_kandidat'],
+      'lowongan_id' => $data['id_lowongan'],
+      'keterangan_progres' => $data['keterangan'],
+      'tanggal_progres' => $data['tanggal'],
+    );
+    $query = $this->crud_model->input($data,'tbl_progres_pelamar');
   }
 }

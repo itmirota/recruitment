@@ -139,7 +139,7 @@ class SoalPsikotes extends BaseController
 
     // Inputan Opsi
     foreach ($abjad as $abj) {
-      $data['opsi_' . $abj]    = $this->input->post('opsi_' . $abj, true);
+      $data['opsi_' . $abj]    = $this->input->post('jawaban_' . $abj, true);
     }
 
     $i = 0;
@@ -152,11 +152,12 @@ class SoalPsikotes extends BaseController
             // $error = $this->upload->display_errors();
             // show_error($error, 500, 'File Soal Error');
             // exit();
-            $data['file'] = $cek->file;
           } else {
             $data['file'] = $this->upload->data('file_name');
             $data['tipe_file'] = $this->upload->data('file_type');
           }
+        }else{
+          $data['file'] = $cek->file;
         }
       } else {
         $file_abj = 'file_' . $abjad[$i];
@@ -169,12 +170,16 @@ class SoalPsikotes extends BaseController
           } else {
             $data[$file_abj] = $this->upload->data('file_name');
           }
+        }else{
+          $data[$file_abj] = $cek->$file_abj;
         }
         $i++;
       }
     }
 
-    $this->crud_model->update('id_soalPsikotes='.$id, $data, 'tbl_psikotes_soa');
+    var_dump($_FILES['file_soal']['name']);
+
+    $this->crud_model->update('id_soalPsikotes='.$id, $data, 'tbl_psikotes_soal');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
 
     redirect('soal-psikotes');

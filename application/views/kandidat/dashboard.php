@@ -10,25 +10,27 @@
           <div class="col-md-6 mb-4">
           <div class="card">
             <div class="card-body d-flex flex-wrap justify-content-center">
-              <?php if($pelamar->status_pelamar != 0){?>
+              <?php if (isset($pelamar->status_pelamar)){?>
               <div class="p-2">
-                <span style="font-size:50px;" class="text-<?= $pelamar->status_pelamar == 1 ?'success':'danger' ?>">
-                  <i class="fa fa-solid <?= $pelamar->status_pelamar == 1 ?'fa-circle-check':'fa-circle-xmark' ?>"></i>
+                <span style="font-size:50px;" class="text-<?= ($pelamar->status_pelamar == 0 ? 'primary': ($pelamar->status_pelamar == 1 ? 'success' : 'danger')) ?>">
+                  <i class="fa fa-solid <?= ($pelamar->status_pelamar == 0 ?'fa-circle-info': ($pelamar->status_pelamar == 1 ? 'fa-circle-check' : 'fa-circle-xmark')) ?>"></i>
                 </span>
               </div>
               <div class="p-2">
-                <h1 class="text-header text-<?= $pelamar->status_pelamar == 1 ?'success':'danger' ?> mb-0">
-                  <?= $pelamar->status_pelamar == 1 ?'Selamat Anda Lolos':'Maaf Anda Tidak Lolos' ?>
+                <h1 class="text-header <?= $pelamar->status_pelamar == 2 ? 'text-center' : ''?> text-<?= ($pelamar->status_pelamar == 0 ? 'primary':($pelamar->status_pelamar == 1 ? 'success' : 'danger')) ?> mb-0">
+                  <?= ($pelamar->status_pelamar == 0 ?'Selamat! Anda Lolos Ke Tahap': ($pelamar->status_pelamar == 1 ? 'Selamat! Anda Lolos' : 'Maaf, Anda Belum Terpilih dalam Seleksi Ini. Tetap Semangat & Pantang Menyerah!')) ?>
                 </h1>
-                <h1 class="text-header text-<?= $pelamar->status_pelamar == 1 ?'success':'danger' ?> m-0">
+                <?php if ($pelamar->status_pelamar != 2) {?>
+                <h1 class="text-header text-<?= ($pelamar->status_pelamar == 0 ?'primary':($pelamar->status_pelamar == 1 ? 'success' : 'danger')) ?> m-0">
                   <?= $pelamar->keterangan ?>
                 </h1>
-                <p class="text-<?= $pelamar->status_pelamar == 1 ?'success':'danger' ?> mt-0">
+                <p class="text-<?= ($pelamar->status_pelamar == 0 ? 'primary': ($pelamar->status_pelamar == 1 ? 'success' : 'danger')) ?> mt-0">
                 <?= $pelamar->nama_lowongan ?>
                 </p>
+                <?php }?>
               </div>
-              <?php }else{ ?>
-                tidak ada informasi
+              <?php } else { ?> 
+              tidak ada informasi
               <?php } ?>
             </div>
           </div>
@@ -45,7 +47,7 @@
                 <h1 class="text-header text-blue mb-0">
                   Ujian Psikotes Online
                 </h1>
-                <a href="<?= base_url('psikotes-online')?>" class="btn btn-sm btn-biru mt-2">Psikotest Online</a>
+                <a href="<?= base_url('psikotes-online')?>" class="btn btn-sm btn-biru mt-2">Mulai Ujian</a>
               </div>
               <!-- <div class="p-0">
                 <span class="text-grey">

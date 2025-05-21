@@ -244,7 +244,7 @@ class kandidat extends BaseController
 
     $this->crud_model->input($data, 'tbl_kandidat_sertifikasi');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'riwayat-pendidikan');
+    $this->session->set_userdata('page', 'sertifikat');
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
@@ -254,9 +254,10 @@ class kandidat extends BaseController
   {
     $id_kandidat = $this->kandidat_id;
     $perusahaan = $this->input->post('nama_perusahaan');
-    $jenis = $this->input->post("jenis_kariyawan");
+    $divisi_pengalaman = $this->input->post("divisi_pengalaman");
     $jabatan = $this->input->post('jabatan_pengalaman');
-    $masa_kerja = $this->input->post('masa_kerja');
+    $tgl_masuk = $this->input->post('tgl_masuk');
+    $tgl_keluar = $this->input->post('tgl_keluar');
     $referensi = $this->input->post('nomor_referensi');
 
 
@@ -264,18 +265,19 @@ class kandidat extends BaseController
       //Data pengalman kerja
       'kandidat_id' => $id_kandidat,
       'nama_perusahaan' => $perusahaan,
-      'jenis_kariyawan' => $jenis,
-      'jabatan_pengalaman' => $jabatan,
-      'masa_kerja' => $masa_kerja,
+      'divisi_bagian' => $divisi_pengalaman,
+      'jabatan' => $jabatan,
+      'tgl_masuk' => $tgl_masuk,
+      'tgl_keluar' => $tgl_keluar,
       'nomor_referensi' => $referensi
     );
 
     $this->crud_model->input($data, 'tbl_kandidat_pengalamankerja');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'riwayat-pendidikan');
+    $this->session->set_userdata('page', 'pengalman-kerja');
 
     $data_kandidat = $this->data();
-    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    redirect('Biodata');
   }
 
   public function save_medsos()
@@ -300,10 +302,10 @@ class kandidat extends BaseController
     );
     $this->crud_model->update($where, $data, 'tbl_kandidat');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'riwayat-pendidikan');
+    $this->session->set_userdata('page', 'medsos');
 
     $data_kandidat = $this->data();
-    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    redirect('Biodata');
   }
 
   public function save_keterangan()
