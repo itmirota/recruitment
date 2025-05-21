@@ -90,7 +90,7 @@
           Menu
         </li>
         <li class="sidebar-item">
-          <a href="<?php echo base_url('/dashboard');?>" class="sidebar-link">
+          <a href="<?php echo base_url('halaman-admin');?>" class="sidebar-link">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
           </a>
         </li>
