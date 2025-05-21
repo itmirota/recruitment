@@ -34,6 +34,11 @@ class User extends BaseController
   public function dashboardAdmin(){
     $this->global['pageTitle'] = 'Rekrutmen Mirota KSM';
 
-		$this->loadViewsAdmin("admin/dashboard", $this->global, NULL, NULL);
+    $data['lowongan_aktif'] = $this->pelamar_model->GetDataCount();
+    $data['kandidat_baru'] = $this->pelamar_model->GetDataKandidatLimit(5);
+    $data['total_pelamar_aktif'] = $this->pelamar_model->GetTotalPelamarAktif();
+    $data['total_lowongan_aktif'] = $this->pelamar_model->GetTotalLowonganAktif();
+
+		$this->loadViewsAdmin("admin/dashboard", $this->global, $data, NULL);
   }
 }
