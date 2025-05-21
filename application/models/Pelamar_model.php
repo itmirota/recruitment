@@ -23,6 +23,46 @@ class Pelamar_model extends CI_Model
         return $query->result();
     }
 
+    function GetDataCount(){
+        $this->db->select('*, COUNT(kandidat_id) as jml_pelamar');
+        $this->db->from('tbl_pelamar a');
+        $this->db->join('tbl_kandidat b','a.kandidat_id = b.id_kandidat');
+        $this->db->join('tbl_lowongan c', 'a.lowongan_id = c.id_lowongan');
+        $this->db->group_by('a.lowongan_id');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    function GetTotalPelamarAktif(){
+        $this->db->select('COUNT(kandidat_id) as total');
+        $this->db->from('tbl_pelamar a');
+        $this->db->where('status_pelamar != 2');
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    function GetTotalLowonganAktif(){
+        $this->db->select('COUNT(id_lowongan) as total, tgl_akhir');
+        $this->db->from('tbl_lowongan');
+        $this->db->WHERE ('tgl_akhir >=',DATE('Y-m-d'));
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    function GetDataKandidatLimit($limit){
+        $this->db->select("*, DATE(datecreated) as tgl_melamar");
+        $this->db->from('tbl_pelamar a');
+        $this->db->join('tbl_kandidat b','a.kandidat_id = b.id_kandidat');
+        $this->db->join('tbl_lowongan c', 'a.lowongan_id = c.id_lowongan');
+        $this->db->limit($limit);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
     function GetDataById($where){
         $this->db->select('*');
         $this->db->from('tbl_pelamar a');
