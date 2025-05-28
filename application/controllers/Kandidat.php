@@ -28,18 +28,6 @@ class kandidat extends BaseController
 		}
   }
 
-  public function data(){
-    $id = $this->kandidat_id;
-
-    $data['data_diri'] = $this->crud_model->GetDataById(['id_kandidat' => $id],'tbl_kandidat');
-    $data['data_keluarga'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_keluarga');
-    $data['data_pendidikan'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pendidikan');
-    $data['data_pengalaman'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pengalamankerja');
-    $data['data_sertifikasi'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_sertifikasi');
-
-    return $data;
-  }
-
   /**
    * Index Page for this controller.
    */
@@ -47,6 +35,25 @@ class kandidat extends BaseController
   {
     $this->global['pageTitle'] = 'Rekrutmen Mirota KSM';
     $this->loadViews("kandidat/form", $this->global, NULL, NULL);
+  }
+
+  public function biodata()
+  {
+    $page = $this->input->get('p');
+    $id = $this->kandidat_id;
+
+    $data['page'] = isset($page) ? $page : 'Data-diri';
+    $data['data_diri'] = $this->crud_model->GetDataById(['id_kandidat' => $id],'tbl_kandidat');
+    $data['data_keluarga'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_keluarga');
+    $data['data_pendidikan'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pendidikan');
+    $data['data_pengalaman'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pengalamankerja');
+    $data['data_sertifikasi'] = $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_sertifikasi');
+
+    $this->global['pageTitle'] = 'Rekrutmen Mirota KSM';
+    $id = $this->kandidat_id;
+    // $this->session->set_userdata('page', 'Data-diri');
+    
+    $this->loadViews("kandidat/biodata", $this->global, $data, NULL);
   }
 
   public function save()
@@ -189,10 +196,11 @@ class kandidat extends BaseController
 
     $this->crud_model->input($data, 'tbl_kandidat_keluarga');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'Data-keluarga');
+    // $this->session->set_userdata('page', 'Data-keluarga');
 
-    $data_kandidat = $this->data();
-    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    // $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    redirect('Biodata?p=Data-keluarga');
+    
   }
 
   public function save_pendidikan()
@@ -404,17 +412,6 @@ class kandidat extends BaseController
 
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
-  }
-
-  public function biodata()
-  {
-    $data = $this->data();
-
-    $this->global['pageTitle'] = 'Rekrutmen Mirota KSM';
-    $id = $this->kandidat_id;
-    $this->session->set_userdata('page', 'Data-diri');
-    
-    $this->loadViews("kandidat/biodata", $this->global, $data, NULL);
   }
 
   public function list_pelamar(){

@@ -1,6 +1,3 @@
-<?php $page = $this->session->userdata('page');?>
-<div id="page" data-id="<?= isset($page) ? $page:'Data-diri'?>"></div>
-<div class="flash-data" data-page="<?= $this->session->userdata('page')?>"></div>
 <div class="lowongan">
   <!-- PARALAX -->
   <div class="parallax">
@@ -15,29 +12,29 @@
     <div class="container">
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist ">
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="Data-diri" data-bs-toggle="pill" data-bs-target="#datadiri" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Data Diri</button>
+              <button class="nav-link <?= $page == 'Data-diri' ? 'active':''?>" id="Data-diri" data-bs-toggle="pill" data-bs-target="#datadiri" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Data Diri</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="riwayat-pendidikan" data-bs-toggle="pill" data-bs-target="#riwayatpendidikan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'riwayat-pendidikan' ? 'active':''?>" id="riwayat-pendidikan" data-bs-toggle="pill" data-bs-target="#riwayatpendidikan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Riwayat Pendidikan</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sertifikat" data-bs-toggle="pill" data-bs-target="#Sertifikasi" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'sertifikat' ? 'active':''?>" id="sertifikat" data-bs-toggle="pill" data-bs-target="#Sertifikasi" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Sertifikasi</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pengalman-kerja" data-bs-toggle="pill" data-bs-target="#pengalaman" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'pengalman-kerja' ? 'active':''?>" id="pengalman-kerja" data-bs-toggle="pill" data-bs-target="#pengalaman" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Pengalaman Kerja</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="medsos" data-bs-toggle="pill" data-bs-target="#akun" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'medsos' ? 'active':''?>" id="medsos" data-bs-toggle="pill" data-bs-target="#akun" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Media Sosial</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="Data-keluarga" data-bs-toggle="pill" data-bs-target="#datakeluarga" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Data Keluarga</button>
+              <button class="nav-link <?= $page == 'Data-keluarga' ? 'active':''?>" id="Data-keluarga" data-bs-toggle="pill" data-bs-target="#datakeluarga" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Data Keluarga</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link" id="lain-lain" data-bs-toggle="pill" data-bs-target="#keterangan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'lain-lain' ? 'active':''?>" id="lain-lain" data-bs-toggle="pill" data-bs-target="#keterangan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Keterangan Lain</button>
           </li>
           <!-- <li class="nav-item" role="presentation">
@@ -388,7 +385,6 @@
                     <th scope="col">Jabatan</th>
                     <th scope="col">Tanggal Masuk</th>
                     <th scope="col">Tanggal Keluar</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -397,18 +393,21 @@
                   $no = 1;
                   foreach($data_pengalaman as $data){?>
                   <tr>
-                    <th scope="row"><?php $no ?></th>
-                    <td><?php $data->divisi_bagian ?></td>
-                    <td><?php $data->jabatan ?></td>
-                    <td><?php $data->tgl_masuk ?></td>
-                    <td><?php $data->tgl_keluar ?></td>
+                    <th scope="row"><?= $no ?></th>
+                    <td><?= $data->divisi_bagian ?></td>
+                    <td><?= $data->divisi_bagian ?></td>
+                    <td><?= $data->jabatan ?></td>
+                    <td><?= $data->tgl_masuk ?></td>
+                    <td><?= $data->tgl_keluar ?></td>
                     <td><button type="button" class="btn btn-success"
                     style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
                     <button type="button" class="btn btn-danger"
                     style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
                     </td>
                   </tr>
-                  <?php } ?>
+                  <?php 
+                  $no++;
+                  } ?>
                 </tbody>
               </table>
             </div>
@@ -550,7 +549,49 @@
                     style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
                   </td>
                   </tr>
-                  <?php }?>
+
+                    <!-- //MODAL EDIT -->
+                    <div class="modal fade" id="edit-keluarga" tabindex="-1" aria-labelledby="edit-keluarga" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="datakeluarga">Tambahkan Data Keluarga</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="<?=base_url('kandidat/save_keluarga')?>" role="form" method="post">
+                          <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nama_keluarga" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" name="nama_keluarga">
+                            </div>
+                            <div class="mb-3">
+                                <label for="hubungan_keluarga" class="form-label">Hubungan Keluarga</label>
+                                <select class="form-select" aria-label="hubungan_keluarga" name="hubungan_keluarga">
+                                  <option selected>-- Pilih Hubungan --</option>
+                                  <option value="ayah">Ayah</option>
+                                  <option value="ibu">Ibuk</option>
+                                  <option value="saudara">Saudara Kandung</option>
+                                  <option value="pasangan">Pasangan</option>
+                                  <option value="anak">Anak</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="no_hp" class="form-label">Kontak yang bisa dihubungi</label>
+                                <input type="text" class="form-control" name="no_hp">
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- //MODAL EDIT -->
+
+                  <?php 
+                  $no++;
+                  }?>
                 </tbody>
               </table>
             </div>

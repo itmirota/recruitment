@@ -32,6 +32,7 @@ $route['psikotes-online'] = 'ujianPsikotes/data_psikotes';
 
 // kategori
 $route['kategori-psikotes'] = 'kategoriPsikotes/list_kategoriPsikotes';
+
 // soal
 $route['soal-psikotes'] = 'soalPsikotes/list_soalPsikotes';
 $route['edit-soal-psikotes/(:num)'] = 'soalPsikotes/form_update/$1';
@@ -39,6 +40,7 @@ $route['update-soal-psikotes/(:num)'] = 'soalPsikotes/update/$1';
 
 // ujian
 $route['ujian-psikotes'] = 'ujianPsikotes/list_ujianPsikotes';
+$route['edit-ujian/(:any)'] = 'ujianPsikotes/formEdit/$1';
 $route['detail-ujian/(:any)'] = 'ujianPsikotes/detailujianPsikotes/$1';
 $route['detail-ujian'] = 'ujianPsikotes/detailujianPsikotes';
 // $route['ujian'] = 'ujianPsikotes/ujian'; 
