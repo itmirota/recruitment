@@ -18,20 +18,18 @@ class UjianPsikotes extends BaseController
     $this->isLoggedIn();
   }
 
-  public function getUjianByKategori(){
-    
-  }
-
   public function list_ujianPsikotes(){
     $page =$this->uri->segment(1);
 
     $this->global['pageTitle'] = 'Mirota KSM | Ujian Psikotes';
 
-    $id_kategori = $this->input->post('id_kategori');
+    $id_kategori = $this->input->get('id_kategori');
 
     $data['kategori'] = $this->crud_model->tampildata('tbl_psikotes_kategori');
     $data['list_data'] = $this->psikotes_model->getUjianWhere(['kategoriPsikotes_id' => $id_kategori]);
     $data['id_kategori'] = $id_kategori;
+    $data['detail_kategori'] = $this->crud_model->GetDataById(['id_kategoriPsikotes' => $id_kategori],'tbl_psikotes_kategori');
+    $data['max_urutan'] = $this->crud_model->GetDataByIdOrder(['kategoriPsikotes_id' => $id_kategori],'tbl_psikotes_ujian','urutan','DESC');
     $data['page'] = $page;
 
       $this->loadViewsAdmin("psikotes/ujian/data", $this->global, $data, NULL);
@@ -52,37 +50,65 @@ class UjianPsikotes extends BaseController
 
   public function save(){
 
-    $nama_ujianPsikotes = $this->input->post('nama_ujianPsikotes');
+    $nama_ujian = $this->input->post('nama_subtest');
+    $kategoriPsikotes_id = $this->input->post('id_kategori');
+    $urutan = $this->input->post('urutan');
+    $waktu = $this->input->post('durasi');
+    $jumlah_soal = $this->input->post('jml_soal');
+    $instruksi = $this->input->post('instruksi');
 
     $data = array(
-        'nama_ujianPsikotes' => $nama_ujianPsikotes,
+        'nama_ujian' => $nama_ujian,
+        'kategoriPsikotes_id' => $kategoriPsikotes_id,
+        'urutan' => $urutan,
+        'waktu' => $waktu,
+        'jumlah_soal' => $jumlah_soal,
+        'instruksi' => $instruksi,
     );
 
     $this->crud_model->input($data, 'tbl_psikotes_ujian');
     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="allert">Data Berhasil Ditambah!</div>');
 
-    redirect('ujian-psikotes');
+    redirect('ujian-psikotes?id_kategori='.$kategoriPsikotes_id);
+  }
+
+  public function formEdit($id){
+    $this->global['pageTitle'] = 'Mirota KSM | Edit Kategori';
+
+    $data['ujian'] = $this->crud_model->GetDataById(['id_ujian' => $id],'tbl_psikotes_ujian');
+    $data['kategori'] = $this->crud_model->tampildata('tbl_psikotes_kategori');
+
+    $this->loadViewsAdmin("psikotes/ujian/form_edit", $this->global, $data, NULL);
   }
 
   public function update(){
     $id_ujian = $this->input->post('id_ujian');
-    $nama_ujianPsikotes = $this->input->post('nama_ujianPsikotes');
+    $nama_ujian = $this->input->post('nama_subtest');
+    $kategoriPsikotes_id = $this->input->post('id_kategori');
+    $urutan = $this->input->post('urutan');
+    $waktu = $this->input->post('durasi');
+    $jumlah_soal = $this->input->post('jml_soal');
+    $instruksi = $this->input->post('instruksi');
 
     $data = array(
-        'nama_ujianPsikotes' => $nama_ujianPsikotes,
-    );
-    $where = array(
-        'id_ujian' => $id_ujian
+        'nama_ujian' => $nama_ujian,
+        'kategoriPsikotes_id' => $kategoriPsikotes_id,
+        'urutan' => $urutan,
+        'waktu' => $waktu,
+        'jumlah_soal' => $jumlah_soal,
+        'instruksi' => $instruksi,
     );
 
-    $this->crud_model->update($where, $data, 'tbl_psikotes_ujian');
+
+    $this->crud_model->update(['id_ujian' => $id_ujian], $data, 'tbl_psikotes_ujian');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
 
-    redirect('ujian-psikotes');
+    redirect('ujian-psikotes?id_kategori='.$kategoriPsikotes_id);
   }
 
   public function delete(){
       $id_ujian = $this->uri->segment(3);
+      $kategori = $this->crud_model->GetDataById(['id_ujian' => $id_ujian],'tbl_psikotes_ujian');
 
       $where = array(
           'id_ujian' => $id_ujian
@@ -90,7 +116,7 @@ class UjianPsikotes extends BaseController
 
       $sql = $this->crud_model->delete($where, 'tbl_psikotes_ujian');
       $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus!');
-      redirect('ujian-psikotes');
+      redirect('ujian-psikotes?id_kategori='.$kategori->kategoriPsikotes_id);
   }
 
   public function detailujianPsikotes(){
