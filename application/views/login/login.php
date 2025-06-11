@@ -1,5 +1,5 @@
 <section class="login-page">
-  <div class="container d-flex flex-wrap justify-content-between">
+  <div class="container d-flex flex-wrap justify-content-between" style="padding-top:25dvh">
     <div class="col-md-6 col-sm-12" >
       <div class="alert alert-primary" role="alert">
         Pastikan data yang anda masukkan benar agar mudah diverifikasi. Pastikan dokumen yang anda upload sudah benar dan dapat terverifikasi.
