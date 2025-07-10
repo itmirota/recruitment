@@ -37,7 +37,7 @@
             <p>Kami tidak ingin berkembang sendiri, tetapi kami ingin berkembang bersama. Kami akan memberikan fasilitas supaya anda juga dapat berkembang baik dari sisi hardskill maupun softskill.</p>
             <p>Kamu siap?</p>
           </div>
-        <a href="http://" class="btn btn-biru">Lihat Lowongan</a>
+        <a href="<?= base_url('lowongan-kerja')?>" class="btn btn-biru">Lihat Lowongan</a>
       </div>
       <div class="d-flex align-items-center content-image">
         <figure class="img-tentangkami">
@@ -90,7 +90,7 @@
           </div>
           <div class="flex-grow-1 text-light ms-3">
             <span><strong>Email</strong></span>
-            <p>lactona@mirota.id</p>
+            <p>recruitment@mirota.id</p>
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@
         <!-- Grid column -->
         <div class="col-md-7 col-lg-6 text-center text-md-start">
             <!-- Manu -->
-            <div class="menu-footer">
+            <!-- <div class="menu-footer">
                 <nav>
                 <ul>
                     <li>
@@ -52,7 +52,7 @@
                 </ul>
                 </nav>
 
-            </div>
+            </div> -->
             <!-- Copyright -->
         </div>
         <!-- Grid column -->
@@ -64,6 +64,7 @@
             class="btn btn-outline-light btn-floating m-1"
             class="text-white"
             role="button"
+            href="https://www.linkedin.com/in/mirotaksm49"
             ><i class="fab fa-linkedin-in"></i></a>
 
         <!-- Twitter -->
@@ -71,6 +72,7 @@
             class="btn btn-outline-light btn-floating m-1"
             class="text-white"
             role="button"
+            href="https://www.instagram.com/lactona.skim/"
             ><i class="fab fa-instagram"></i
             ></a>
 
@@ -79,6 +81,7 @@
             class="btn btn-outline-light btn-floating m-1"
             class="text-white"
             role="button"
+            href="https://www.tiktok.com/@lactonaofficial"
             ><i class="fab fa-tiktok"></i
             ></a>
         </div>

@@ -29,6 +29,13 @@
         <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form> -->
+      <?php if (empty($list_data)) {?>
+      <div class="card">
+        <div class="card-body">
+          <p class="text-center">lowongan sedang tidak tersedia</p>
+        </div>
+      </div>
+      <?php }else{?>
       <?php foreach($list_data as $ld){ ?>
       <div class="col-md-12 mb-2">
         <div class="card">
@@ -49,6 +56,7 @@
           </div>
         </div>
       </div>
+      <?php } ?>
       <?php } ?>
 
     </div>

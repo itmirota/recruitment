@@ -43,7 +43,8 @@
               </div>
               <div class="d-flex justify-content-end mb-4">
                 <?php 
-                if (isset($nama_lengkap)) {?>
+
+                if (isset($kandidat)) {?>
                 <button class="btn btn-md btn-biru" data-bs-toggle="modal" data-bs-target="#exampleModal">Lamar Pekerjaan</button>
                 <?php }else{?>
                 <button class="btn btn-md btn-biru" data-bs-toggle="modal" data-bs-target="#login">Lamar Pekerjaan</button>
@@ -109,9 +110,9 @@
             <label for="formFile" class="form-label">Lampiran Pendukung (Pdf)</label>
             <input class="form-control" type="file" name="file_lampiran" id="file_lampiran">
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Kirim Lamaran</button>
+          <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Kirim Lamaran</button>
+          </div>
       </div>
       </form>
     </div>

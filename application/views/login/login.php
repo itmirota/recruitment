@@ -1,14 +1,17 @@
 <section class="login-page">
+  <div class="container">
+    <a href="<?= base_url()?>" class="btn btn-sm btn-biru"><i class="fa fa-solid fa-arrow-left"></i> kembali ke menu utama</a>
+  </div>
   <div class="container d-flex flex-wrap justify-content-between">
-    <div class="col-md-6 col-sm-12" >
+    <div class="col-md-4 col-sm-12" style="padding-top:10%" >
       <div class="alert alert-primary" role="alert">
         Pastikan data yang anda masukkan benar agar mudah diverifikasi. Pastikan dokumen yang anda upload sudah benar dan dapat terverifikasi.
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="p-2 col-md-6 col-sm-12">
       <div class="card card-login">
         <div class="card-body">
-          <div class="p-sm-2">
+          <div>
             <h3><strong>Masuk ke akun anda</strong></h3>
             <form action="<?= base_url('login/user');?>" method="post">
               <div class="mb-3">

@@ -6,12 +6,13 @@ class Landingpage extends BaseController {
 
 	public function __construct()
     {
-        parent::__construct();
-		$this->load->model('crud_model');
-		$nama_lengkap = $this->session->userdata ( 'nama_lengkap' );
+      parent::__construct();
+			$this->load->model('crud_model');
+			$this->load->model('lowongan_model');
+			$nama_lengkap = $this->session->userdata ( 'nama_lengkap' );
 
-		if(isset($nama_lengkap)){
-		$this->isLoggedIn();
+			if(isset($nama_lengkap)){
+			$this->isLoggedIn();
 		}
     }
 
@@ -27,7 +28,7 @@ class Landingpage extends BaseController {
 	public function lowongan(){
 		$this->global['pageTitle'] = 'Mirota KSM | Lowongan';
 
-		$data['list_data'] = $this->crud_model->tampildata('tbl_lowongan');
+		$data['list_data'] = $this->lowongan_model->GetdataLowongan();
 
 		$this->loadViews("lowongan", $this->global, $data, NULL);
 	}
