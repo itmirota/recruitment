@@ -113,16 +113,8 @@
                       <textarea class="form-control" name="alamat_ktp" rows="3" placeholder="masukan alamat KTP"><?=$data_diri->alamat_ktp?></textarea>
                     </div>
                     <div class="col-md-12">
-                      <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="inputKTP" class="form-label">Nomor KTP</label>
-                        <input type="number" name="nomor_ktp" class="form-control" value="<?=$data_diri->nomor_ktp?>">
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <label for="inputSIM" class="form-label">Nomor SIM</label>
-                        <input type="number" name="nomor_sim" class="form-control"  value="<?=$data_diri->nomor_sim?>">
-                      </div>
-                      </div>
+                      <label for="inputKTP" class="form-label">Nomor KTP</label>
+                      <input type="number" name="nomor_ktp" class="form-control" value="<?=$data_diri->nomor_ktp?>">
                     </div>
                     <div class="col-md-12">
                       <div class="row">
@@ -215,7 +207,7 @@
                     <th scope="col">Jurusan</th>
                     <th scope="col">Tahun Masuk</th>
                     <th scope="col">Tahun Keluar</th>
-                    <th scope="col">Aksi</th>
+                    <th scope="col" class="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -229,10 +221,8 @@
                     <td><?= $data->jurusan?></td>
                     <td><?= $data->tahun_masuk?></td>
                     <td><?= $data->tahun_lulus?></td>
-                    <td><button type="button" class="btn btn-success"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
-                    <button type="button" class="btn btn-danger"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
+                    <td><button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modaledit-pendidikan" onclick="<?= $data->kandidat_id?>"><i class="fa fa-solid fa-pencil"></i> Edit</button>
+                    <button type="button" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</button>
                   </td>
                   </tr>
                   <?php } ?>
@@ -246,6 +236,58 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="datapendidikan">Tambahkan Data Pendidikan</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?=base_url('kandidat/save_pendidikan')?>" role="form" method="post">
+                <div class="modal-body">
+
+                  <div class="mb-3">
+                      <label for="jenjang_pendidikan" class="form-label">Jenjang Pendidikan</label>
+                      <select class="form-select" aria-label="jenjang_pendidikan" name="jenjang_pendidikan">
+                        <option selected>-- Pilih Jenjang Pendidikan --</option>
+                        <option value="TK">TK</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="nama_instansi" class="form-label">Nama Instansi/Sekolah</label>
+                      <input type="text" class="form-control" name="nama_instansi">
+                  </div>
+                  <div class="mb-3">
+                      <label for="jurusan" class="form-label">Jurusan</label>
+                      <input type="text" class="form-control" name="jurusan">
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <label for="tahun_masuk" class="form-label">Tahun Masuk</label>
+                      <input type="text" class="form-control" name="tahun_masuk">
+                    </div>
+                    <div class="col-6">
+                      <label for="tahun_keluar" class="form-label">Tahun Keluar</label>
+                      <input type="text" class="form-control" name="tahun_lulus">
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- //FORM PENDIDIKAN -->
+
+          <!-- //FORM PENDIDIKAN -->
+          <div class="modal fade" id="modaledit-pendidikan" tabindex="-1" aria-labelledby="modal-pendidikan" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="datapendidikan">Edit Data Pendidikan</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="<?=base_url('kandidat/save_pendidikan')?>" role="form" method="post">
@@ -457,7 +499,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Nomor Referensi</label>
-                    <input type="text" class="form-control" name="nomor_referensi">
+                    <input type="text" class="form-control" name="nomor_referensi" placeholder="(nama-posisi-nomor HP)">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -895,5 +937,15 @@ $(document).ready(function() {
   });
 
 });
+
+function edit-pendidikan($id){
+  $.ajax({
+    url:"<?= site_url("kandidat/getDataPendidikan")?>/" + $id,
+    type:"GET";
+    success:function(hasil){
+      console.log(hasil);
+    }
+  })
+}
 </script>
 

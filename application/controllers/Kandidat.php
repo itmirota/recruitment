@@ -28,6 +28,11 @@ class kandidat extends BaseController
 		}
   }
 
+  public function getDataPendidikan(){
+    $data_pendidikan = $this->crud_model->GetDataById('kandidat_id='.$id,'tbl_kandidat_pendidikan');
+    echo json_encode($data_pendidikan);
+  }
+
   /**
    * Index Page for this controller.
    */
