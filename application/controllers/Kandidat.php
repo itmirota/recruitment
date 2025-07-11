@@ -28,8 +28,8 @@ class kandidat extends BaseController
 		}
   }
 
-  public function getDataPendidikan(){
-    $data_pendidikan = $this->crud_model->GetDataById('kandidat_id='.$id,'tbl_kandidat_pendidikan');
+  public function getDataPendidikan($id){
+    $data_pendidikan = $this->crud_model->GetDataById('id_pendidikan='.$id,'tbl_kandidat_pendidikan');
     echo json_encode($data_pendidikan);
   }
 
@@ -234,7 +234,37 @@ class kandidat extends BaseController
   
     $data_kandidat = $this->data();
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
-    }
+  }
+
+  public function update_pendidikan()
+  {
+    //Data pendidikan
+    $id_pendidikan = $this->input->post('id_pendidikan');
+    $jenjang_pendidikan = $this->input->post('jenjang_pendidikan');
+    $nama_instansi = $this->input->post('nama_instansi');
+    $jurusan = $this->input->post('jurusan');
+    $tahun_masuk = $this->input->post('tahun_masuk');
+    $tahun_lulus = $this->input->post('tahun_lulus');
+
+    $data = array(
+      'jenjang_pendidikan' => $jenjang_pendidikan,
+      'nama_instansi' => $nama_instansi,
+      'jurusan' => $jurusan,
+      'tahun_masuk' => $tahun_masuk,
+      'tahun_lulus' => $tahun_lulus,
+    );
+      
+    $this->crud_model->update(['id_pendidikan' => $id_pendidikan], $data, 'tbl_kandidat_pendidikan');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    redirect('Biodata?p=riwayat-pendidikan');
+  }
+
+  public function delete_pendidikan($id)
+  {      
+    $this->crud_model->delete(['id_pendidikan' => $id], 'tbl_kandidat_pendidikan');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus');
+    redirect('Biodata?p=riwayat-pendidikan');
+  }
 
 
     public function save_sertifikasi()

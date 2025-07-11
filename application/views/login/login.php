@@ -1,14 +1,9 @@
 <section class="login-page">
-<<<<<<< HEAD
   <div class="container">
     <a href="<?= base_url()?>" class="btn btn-sm btn-biru"><i class="fa fa-solid fa-arrow-left"></i> kembali ke menu utama</a>
   </div>
   <div class="container d-flex flex-wrap justify-content-between">
     <div class="col-md-4 col-sm-12" style="padding-top:10%" >
-=======
-  <div class="container d-flex flex-wrap justify-content-between" style="padding-top:25dvh">
-    <div class="col-md-6 col-sm-12" >
->>>>>>> d3ae67499c902c86d4f01c8635e73e5dbf731fd9
       <div class="alert alert-primary" role="alert">
         Pastikan data yang anda masukkan benar agar mudah diverifikasi. Pastikan dokumen yang anda upload sudah benar dan dapat terverifikasi.
       </div>

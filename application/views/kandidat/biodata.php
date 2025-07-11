@@ -221,7 +221,7 @@
                     <td><?= $data->jurusan?></td>
                     <td><?= $data->tahun_masuk?></td>
                     <td><?= $data->tahun_lulus?></td>
-                    <td><button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modaledit-pendidikan" onclick="<?= $data->kandidat_id?>"><i class="fa fa-solid fa-pencil"></i> Edit</button>
+                    <td><a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-pendidikan" onclick="editPendidikan(<?= $data->id_pendidikan?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
                     <button type="button" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</button>
                   </td>
                   </tr>
@@ -282,20 +282,20 @@
           </div>
           <!-- //FORM PENDIDIKAN -->
 
-          <!-- //FORM PENDIDIKAN -->
-          <div class="modal fade" id="modaledit-pendidikan" tabindex="-1" aria-labelledby="modal-pendidikan" aria-hidden="true">
+          <!-- //EDIT PENDIDIKAN -->
+          <div class="modal fade" id="edit-pendidikan" tabindex="-1" aria-labelledby="modal-pendidikan" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="datapendidikan">Edit Data Pendidikan</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<?=base_url('kandidat/save_pendidikan')?>" role="form" method="post">
+                <form action="<?=base_url('kandidat/update_pendidikan')?>" role="form" method="post">
                 <div class="modal-body">
 
                   <div class="mb-3">
                       <label for="jenjang_pendidikan" class="form-label">Jenjang Pendidikan</label>
-                      <select class="form-select" aria-label="jenjang_pendidikan" name="jenjang_pendidikan">
+                      <select class="form-select" aria-label="jenjang_pendidikan" name="jenjang_pendidikan" id="edit_jenjang">
                         <option selected>-- Pilih Jenjang Pendidikan --</option>
                         <option value="TK">TK</option>
                         <option value="SD">SD</option>
@@ -308,31 +308,32 @@
                   </div>
                   <div class="mb-3">
                       <label for="nama_instansi" class="form-label">Nama Instansi/Sekolah</label>
-                      <input type="text" class="form-control" name="nama_instansi">
+                      <input type="hidden" class="form-control" name="id_pendidikan" id="edit_idPendidikan">
+                      <input type="text" class="form-control" name="nama_instansi" id="edit_instansi">
                   </div>
                   <div class="mb-3">
                       <label for="jurusan" class="form-label">Jurusan</label>
-                      <input type="text" class="form-control" name="jurusan">
+                      <input type="text" class="form-control" name="jurusan" id="edit_jurusan">
                   </div>
                   <div class="row mb-3">
                     <div class="col-6">
                       <label for="tahun_masuk" class="form-label">Tahun Masuk</label>
-                      <input type="text" class="form-control" name="tahun_masuk">
+                      <input type="text" class="form-control" name="tahun_masuk" id="edit_tahunMasuk">
                     </div>
                     <div class="col-6">
                       <label for="tahun_keluar" class="form-label">Tahun Keluar</label>
-                      <input type="text" class="form-control" name="tahun_lulus">
+                      <input type="text" class="form-control" name="tahun_lulus" id="edit_tahunLulus">
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
+                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                 </div>
                 </form>
               </div>
             </div>
           </div>
-          <!-- //FORM PENDIDIKAN -->
+          <!-- //EDIT PENDIDIKAN -->
         </div>
 
         <!-- //data sertifikasi -->
@@ -863,6 +864,24 @@
   </div>
 </div>
 <script>
+
+function editPendidikan($id){
+  $.ajax({
+    url:"<?php echo site_url("kandidat/getDataPendidikan")?>/" + $id,
+    dataType:"JSON",
+    type:"GET",
+    success:function(hasil){
+      document.getElementById("edit_idPendidikan").value = hasil.id_pendidikan;
+      document.getElementById("edit_jenjang").value = hasil.jenjang_pendidikan;
+      document.getElementById("edit_instansi").value = hasil.nama_instansi;
+      document.getElementById("edit_jurusan").value = hasil.jurusan;
+      document.getElementById("edit_tahunMasuk").value = hasil.tahun_masuk;
+      document.getElementById("edit_tahunLulus").value = hasil.tahun_lulus;
+
+    }
+  })
+}
+
 $(document).ready(function() {
 
   let radios = document.getElementsByName('luar_kota');
@@ -937,15 +956,5 @@ $(document).ready(function() {
   });
 
 });
-
-function edit-pendidikan($id){
-  $.ajax({
-    url:"<?= site_url("kandidat/getDataPendidikan")?>/" + $id,
-    type:"GET";
-    success:function(hasil){
-      console.log(hasil);
-    }
-  })
-}
 </script>
 
