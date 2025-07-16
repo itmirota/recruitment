@@ -12,6 +12,9 @@
     rel="stylesheet"
     />
 
+    <!-- include summernote css/js -->
+    <link href="<?php echo base_url(); ?>assets/dist/summernote-0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
+
     <link
     href="https://cdn.jsdelivr.net/gh/loadingio/transition.css@v2.0.0/dist/transition.css"
     rel="stylesheet"
@@ -40,7 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.js"></script>
 
 
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 
 

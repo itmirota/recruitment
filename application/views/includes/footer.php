@@ -99,17 +99,13 @@
 <div class="notifikasi-alert" data-icon="<?= $this->session->flashdata('swal_icon')?>"  data-text="<?= $this->session->flashdata('swal_text')?>"></div>
 </div>
 
-
-
     <!-- Bootsrap 5 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-
-    <!-- Jquery needed -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     
     <!-- <script src="<?php echo base_url(); ?>assets/landingpage/owlcarousel/owl.carousel.js"></script> -->
+    <script src="<?php echo base_url(); ?>assets/dist/summernote-0.9.0/dist/summernote-bs5.min.js"></script>
 
 	<!-- SELECT2 -->
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -126,16 +122,8 @@
     $(document).ready(function() {
        
         $("#load").fadeOut(2000);
-        
-        // alert();
+        $('.summernote').summernote();
     });
-
-    // function alert(){
-    //     const icon = $('.notifikasi-alert').data('icon');
-    //     const text = $('.notifikasi-alert').data('text');
-
-    //     toastr[icon](text);
-    // }
 
     function swal(){
         const icon = $('.flash-data').data('icon');

@@ -23,7 +23,7 @@
                 Sertifikasi</button>
           </li>
           <li class="nav-item" role="presentation">
-              <button class="nav-link <?= $page == 'pengalman-kerja' ? 'active':''?>" id="pengalman-kerja" data-bs-toggle="pill" data-bs-target="#pengalaman" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+              <button class="nav-link <?= $page == 'pengalaman-kerja' ? 'active':''?>" id="pengalaman-kerja" data-bs-toggle="pill" data-bs-target="#pengalaman" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
                 Pengalaman Kerja</button>
           </li>
           <li class="nav-item" role="presentation">
@@ -43,6 +43,7 @@
           </li> -->
       </ul>
       <div class="tab-content" id="pills-tabContent">
+        <!-- //data diri -->
         <div class="tab-pane fade <?= $page == 'Data-diri' ? 'show active':''?>" id="datadiri" role="tabpanel" aria-labelledby="Data-diri" tabindex="0">
           <div class="card">
             <div class="card-body">
@@ -191,6 +192,7 @@
             </div>
           </div>
         </div>
+        <!-- //data diri -->
 
         <!-- //data pendidikan -->
         <div class="tab-pane fade <?= $page == 'riwayat-pendidikan' ? 'show active':''?>" id="riwayatpendidikan" role="tabpanel" aria-labelledby="riwayat-pendidikan" tabindex="0">
@@ -221,9 +223,10 @@
                     <td><?= $data->jurusan?></td>
                     <td><?= $data->tahun_masuk?></td>
                     <td><?= $data->tahun_lulus?></td>
-                    <td><a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-pendidikan" onclick="editPendidikan(<?= $data->id_pendidikan?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
-                    <button type="button" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</button>
-                  </td>
+                    <td>
+                      <a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-pendidikan" onclick="editPendidikan(<?= $data->id_pendidikan?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
+                      <a href="<?= base_url('kandidat/delete_pendidikan/'.$data->id_pendidikan) ?>" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</a>
+                    </td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -335,6 +338,7 @@
           </div>
           <!-- //EDIT PENDIDIKAN -->
         </div>
+        <!-- //data pendidikan -->
 
         <!-- //data sertifikasi -->
         <div class="tab-pane fade <?= $page == 'sertifikat' ? 'show active':''?>" id="Sertifikasi" role="tabpanel" aria-labelledby="sertifikat" tabindex="0">
@@ -362,10 +366,12 @@
                     <th scope="row"><?= $no ?></th>
                     <td><?= $data->judul_sertifikasi?></td>
                     <td><?= $data->lembaga_sertifikasi?></td>
-                    <td><?= $data->tanggal_sertifikasi?></td>
+                    <td><?= mediumdate_indo($data->tanggal_sertifikasi)?></td>
                     <td><?= $data->biaya_sertifikasi?></td>
-                    <td><a href="<?= base_url() ?>" class="btn btn-sm btn-success">Edit</a>
-                    <a href="<?= base_url() ?>" class="btn btn-sm btn-danger">Delete</a>
+                    <td>
+                      <a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-sertifikasi" onclick="editSertifikasi(<?= $data->id_sertifikasi?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
+                      <a href="<?= base_url('kandidat/delete_sertifikat/'.$data->id_sertifikasi) ?>" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</a>
+                    </td>
                   </td>
                   </tr>
                   <?php 
@@ -410,10 +416,48 @@
             </div>
           </div>
           <!-- //FORM SERTIFIKASI -->
-        </div>
 
-        <!-- ///Data pengalaman pekerjaan -->
-        <div class="tab-pane fade <?= $page == 'pengalman-kerja' ? 'show active':''?>" id="pengalaman" role="tabpanel" aria-labelledby="pengalaman-kerja" tabindex="0">
+          <!-- //EDIT SERTIFIKASI -->
+          <div class="modal fade" id="edit-sertifikasi" tabindex="-1" aria-labelledby="edit-sertifikasi" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="edit-sertifikasi">Edit Pendidikan Nonformal</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?=base_url('kandidat/update_sertifikasi')?>" role="form" method="post">
+                <div class="modal-body">
+                  <div class="col-md-12">
+                    <label for="inputNama" class="form-label">Judul</label>
+                    <input type="hidden" class="form-control" name="id_sertifikasi" id="edit_id_sertifikasi">
+                    <input type="text" class="form-control" name="judul_sertifikasi" id="edit_judul_sertifikasi">
+                  </div>
+                  <div class="col-md-12">
+                    <label for="inputpekerjaan" class="form-label">Lembaga Penyelenggara</label>
+                    <input type="text" class="form-control" name="lembaga_sertifikasi" id="edit_lembaga_sertifikasi">
+                  </div>
+                  <div class="col-md-12">
+                    <label for="inputNomor" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" name="tanggal_sertifikasi" id="edit_tanggal_sertifikasi">
+                  </div>
+                  <div class="col-md-12">
+                    <label for="inputNama" class="form-label">Dibiayai Oleh</label>
+                    <input type="text" class="form-control" name="biaya_sertifikasi" id="edit_biaya_sertifikasi">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- //EDIT SERTIFIKASI -->
+        </div>
+        <!-- //data sertifikasi -->
+
+        <!-- //Data pengalaman pekerjaan -->
+        <div class="tab-pane fade <?= $page == 'pengalaman-kerja' ? 'show active':''?>" id="pengalaman" role="tabpanel" aria-labelledby="pengalaman-kerja" tabindex="0">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-end mb-3">
@@ -437,15 +481,14 @@
                   foreach($data_pengalaman as $data){?>
                   <tr>
                     <th scope="row"><?= $no ?></th>
-                    <td><?= $data->divisi_bagian ?></td>
+                    <td><?= $data->nama_perusahaan ?></td>
                     <td><?= $data->divisi_bagian ?></td>
                     <td><?= $data->jabatan ?></td>
-                    <td><?= $data->tgl_masuk ?></td>
-                    <td><?= $data->tgl_keluar ?></td>
-                    <td><button type="button" class="btn btn-success"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
-                    <button type="button" class="btn btn-danger"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
+                    <td><?= mediumdate_indo($data->tgl_masuk) ?></td>
+                    <td><?= $data->tgl_keluar == '0000-00-00' ? 'masih bekerja' : mediumdate_indo($data->tgl_keluar) ?></td>
+                    <td>
+                      <a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-pengalaman" onclick="editPengalaman(<?= $data->id_pengalaman?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
+                      <a href="<?= base_url('kandidat/delete_pengalaman/'.$data->id_pengalaman) ?>" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</a>
                     </td>
                   </tr>
                   <?php 
@@ -485,7 +528,11 @@
                     </div>
                     <div class="col-md-6">
                       <label for="inputNama" class="form-label">Tanggal Keluar</label>
-                      <input type="date" class="form-control" name="tgl_keluar">
+                      <input type="date" class="form-control" name="tgl_keluar" id="tgl_keluar">
+                        <input class="form-check-input" type="checkbox" id="Check" onclick="checkTglKeluar()">
+                        <label class="form-check-label" for="checkDefault">
+                          Masih Bekerja
+                        </label>
                     </div>
                     </div>
                   </div>
@@ -500,7 +547,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Nomor Referensi</label>
-                    <input type="text" class="form-control" name="nomor_referensi" placeholder="(nama-posisi-nomor HP)">
+                    <input type="text" class="form-control" name="nomor_referensi" placeholder="nama-posisi-nomor HP">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -512,44 +559,111 @@
           </div>
           <!-- //FORM PENGALAMAN KERJA -->
 
+          <!-- //EDIT PENGALAMAN KERJA -->
+          <div class="modal fade" id="edit-pengalaman" tabindex="-1" aria-labelledby="edit-pengalaman" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="edit-pengalaman">Edit Pengalaman Kerja</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?=base_url('kandidat/update_pengalaman')?>" role="form" method="post">
+                <div class="modal-body">
+                  <div class="col-md-12 mb-3">
+                    <label for="inputNama" class="form-label">Nama Perusahaan</label>
+                    <input type="hidden" class="form-control" name="id_pengalaman" id="edit_id_pengalaman">
+                    <input type="text" class="form-control" name="nama_perusahaan" id="edit_nama_perusahaan">
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="inputNomor" class="form-label">Divisi Bagian</label>
+                    <input type="text" class="form-control" name="divisi_pengalaman" id="edit_divisi_pengalaman">
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="inputNomor" class="form-label">Jabatan</label>
+                    <input type="text" class="form-control" name="jabatan_pengalaman" id="edit_jabatan_pengalaman">
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                    <div class="col-md-6">
+                      <label for="inputNama" class="form-label">Tanggal Masuk</label>
+                      <input type="date" class="form-control" name="tgl_masuk" id="edit_tgl_masuk">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputNama" class="form-label">Tanggal Keluar</label>
+                      <input type="date" class="form-control" name="tgl_keluar" id="edit_tgl_keluar">
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                      <select class="form-select" aria-label="status" name="status" id="edit_status">
+                        <option selected>-- Pilih status --</option>
+                        <option value="tetap">Karyawan Tetap</option>
+                        <option value="kontrak">Karyawan Kontrak</option>
+                        <option value="lepas">Karyawan Lepas Harian</option>
+                      </select>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="inputNama" class="form-label">Nomor Referensi</label>
+                    <input type="text" class="form-control" name="nomor_referensi" id="edit_nomor_referensi" placeholder="(nama-posisi-nomor HP)">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- //EDIT PENGALAMAN KERJA -->
         </div>
+        <!-- //Data pengalaman pekerjaan -->
 
-        <!-- ///Data media sosial -->
+        <!-- //Data media sosial -->
         <div class="tab-pane fade <?= $page == 'medsos' ? 'show active':''?>" id="akun" role="tabpanel" aria-labelledby="medsos" tabindex="0">
           <div class="card">
             <div class="card-body">
-              <form action="<?=base_url('kandidat/update')?>" role="form" method="post">
+              <form action="<?=base_url('kandidat/update_medsos')?>" role="form" method="post">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="inputpekerjaan" class="form-label">Instagram</label>
                     <div class="input-group mb-6">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text" name="instagram" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      <span class="input-group-text" id="basic-addon1">
+                        <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-143 145 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M113,446c24.8,0,45.1-20.2,45.1-45.1c0-9.8-3.2-18.9-8.5-26.3c-8.2-11.3-21.5-18.8-36.5-18.8s-28.3,7.4-36.5,18.8 c-5.3,7.4-8.5,16.5-8.5,26.3C68,425.8,88.2,446,113,446z"></path> <polygon points="211.4,345.9 211.4,308.1 211.4,302.5 205.8,302.5 168,302.6 168.2,346 "></polygon> <path d="M183,401c0,38.6-31.4,70-70,70c-38.6,0-70-31.4-70-70c0-9.3,1.9-18.2,5.2-26.3H10v104.8C10,493,21,504,34.5,504h157 c13.5,0,24.5-11,24.5-24.5V374.7h-38.2C181.2,382.8,183,391.7,183,401z"></path> <path d="M113,145c-141.4,0-256,114.6-256,256s114.6,256,256,256s256-114.6,256-256S254.4,145,113,145z M241,374.7v104.8 c0,27.3-22.2,49.5-49.5,49.5h-157C7.2,529-15,506.8-15,479.5V374.7v-52.3c0-27.3,22.2-49.5,49.5-49.5h157 c27.3,0,49.5,22.2,49.5,49.5V374.7z"></path> </g> </g></svg>
+                      </span>
+                      <input type="text" name="instagram" class="form-control" placeholder="Instagram" aria-label="Instagram" value="<?=$data_diri->instagram?>">
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="inputpekerjaan" class="form-label">Facebook</label>
                     <div class="input-group mb-6">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text" name="facebook" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      <span class="input-group-text" id="basic-addon1">
+                        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C15.9164 21.5878 18.0622 20.3855 19.6099 18.57C21.1576 16.7546 22.0054 14.4456 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z"></path> </g></svg>
+                      </span>
+                      <input type="text" name="facebook" class="form-control" placeholder="facebook" aria-label="facebook" value="<?=$data_diri->facebook?>">
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="inputpekerjaan" class="form-label">Tiktok</label>
                     <div class="input-group mb-6">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text" name="tiktok" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      <span class="input-group-text" id="basic-addon1">
+                        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>tiktok</title> <path d="M16.656 1.029c1.637-0.025 3.262-0.012 4.886-0.025 0.054 2.031 0.878 3.859 2.189 5.213l-0.002-0.002c1.411 1.271 3.247 2.095 5.271 2.235l0.028 0.002v5.036c-1.912-0.048-3.71-0.489-5.331-1.247l0.082 0.034c-0.784-0.377-1.447-0.764-2.077-1.196l0.052 0.034c-0.012 3.649 0.012 7.298-0.025 10.934-0.103 1.853-0.719 3.543-1.707 4.954l0.020-0.031c-1.652 2.366-4.328 3.919-7.371 4.011l-0.014 0c-0.123 0.006-0.268 0.009-0.414 0.009-1.73 0-3.347-0.482-4.725-1.319l0.040 0.023c-2.508-1.509-4.238-4.091-4.558-7.094l-0.004-0.041c-0.025-0.625-0.037-1.25-0.012-1.862 0.49-4.779 4.494-8.476 9.361-8.476 0.547 0 1.083 0.047 1.604 0.136l-0.056-0.008c0.025 1.849-0.050 3.699-0.050 5.548-0.423-0.153-0.911-0.242-1.42-0.242-1.868 0-3.457 1.194-4.045 2.861l-0.009 0.030c-0.133 0.427-0.21 0.918-0.21 1.426 0 0.206 0.013 0.41 0.037 0.61l-0.002-0.024c0.332 2.046 2.086 3.59 4.201 3.59 0.061 0 0.121-0.001 0.181-0.004l-0.009 0c1.463-0.044 2.733-0.831 3.451-1.994l0.010-0.018c0.267-0.372 0.45-0.822 0.511-1.311l0.001-0.014c0.125-2.237 0.075-4.461 0.087-6.698 0.012-5.036-0.012-10.060 0.025-15.083z"></path> </g></svg>
+                      </span>
+                      <input type="text" name="tiktok" class="form-control" placeholder="tiktok" aria-label="tiktok" value="<?=$data_diri->tiktok?>"
+                      >
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="inputpekerjaan" class="form-label">Twitter</label>
+                    <label for="inputpekerjaan" class="form-label">LinkedIn</label>
                     <div class="input-group mb-6">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text" name="twitter" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      <span class="input-group-text" id="basic-addon1">
+                        <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-143 145 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M113,145c-141.4,0-256,114.6-256,256s114.6,256,256,256s256-114.6,256-256S254.4,145,113,145z M41.4,508.1H-8.5V348.4h49.9 V508.1z M15.1,328.4h-0.4c-18.1,0-29.8-12.2-29.8-27.7c0-15.8,12.1-27.7,30.5-27.7c18.4,0,29.7,11.9,30.1,27.7 C45.6,316.1,33.9,328.4,15.1,328.4z M241,508.1h-56.6v-82.6c0-21.6-8.8-36.4-28.3-36.4c-14.9,0-23.2,10-27,19.6 c-1.4,3.4-1.2,8.2-1.2,13.1v86.3H71.8c0,0,0.7-146.4,0-159.7h56.1v25.1c3.3-11,21.2-26.6,49.8-26.6c35.5,0,63.3,23,63.3,72.4V508.1z "></path> </g></svg>
+                      </span>
+                      <input type="text" name="twitter" class="form-control" placeholder="linkedin" aria-label="linkedin" value="<?=$data_diri->linkedin?>"
+                      >
                     </div>
                   </div>
-                  <div class="mb-3">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                  <div class="mb-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                   </div>
                 </div>
@@ -557,9 +671,9 @@
             </div>
           </div>
         </div>
-        <!-- ///Data keterangan lain -->
+        <!-- //Data media sosial -->
 
-        <!-- Data Keluarga -->
+        <!-- //Data Keluarga -->
         <div class="tab-pane fade <?= $page == 'Data-keluarga' ? 'show active':''?>" id="datakeluarga" role="tabpanel" aria-labelledby="Data-keluarga" tabindex="0"> 
           <div class="card">
             <div class="card-body">
@@ -586,15 +700,15 @@
                     <td><?=$data->nama_keluarga?></td>
                     <td><?=$data->hubungan_keluarga?></td>
                     <td><?=$data->no_hp?></td>
-                    <td><button type="button" class="btn btn-success"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Edit</button>
-                    <button type="button" class="btn btn-danger"
-                    style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .65rem;">Delete</button>
+                    <td>
+                      <a class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit-keluarga" onclick="editKeluarga(<?= $data->id_keluarga?>)"><i class="fa fa-solid fa-pencil"></i> Edit</a>
+                      <a href="<?= base_url('kandidat/delete_keluarga/'.$data->id_keluarga) ?>" class="btn btn-sm"><i class="fa fa-solid fa-trash"></i> Delete</a>
+                    </td>
                   </td>
                   </tr>
 
-                    <!-- //MODAL EDIT -->
-                    <div class="modal fade" id="edit-keluarga" tabindex="-1" aria-labelledby="edit-keluarga" aria-hidden="true">
+                    <!-- //MODAL ADD -->
+                    <div class="modal fade" id="modal-keluarga" tabindex="-1" aria-labelledby="modal-keluarga" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -630,7 +744,46 @@
                         </div>
                       </div>
                     </div>
-                    <!-- //MODAL EDIT -->
+                    <!-- //MODAL ADD -->
+                     
+                    <!-- EDIT DATA KELUARGA -->
+                    <div class="modal fade" id="edit-keluarga" tabindex="-1" aria-labelledby="edit-keluarga" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="datakeluarga">Edit Data Keluarga</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="<?=base_url('kandidat/update_keluarga')?>" role="form" method="post">
+                          <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nama_keluarga" class="form-label">Nama Lengkap</label>
+                                <input type="hidden" class="form-control" name="id_keluarga" id="edit_id_keluarga">
+                                <input type="text" class="form-control" name="nama_keluarga" id="edit_nama_keluarga">
+                            </div>
+                            <div class="mb-3">
+                                <label for="hubungan_keluarga" class="form-label">Hubungan Keluarga</label>
+                                <select class="form-select" aria-label="hubungan_keluarga" name="hubungan_keluarga" id="edit_hubungan_keluarga">
+                                  <option selected>-- Pilih Hubungan --</option>
+                                  <option value="ayah">Ayah</option>
+                                  <option value="ibu">Ibuk</option>
+                                  <option value="saudara">Saudara Kandung</option>
+                                  <option value="pasangan">Pasangan</option>
+                                  <option value="anak">Anak</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="no_hp" class="form-label">Kontak yang bisa dihubungi</label>
+                                <input type="text" class="form-control" name="no_hp" id="edit_no_hp">
+                            </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- EDIT DATA KELUARGA -->
 
                   <?php 
                   $no++;
@@ -679,31 +832,33 @@
           <!-- //FORM KELUARGA -->
 
         </div>
-        
+        <!-- //Data Keluarga -->
+
+        <!-- //Data Lain lain -->
         <div class="tab-pane fade <?= $page == 'lain-lain' ? 'show active':''?>" id="keterangan" role="tabpanel" aria-labelledby="lain-lain" tabindex="0">
           <div class="card">
             <div class="card-body">
-              <form action="<?=base_url('kandidat/save_keterangan')?>" role="form" method="post">
+              <form action="<?=base_url('kandidat/update_keterangan')?>" role="form" method="post">
                 <div class="row">
                   <div class="mb-3 mb-3">
                     <label for="inputNama" class="form-label">Kegemaran/Hobi</label>
-                    <input type="text" name="kegemaran_hobi" class="form-control" >
+                    <input type="text" name="kegemaran_hobi" class="form-control" value="<?=$data_diri->hobi?>" >
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Sakit ringan yang sering dialami 
                     *diisi (-) jika tidak ada</label>
-                    <input type="text" name="sakit_ringan" class="form-control" >
+                    <input type="text" name="sakit_ringan" class="form-control" value="<?=$data_diri->sakit_ringan?>" >
                   </div>
                   <div class="col-md-12 mb-3">
                     <p for="inputNama" class="form-label">Pernahkah anda mengalami sakit keras?</p>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="sakit_keras" value="Ya">
+                      <input class="form-check-input" type="radio" name="sakit_keras" value="Ya" <?php echo $data_diri->sakit_keras == 'Ya' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault1">
                         Ya
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="sakit_keras" value="Tidak">
+                      <input class="form-check-input" type="radio" name="sakit_keras" value="Tidak" <?php echo $data_diri->sakit_keras == 'Tidak' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault2">
                         Tidak
                       </label>
@@ -711,18 +866,18 @@
                   </div>
                   <div class="col-md-12 mb-3" id="riwayat_penyakit" style="display:none">
                     <label for="inputNama" class="form-label">Jika pernah apa penyakitnya?</label>
-                    <input type="text" name="riwayat_penyakit" class="form-control" >
+                    <input type="text" name="riwayat_penyakit_keras" class="form-control" value="<?=$data_diri->riwayat_sakit_keras?>">
                   </div>
                   <div class="col-md-12 mb-3">
                     <p for="inputNama" class="form-label">Pernahkah anda mengalami kecelakaan?</p>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="kecelakaan"  value="Ya">
+                      <input class="form-check-input" type="radio" name="kecelakaan"  value="Ya" <?php echo $data_diri->kecelakaan == 'Ya' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault1">
                         Ya
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="kecelakaan"  value="Tidak">
+                      <input class="form-check-input" type="radio" name="kecelakaan"  value="Tidak" <?php echo $data_diri->kecelakaan == 'Tidak' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault2">
                         Tidak
                       </label>
@@ -730,18 +885,18 @@
                   </div>
                   <div class="col-md-12 mb-3" id="dampak_kecelakaan" style="display:none">
                     <label for="inputNama" class="form-label">Jika pernah mengalami kecelakaan apa dampaknya?</label>
-                    <input type="text" name="dampak_kecelakaan" class="form-control" >
+                    <input type="text" name="dampak_kecelakaan" class="form-control" value="<?=$data_diri->dampak_kecelakaan?>">
                   </div>
                   <div class="col-md-12 mb-3">
                     <p for="inputNama" class="form-label">Apakah anda merokok?</p>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="merokok"  value="Ya">
+                      <input class="form-check-input" type="radio" name="merokok"  value="Ya"<?php echo $data_diri->merokok == 'Ya' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault1">
                         Ya
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="merokok"  value="Tidak">
+                      <input class="form-check-input" type="radio" name="merokok"  value="Tidak"<?php echo $data_diri->merokok == 'Tidak' ? 'checked' : ''?>>
                       <label class="form-check-label" for="flexRadioDefault2">
                         Tidak
                       </label>
@@ -750,13 +905,13 @@
                   <div class="col-md-12 mb-3">
                       <p for="inputNama" class="form-label">Apakah anda Alkoholik?</p>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="alkoholik"  value="Ya">
+                        <input class="form-check-input" type="radio" name="alkoholik"  value="Ya"<?php echo $data_diri->alkoholik == 'Ya' ? 'checked' : ''?>>
                         <label class="form-check-label" for="flexRadioDefault1">
                           Ya
                         </label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="alkoholik"  value="Tidak">
+                        <input class="form-check-input" type="radio" name="alkoholik"  value="Tidak"<?php echo $data_diri->alkoholik == 'Tidak' ? 'checked' : ''?>>
                         <label class="form-check-label" for="flexRadioDefault2">
                           Tidak
                         </label>
@@ -765,13 +920,13 @@
                   <div class="col-md-12 mb-3">
                         <p for="inputNama" class="form-label">Apakah anda bersedia bekerja secara shift?</p>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="bekerja_shift"  value="Ya">
+                        <input class="form-check-input" type="radio" name="bekerja_shift"  value="Ya" <?php echo $data_diri->bekerja_shift == 'Ya' ? 'checked' : ''?>>
                         <label class="form-check-label" for="flexRadioDefault1">
                           Ya
                         </label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="bekerja_shift"  value="Tidak">
+                        <input class="form-check-input" type="radio" name="bekerja_shift"  value="Tidak" <?php echo $data_diri->bekerja_shift == 'Tidak' ? 'checked' : ''?>>
                         <label class="form-check-label" for="flexRadioDefault2">
                           Tidak
                         </label>
@@ -780,13 +935,13 @@
                     <div class="col-md-12 mb-3">
                         <p for="inputNama" class="form-label">Bersediakah jika sewaktu-waktu ditempatkan di luar kota?</p>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="luar_kota"  value="Ya">
+                          <input class="form-check-input" type="radio" name="luar_kota"  value="Ya"<?php echo $data_diri->luar_kota == 'Ya' ? 'checked' : ''?>>
                           <label class="form-check-label" for="flexRadioDefault1">
                             Ya
                           </label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="luar_kota" value="Tidak">
+                          <input class="form-check-input" type="radio" name="luar_kota" value="Tidak" <?php echo $data_diri->luar_kota == 'Tidak' ? 'checked' : ''?>>                          
                           <label class="form-check-label" for="flexRadioDefault2">
                             Tidak
                           </label>
@@ -794,22 +949,22 @@
                     </div>
                     <div class="col-md-12 mb-3" id="jikatidak" style="display:none">
                       <label for="inputNama"  class="form-label">Jika tidak, apa alasannya?</label>
-                      <input type="text" name="alasan" class="form-control" >
+                      <input type="text" name="alasan" class="form-control" value="<?=$data_diri->alasan?>">
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Kapan anda dapat mulai bergabung?
                     </label>
-                    <input type="date" name="tgl_bergabung" class="form-control" >
+                    <input type="date" name="tgl_bergabung" class="form-control" value="<?=$data_diri->tgl_bergabung?>">
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Berapa gaji terakhir yang didapat?
                     </label>
-                    <input type="number" name="gaji_terakhir" class="form-control" >
+                    <input type="number" name="gaji_terakhir" class="form-control" value="<?=$data_diri->gaji_terakhir?>">
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="inputNama" class="form-label">Berapa gaji yang diharapkan?
                     </label>
-                    <input type="number" name="gaji_diharapkan" class="form-control" >
+                    <input type="number" name="gaji_diharapkan" class="form-control" value="<?=$data_diri->gaji_diharapkan?>">
                   </div>
                   <div class="col-md-12 mb-3">
                       <label for="inputNama" class="form-label">Dengan ini saya menyatakan bahwa keterangan dan data yang saya isi diatas adalah benar. Dalam hal ketidak-benaran, maka saya bertanggung jawab penuh atas akibatnya, dan saya bersedia dikenakan sanksi sesuai dengan peraturan perusahaan maupun perundang-undangan.
@@ -829,6 +984,7 @@
             </div>
           </div>
         </div>
+        <!-- //Data Lain lain -->
 
         <!-- <div class="tab-pane fade" id="berkas" role="tabpanel" aria-labelledby="document-pendukung" tabindex="0">
           <div class="card">
@@ -881,6 +1037,67 @@ function editPendidikan($id){
     }
   })
 }
+
+function editSertifikasi($id){
+  $.ajax({
+    url:"<?php echo site_url("kandidat/getDataSertifikasi")?>/" + $id,
+    dataType:"JSON",
+    type:"GET",
+    success:function(hasil){
+      document.getElementById("edit_id_sertifikasi").value = hasil.id_sertifikasi;
+      document.getElementById("edit_judul_sertifikasi").value = hasil.judul_sertifikasi;
+      document.getElementById("edit_lembaga_sertifikasi").value = hasil.lembaga_sertifikasi;
+      document.getElementById("edit_tanggal_sertifikasi").value = hasil.tanggal_sertifikasi;
+      document.getElementById("edit_biaya_sertifikasi").value = hasil.biaya_sertifikasi;
+
+    }
+  })
+}
+
+function editKeluarga($id){  
+  $.ajax({
+    url:"<?php echo site_url("kandidat/getDataKeluarga")?>/" + $id,
+    dataType:"JSON",
+    type:"GET",
+    success:function(hasil){
+      console.log(hasil);
+      document.getElementById("edit_id_keluarga").value = hasil.id_keluarga;
+      document.getElementById("edit_nama_keluarga").value = hasil.nama_keluarga;
+      document.getElementById("edit_hubungan_keluarga").value = hasil.hubungan_keluarga;
+      document.getElementById("edit_no_hp").value = hasil.no_hp;
+    }
+  })
+}
+
+function editPengalaman($id){
+  $.ajax({
+    url:"<?php echo site_url("kandidat/getDataPengalaman")?>/" + $id,
+    dataType:"JSON",
+    type:"GET",
+    success:function(hasil){
+      document.getElementById("edit_id_pengalaman").value = hasil.id_pengalaman;
+      document.getElementById("edit_nama_perusahaan").value = hasil.nama_perusahaan;
+      document.getElementById("edit_divisi_pengalaman").value = hasil.divisi_bagian;
+      document.getElementById("edit_jabatan_pengalaman").value = hasil.jabatan;
+      document.getElementById("edit_tgl_masuk").value = hasil.tgl_masuk;
+      document.getElementById("edit_tgl_keluar").value = hasil.tgl_keluar;
+      document.getElementById("edit_status").value = hasil.status;
+      document.getElementById("edit_nomor_referensi").value = hasil.nomor_referensi;
+    }
+  })
+}
+
+function checkTglKeluar(){
+  const checkBox = document.getElementById("Check");
+
+  if (checkBox.checked == true){
+    document.getElementById('tgl_keluar').setAttribute('disabled', true);
+  }else{
+    document.getElementById('tgl_keluar').removeAttribute('disabled');
+  }
+}
+
+
 
 $(document).ready(function() {
 

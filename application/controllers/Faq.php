@@ -40,16 +40,15 @@ class Faq extends BaseController
     redirect('list-faq');
 }
 
-public function detailfaq($id){
-  $this->global['pageTitle'] = 'Mirota KSM | Detail FAQ';
+  public function detailfaq($id){
+    $this->global['pageTitle'] = 'Mirota KSM | Detail FAQ';
 
-  $faq = $this->crud_model->GetRowById(['id_faq' => $id],'tbl_faq');
+    $data['detail_faq'] = $this->crud_model->GetRowById(['id_faq' => $id],'tbl_faq');
 
-  echo json_encode($faq);
+    $this->loadViewsAdmin("faq/form_edit", $this->global, $data, NULL);    
   }
 
-  public function update(){
-    $id_faq = $this->uri->segment(3);
+  public function update($id){
     $pertanyaan = $this->input->post('pertanyaan');
     $jawaban = $this->input->post('jawaban');
 
@@ -57,12 +56,8 @@ public function detailfaq($id){
         'pertanyaan' => $pertanyaan,
         'jawaban' => $jawaban,
     );
-    
-    $where = array(
-        'id_faq' => $id_faq
-    );
 
-    $this->crud_model->update($where, $data, 'tbl_faq');
+    $this->crud_model->update(['id_faq' => $id], $data, 'tbl_faq');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
 
     redirect('list-faq');

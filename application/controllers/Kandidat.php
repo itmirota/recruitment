@@ -28,11 +28,6 @@ class kandidat extends BaseController
 		}
   }
 
-  public function getDataPendidikan($id){
-    $data_pendidikan = $this->crud_model->GetDataById('id_pendidikan='.$id,'tbl_kandidat_pendidikan');
-    echo json_encode($data_pendidikan);
-  }
-
   /**
    * Index Page for this controller.
    */
@@ -181,7 +176,15 @@ class kandidat extends BaseController
 
     redirect('Biodata');
   }
- 
+
+  // Data Keluarga
+
+  public function getDataKeluarga($id){
+    $data_keluarga = $this->crud_model->GetDataById('id_keluarga='.$id,'tbl_kandidat_keluarga');
+    echo json_encode($data_keluarga);
+  }
+
+
   public function save_keluarga()
   {
     //Data keluarga
@@ -206,6 +209,41 @@ class kandidat extends BaseController
     // $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
     redirect('Biodata?p=Data-keluarga');
     
+  }
+
+  public function update_keluarga()
+  {
+    //Data keluarga
+    $id_keluarga = $this->input->post('id_keluarga');
+    $nama_keluarga = $this->input->post('nama_keluarga');
+    $hubungan_keluarga = $this->input->post('hubungan_keluarga');
+    $no_hp = $this->input->post('no_hp');
+
+
+    $data = array(
+        //Data Keluarga
+        'nama_keluarga' => $nama_keluarga,
+        'hubungan_keluarga' => $hubungan_keluarga,
+        'no_hp' => $no_hp,
+    );
+
+    $this->crud_model->update(['id_keluarga' => $id_keluarga], $data, 'tbl_kandidat_keluarga');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    redirect('Biodata?p=Data-keluarga');
+    
+  }
+
+  public function delete_keluarga($id)
+  {      
+    $this->crud_model->delete(['id_keluarga' => $id], 'tbl_kandidat_keluarga');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus');
+    redirect('Biodata?p=Data-keluarga');
+  }
+  
+
+  public function getDataPendidikan($id){
+    $data_pendidikan = $this->crud_model->GetDataById('id_pendidikan='.$id,'tbl_kandidat_pendidikan');
+    echo json_encode($data_pendidikan);
   }
 
   public function save_pendidikan()
@@ -266,9 +304,14 @@ class kandidat extends BaseController
     redirect('Biodata?p=riwayat-pendidikan');
   }
 
+  public function getDataSertifikasi($id){
+    $data_sertifikasi = $this->crud_model->GetDataById('id_sertifikasi='.$id,'tbl_kandidat_sertifikasi');
+    echo json_encode($data_sertifikasi);
+  }
 
-    public function save_sertifikasi()
-    {
+
+  public function save_sertifikasi()
+  {
     $id_kandidat = $this->kandidat_id;
     $judul = $this->input->post('judul_sertifikasi');
     $lembaga = $this->input->post("lembaga_sertifikasi");
@@ -293,6 +336,39 @@ class kandidat extends BaseController
     $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
   }
 
+  public function update_sertifikasi()
+  {
+    $id_sertifikasi = $this->input->post('id_sertifikasi');
+    $judul = $this->input->post('judul_sertifikasi');
+    $lembaga = $this->input->post("lembaga_sertifikasi");
+    $tanggal = $this->input->post('tanggal_sertifikasi');
+    $biaya = $this->input->post('biaya_sertifikasi');
+
+
+    $data = array(
+      'judul_sertifikasi' => $judul,
+      'lembaga_sertifikasi' => $lembaga,
+      'tanggal_sertifikasi' => $tanggal,
+      'biaya_sertifikasi' => $biaya
+    );
+
+    $this->crud_model->update(['id_sertifikasi' => $id_sertifikasi], $data, 'tbl_kandidat_sertifikasi');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    redirect('Biodata?p=sertifikat');
+  }
+
+  public function delete_sertifikat($id)
+  {      
+    $this->crud_model->delete(['id_sertifikasi' => $id], 'tbl_kandidat_sertifikasi');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus');
+    redirect('Biodata?p=sertifikat');
+  }
+
+  public function getDataPengalaman($id){
+    $data_pengalaman = $this->crud_model->GetDataById('id_pengalaman='.$id,'tbl_kandidat_pengalamankerja');
+    echo json_encode($data_pengalaman);
+  }
+
   public function save_pengalaman()
   {
     $id_kandidat = $this->kandidat_id;
@@ -305,7 +381,7 @@ class kandidat extends BaseController
 
 
     $data = array(
-      //Data pengalman kerja
+      //Data pengalaman kerja
       'kandidat_id' => $id_kandidat,
       'nama_perusahaan' => $perusahaan,
       'divisi_bagian' => $divisi_pengalaman,
@@ -317,46 +393,76 @@ class kandidat extends BaseController
 
     $this->crud_model->input($data, 'tbl_kandidat_pengalamankerja');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'pengalman-kerja');
 
-    $data_kandidat = $this->data();
-    redirect('Biodata');
+    redirect('Biodata?p=pengalaman-kerja');
   }
 
-  public function save_medsos()
+  public function update_pengalaman()
+  {
+    $id_pengalaman = $this->input->post('id_pengalaman');
+    $perusahaan = $this->input->post('nama_perusahaan');
+    $divisi_pengalaman = $this->input->post("divisi_pengalaman");
+    $jabatan = $this->input->post('jabatan_pengalaman');
+    $tgl_masuk = $this->input->post('tgl_masuk');
+    $tgl_keluar = $this->input->post('tgl_keluar');
+    $referensi = $this->input->post('nomor_referensi');
+    $status = $this->input->post('status');
+
+    $data = array(
+      'nama_perusahaan' => $perusahaan,
+      'divisi_bagian' => $divisi_pengalaman,
+      'jabatan' => $jabatan,
+      'tgl_masuk' => $tgl_masuk,
+      'tgl_keluar' => $tgl_keluar,
+      'nomor_referensi' => $referensi,
+      'status' => $status
+    );
+
+    $this->crud_model->update(['id_pengalaman' => $id_pengalaman], $data, 'tbl_kandidat_pengalamankerja');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    redirect('Biodata?p=pengalaman-kerja');
+  }
+
+  public function delete_pengalaman($id)
+  {      
+    $this->crud_model->delete(['id_pengalaman' => $id], 'tbl_kandidat_pengalamankerja');
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Dihapus');
+    redirect('Biodata?p=pengalaman-kerja');
+  }
+
+  public function update_medsos()
   {
     $id_kandidat = $this->kandidat_id;
     $instagram = $this->input->post('instagram');
     $facebook = $this->input->post('facebook');
-    $twitter = $this->input->post('twitter');
+    $linkedin = $this->input->post('linkedin');
     $tiktok = $this->input->post('tiktok');
 
-
     $data = array(
-        //Data medsos
-        'instagram' => $instagram,
-        'facebook' => $facebook,
-        'twitter' => $twitter,
-        'tiktok' => $tiktok
-      
+      //Data medsos
+      'instagram' => $instagram,
+      'facebook' => $facebook,
+      'linkedin' => $linkedin,
+      'tiktok' => $tiktok
     );
+
     $where = array(
       'id_kandidat' => $id_kandidat
     );
+
     $this->crud_model->update($where, $data, 'tbl_kandidat');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
-    $this->session->set_userdata('page', 'medsos');
-
-    $data_kandidat = $this->data();
-    redirect('Biodata');
+    redirect('Biodata?p=medsos');
   }
-
-  public function save_keterangan()
+  
+  public function update_keterangan()
   {
     $id_kandidat = $this->kandidat_id;
     $hobi = $this->input->post('kegemaran_hobi');
     $sakit_ringan = $this->input->post('sakit_ringan');
     $riwayat_penyakit = $this->input->post('riwayat_penyakit');
+    $sakit_keras = $this->input->post('sakit_keras');
+    $riwayat_penyakit_keras = $this->input->post('riwayat_penyakit_keras');
     $kecelakaan = $this->input->post('kecelakaan');
     $dampak_kecelakaan = $this->input->post('dampak_kecelakaan');
     $merokok = $this->input->post('merokok');
@@ -371,11 +477,11 @@ class kandidat extends BaseController
 
 
     $data = array(
-
-    //Data keterangan lain
       'hobi' => $hobi,
       'sakit_ringan' => $sakit_ringan,
       'riwayat_penyakit' => $riwayat_penyakit,
+      'sakit_keras' => $sakit_keras,
+      'riwayat_penyakit_keras' => $riwayat_penyakit_keras,
       'kecelakaan' => $kecelakaan,
       'dampak_kecelakaan' => $dampak_kecelakaan,
       'merokok' => $merokok,
@@ -394,11 +500,8 @@ class kandidat extends BaseController
     );
 
     $this->crud_model->update($where, $data, 'tbl_kandidat');
-    $this->set_notifikasi_swal('success','Data Berhasil Disimpan');
-    $this->session->set_userdata('page', 'lain-lain');
-
-    $data_kandidat = $this->data();
-    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
+    redirect('Biodata?p=lain-lain');
   }
 
   public function save_document_pendukung()
@@ -433,20 +536,17 @@ class kandidat extends BaseController
 
 
     $data = array(
-        //Document pendukung
-        'kandidat_id' => $this->kandidat_id,
-        'identitas' => $identitas['file_name'],
-        'cv' => $cv['file_name'],
-        'ijazah' => $ijazah['file_name'],
-        'doc_pendukung' => $doc_pendukung['file_name']
-      
+      'kandidat_id' => $this->kandidat_id,
+      'identitas' => $identitas['file_name'],
+      'cv' => $cv['file_name'],
+      'ijazah' => $ijazah['file_name'],
+      'doc_pendukung' => $doc_pendukung['file_name']
     );
 
     $this->crud_model->input($data, 'tbl_kandidat_berkas');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
 
-    $data_kandidat = $this->data();
-    $this->loadViews("kandidat/biodata", $this->global, $data_kandidat, NULL);
+    redirect('Biodata?p=dokumen-pendukung');
   }
 
   public function list_pelamar(){
@@ -461,5 +561,4 @@ class kandidat extends BaseController
     $pelamar = $this->crud_model->GetDataById('id_pelamar='.$id,'tbl_pelamar');
     echo json_encode($pelamar);
   }
-  
 }

@@ -52,8 +52,9 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
+  <!-- Summernote --> 
+  <link href="<?php echo base_url(); ?>assets/dist/summernote-0.9.0/summernote-bs5.min.css" rel="stylesheet">
+  
 
   <style>
     #load{
@@ -77,7 +78,7 @@
 
   <!-- <body class="sidebar-mini skin-black-light"> -->
 <body>
-<div id="load"></div>
+<!-- <div id="load"></div> -->
 <div class="wrapper">
   <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
