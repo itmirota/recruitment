@@ -211,6 +211,7 @@ class kandidat extends BaseController
     
   }
 
+
   public function update_keluarga()
   {
     //Data keluarga
@@ -553,6 +554,18 @@ class kandidat extends BaseController
     $this->global['pageTitle'] = "Detail Hasil Psikotes Online";
 
     $data['list_data'] = $this->pelamar_model->GetData();
+
+    $this->loadViewsAdmin("pelamar/data", $this->global, $data, NULL);
+  }
+
+  public function detail_pelamar($id){
+    $this->global['pageTitle'] = "Detail Hasil Psikotes Online";
+
+    $data = array(
+      'detail' => $this->pelamar_model->GetDataByWhere('id_pelamar='.$id),
+      'data_keluarga' => $this->crud_model->GetDataById('id_keluarga='.$id,'tbl_kandidat_keluarga'),
+
+    );
 
     $this->loadViewsAdmin("pelamar/data", $this->global, $data, NULL);
   }
