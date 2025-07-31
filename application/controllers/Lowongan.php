@@ -52,12 +52,12 @@ class Lowongan extends BaseController
     redirect('list-lowongan');
 }
 
-public function detaillowongan(){
+public function detaillowongan($id){
   $this->global['pageTitle'] = 'Mirota KSM | Detail Lowongan Kerja';
 
   $data = array(
-    'list_data'   => $this->crud_model->GetRowById(['id_lowongan' => $id_lowongan],'tbl_lowongan'),
-    'id_lowongan' => $this->uri->segment(3),
+    'detail'   => $this->crud_model->GetRowById(['id_lowongan' => $id],'tbl_lowongan'),
+    'id_lowongan' => $id,
   );
 
   $this->loadViewsAdmin("lowongan/edit_data", $this->global, $data , NULL);

@@ -27,7 +27,7 @@
             <?php foreach($list_data as $data): ?>
             <tr>
                 <td><?=$no?></td>
-                <td><?=$data->nama_kandidat?></td>
+                <td><a href="<?= base_url('detail_pelamar') ?>" target="_blank"><?=$data->nama_kandidat?></a></td>
                 <td><?=$data->nama_lowongan?></td>
                 <td><a href="http://wa.me/<?=$data->nomor_hp?>" target="_blank"><?=$data->nomor_hp?></a></td>
                 <td>
@@ -98,12 +98,23 @@
   </div>
 </div>
 
+<div class="modal fade" id="detail_pelamar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detail Pelamar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- .DETAIL DATA ---->
 <div class="modal fade" id="modal-dokumen">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Dokumen Pelamar</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div id="loading"></div>
@@ -161,6 +172,16 @@
 
           $("#file").html(html);
         }
+      }
+    });
+  };
+
+    function detail_pelamar($id){
+    $.ajax({
+      url:"<?php echo site_url("kandidat/getDataKandidat")?>/" + $id,
+      type: "get",
+      success:function(hasil){
+        console.log(hasil);
       }
     });
   };
