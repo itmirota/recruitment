@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','session','user_agent', 'encryption');
+$autoload['libraries'] = array('database','session','user_agent', 'encryption','userlogin');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('form','url','file','tgl_indo_helper','cias_helper','notification_helper','media_helper');
+$autoload['helper'] = array('form','url','file','tgl_indo_helper','cias_helper','notification_helper','media_helper','util_helper');
 
 /*
 | -------------------------------------------------------------------
@@ -103,7 +103,7 @@ $autoload['helper'] = array('form','url','file','tgl_indo_helper','cias_helper',
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('google_auth');
 
 /*
 | -------------------------------------------------------------------

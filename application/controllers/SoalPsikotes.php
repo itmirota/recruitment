@@ -20,13 +20,16 @@ class SoalPsikotes extends BaseController
   public function list_soalPsikotes(){
     $this->global['pageTitle'] = 'Mirota KSM | List Soal';
 
-    $id_kategori = $this->input->post('id_kategori');
-    $subtest = $this->input->post('ujian');
+    $id_kategori = $this->input->get('id_kategori');
+    $subtest = $this->input->get('ujian');
 
     $data['list_data'] = $this->psikotes_model->getSoalWhere(['ujian_id' => $subtest]);
 
     $data['kategori'] = $this->crud_model->tampildata('tbl_psikotes_kategori');
     $data['subtest'] = $this->crud_model->tampildata('tbl_psikotes_ujian');
+    $data['detail_kategori'] = $this->crud_model->GetDataById(['id_kategoriPsikotes' => $id_kategori],'tbl_psikotes_kategori');
+    $data['detail_subtest'] = $this->crud_model->GetDataById(['id_ujian' => $subtest],'tbl_psikotes_ujian');
+    $data['id_kategori'] = $id_kategori;
     $data['id_subtest'] = $subtest;
 
     $this->loadViewsAdmin("psikotes/soal/data", $this->global, $data, NULL);

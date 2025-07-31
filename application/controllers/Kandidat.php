@@ -561,4 +561,17 @@ class kandidat extends BaseController
     $pelamar = $this->crud_model->GetDataById('id_pelamar='.$id,'tbl_pelamar');
     echo json_encode($pelamar);
   }
+
+  function detail_kandidat($id){
+      
+    $data = array(
+      'data' => $this->pelamar_model->GetDataById(['id_pelamar' => $id],'tbl_pelamar'),
+      'list_keluarga' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_keluarga'),
+      'list_pendidikan' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pendidikan'),
+      'list_pengalaman' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pengalamankerja'),
+      'list_sertifikasi' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_sertifikasi')      
+    );
+
+    $this->loadViewsAdmin("pelamar/detail", $this->global, $data, NULL);
+  }
 }

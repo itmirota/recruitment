@@ -1,48 +1,66 @@
 <div class="col-md-12">
 
-  <div class="d-flex justify-content-end mb-3">
-    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add"> Tambah Soal</button>
-  </div>
-
+  <!-- Filter -->
   <div class="card mb-3">
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <div class="p-2">
-          <form action="<?=base_url('soalPsikotes/list_soalPsikotes')?>" role="form" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="nama_kategoriPsikotes" class="col-sm-6 control-label">Kategori :</label>
-                  <select class="form-select" id="id_kategori" name="id_kategori" onchange="getUjianByKategori()" aria-label="Default select example">
-                    <option value="0" disabled selected>Pilih Kategori</option>
-                    <?php foreach($kategori as $k){?>
-                    <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
-                    <?php } ?>
-                  </select>
-                  <span style="color:red"><?= form_error('id_kategori'); ?></span>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="nama_kategoriPsikotes" class="col-sm-6 control-label">Subtest :</label>
-                  <select class="form-select" id="ujian" name="ujian" aria-label="Default select example">
-                  </select>
-                  <span style="color:red"><?= form_error('ujian'); ?></span>
-                </div>
-              </div>
-            </div>
-            <input type="submit" value="Tampilkan" class="btn pull-right btn btn-success"></input>
-          </form>
+          <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modal-filter"><i class="fa fa-filter"></i> Filter</button>
         </div>
+
+        <!-- MODAL FILTER -->
+        <div class="modal fade" id="modal-filter">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Filter Soal</h4>
+              </div>
+              <form action="<?=base_url('soalPsikotes/list_soalPsikotes')?>" role="form" method="get">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="id_kategori" class="control-label">Kategori :</label>
+                    <select class="form-select" id="id_kategori" name="id_kategori" onchange="getUjianByKategori()">
+                      <option value="0" disabled selected>Pilih Kategori</option>
+                      <?php foreach($kategori as $k){?>
+                      <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
+                      <?php } ?>
+                    </select>
+                    <span style="color:red"><?= form_error('id_kategori'); ?></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="ujian" class="control-label">Subtest :</label>
+                    <select class="form-select" id="ujian" name="ujian">
+                      <!-- Options will be loaded here by JavaScript -->
+                    </select>
+                    <span style="color:red"><?= form_error('ujian'); ?></span>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  <input type="submit" value="Tampilkan" class="btn btn-success"></input>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-filter -->
       </div>
     </div>
   </div>
+  <!-- Filter -->
 
+  <!-- .MAIN DATA ---->
   <div class="card">
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <div class="p-2">
           <h2 class="text-blue">Soal</h2>
+          <?php if(isset($id_subtest)) { ?>
+          <h4 class="text-blue">Kategori <strong><?=$detail_kategori->nama_kategoriPsikotes ?></strong> Subtest <strong><?=$detail_subtest->nama_ujian ?></strong></h4>
+          <?php } ?>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add"> Tambah Soal</button>
         </div>
       </div>
       <?php if(isset($id_subtest)) { ?>
@@ -98,18 +116,20 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
-            <select class="form-select" name="id_kategori_add" id="id_kategori_add" onchange="FormAddKategori()">
-              <option value="" disabled selected>Pilih Kategori</option>
+            <select class="form-select" name="id_kategori_add" id="id_kategori_add" disabled>
               <?php foreach($kategori as $k){?>
-              <option value="<?= $k->id_kategoriPsikotes?>"><?= $k->nama_kategoriPsikotes?></option>
+              <option value="<?= $k->id_kategoriPsikotes?>" <?= $k->id_kategoriPsikotes == $id_kategori ? 'selected':''?>><?= $k->nama_kategoriPsikotes?></option>
               <?php } ?>
             </select>
             <span style="color:red"><?= form_error('id_kategori_add'); ?></span>
           </div>
 
           <div class="mb-3">
-            <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Kategori :</label>
-            <select class="form-select" id="ujian_add" name="ujian_add" aria-label="Default select example">
+            <label for="nama_kategoriPsikotes" class="col-sm-4 control-label">Subtest :</label>
+            <select class="form-select" id="ujian_add" name="ujian_add" aria-label="Default select example" disabled>
+              <?php foreach($subtest as $s){?>
+                <option value="<?= $s->id_ujian?>" <?= $s->id_ujian == $id_subtest ? 'selected':''?>><?= $s->nama_ujian?></option>
+              <?php } ?>
             </select>
             <span style="color:red"><?= form_error('ujian_add'); ?></span>
           </div>

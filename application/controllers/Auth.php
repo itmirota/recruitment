@@ -105,6 +105,24 @@ class Auth extends BaseController
     }
   }
 
+  public function authgoogle(){
+    $profile    = $this->userlogin->oauth2_google()['profile'];
+    $email      = $profile['email'];
+    $result     = $this->Login_model->authgoogle($email);
+    if(isset($result->error)){
+        $response = $result->error;
+        $this->index($response);
+    }else{
+        redirect('halaman-pelamar');
+    }
+  }
+
+  public function insert_authGoogle(){
+    $post    = $this->userlogin->register_oauth2_google()['profile'];
+    $response = $this->Register_model->insert_authGoogle($post);
+    return $this->index($response);
+  }
+
   public function loginAdmin()
   {
     
