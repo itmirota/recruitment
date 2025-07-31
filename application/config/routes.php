@@ -20,6 +20,7 @@ $route['login/user'] = 'auth/login';
 $route['halaman-pelamar'] = 'user/dashboardUser';
 $route['Biodata'] = 'kandidat/biodata';
 $route['list-pelamar'] = 'kandidat/list_pelamar';
+$route['detail-pelamar/(:num)'] = 'kandidat/detail_kandidat/$1';
 
 
 // ADMIN

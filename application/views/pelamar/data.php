@@ -27,11 +27,7 @@
             <?php foreach($list_data as $data): ?>
             <tr>
                 <td><?=$no?></td>
-<<<<<<< HEAD
-                <td><a href="#" target="_blank"><?=$data->nama_kandidat?></a></td>
-=======
-                <td><a href="<?= base_url('detail_pelamar') ?>" target="_blank"><?=$data->nama_kandidat?></a></td>
->>>>>>> origin/cahya
+                <td><a href="<?= base_url('detail-pelamar/'.$data->id_kandidat) ?>"><?=$data->nama_kandidat?></a></td>
                 <td><?=$data->nama_lowongan?></td>
                 <td><a href="http://wa.me/<?=$data->nomor_hp?>" target="_blank"><?=$data->nomor_hp?></a></td>
                 <td>

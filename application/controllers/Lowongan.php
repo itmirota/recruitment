@@ -56,12 +56,8 @@ public function detaillowongan($id){
   $this->global['pageTitle'] = 'Mirota KSM | Detail Lowongan Kerja';
 
   $data = array(
-<<<<<<< HEAD
-    'list_data'   => $this->crud_model->GetRowById(['id_lowongan' => $id],'tbl_lowongan'),
-=======
     'detail'   => $this->crud_model->GetRowById(['id_lowongan' => $id],'tbl_lowongan'),
     'id_lowongan' => $id,
->>>>>>> origin/cahya
   );
 
   $this->loadViewsAdmin("lowongan/edit_data", $this->global, $data , NULL);

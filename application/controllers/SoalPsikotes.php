@@ -180,12 +180,10 @@ class SoalPsikotes extends BaseController
       }
     }
 
-    var_dump($_FILES['file_soal']['name']);
-
     $this->crud_model->update('id_soalPsikotes='.$id, $data, 'tbl_psikotes_soal');
     $this->session->set_flashdata('berhasil', 'Data Berhasil Diubah!');
 
-    redirect('soal-psikotes');
+    redirect('soal-psikotes?id_kategori='.$cek->kategoriPsikotes_id.'&ujian='.$cek->id_ujian);
   }
 
   public function delete(){

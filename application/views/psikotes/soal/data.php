@@ -59,7 +59,7 @@
           <h4 class="text-blue">Kategori <strong><?=$detail_kategori->nama_kategoriPsikotes ?></strong> Subtest <strong><?=$detail_subtest->nama_ujian ?></strong></h4>
           <?php } ?>
         </div>
-        <div class="d-flex justify-content-end mb-3">
+        <div class="p-2 mb-3">
           <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add"> Tambah Soal</button>
         </div>
       </div>

@@ -576,9 +576,10 @@ class kandidat extends BaseController
   }
 
   function detail_kandidat($id){
+    $this->global['pageTitle'] = "Detail Pelamar";
       
     $data = array(
-      'data' => $this->pelamar_model->GetDataById(['id_pelamar' => $id],'tbl_pelamar'),
+      'detail' => $this->crud_model->GetDataById(['id_kandidat' => $id],'tbl_kandidat'),
       'list_keluarga' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_keluarga'),
       'list_pendidikan' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pendidikan'),
       'list_pengalaman' => $this->crud_model->GetDataByWhere(['kandidat_id' => $id],'tbl_kandidat_pengalamankerja'),

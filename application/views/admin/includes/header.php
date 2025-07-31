@@ -8,7 +8,7 @@
 	<meta name="description" content="Pencatatan Inventaris kepemilikan mirota ksm">
 	<meta name="author" content="Tri Cahya">
 	<!-- <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"> -->
-  <link rel="icon" type="image/x-icon" href="<?= base_url().'assets/dist/images/favicon.png'?>">
+  <link rel="icon" type="image/x-icon" href="<?= base_url().'assets/dist/images/logo.png'?>">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 
