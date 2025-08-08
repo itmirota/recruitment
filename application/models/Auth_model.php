@@ -156,6 +156,47 @@ class Auth_model extends CI_Model
 		$this->db->where('hash_key',$hash);
 		$this->db->update('tbl_users',$data);
 	}
+
+    function authgoogle($email=false){
+        $query = $this->db->where('email',$email)->get('tbl_users');
+        return $query;
+    }
+
+    function update_session($userId,$data){
+        $query = $this->db->where('userId',$userId)->update('tbl_users',$data);
+    }
+
+    public function insert_authGoogle($data){
+        $post = $data['post'];
+        $id = $data['id'];
+        $userId = $data['userId'];
+        
+        $kandidat = array(
+            'id_kandidat' => $id,
+            'nama_kandidat' =>$post['name'],
+            'email' =>$post['email']
+        );
+
+        $user = array(
+            'roleId'       => 2,
+            'userId'        => $userId,
+            'kandidat_id'   => $id,
+            'nama_lengkap'  => $post['name'],
+            'email'         => $post['email'],
+            'username'      => $post['givenName'],
+            'password'      => $post['givenName'],
+            'createdDtm'    => date('Y-m-d H:i:sa')
+        );
+
+        $cekEmail = $this->db->where('email', $user['email'])->get('tbl_users');
+        if($cekEmail->num_rows()>0){
+            $this->session->set_flashdata('error', 'anda sudah terdaftar !');
+        }else{
+            $resultKandidat = $this->crud_model->input($kandidat,'tbl_kandidat');
+            $resultUser = $this->crud_model->input  ($user,'tbl_users');
+            $this->session->set_flashdata('success', 'Akun google berhasil ditambahkan!');
+        }
+    }
 }
 
 ?>

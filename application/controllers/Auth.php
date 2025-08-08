@@ -11,6 +11,7 @@ class Auth extends BaseController
   {
     parent::__construct();
     $this->load->model('auth_model');
+    $this->load->model('crud_model');
     $this->load->library('form_validation');
   }
 
@@ -37,12 +38,11 @@ class Auth extends BaseController
     }
     else
     {
-
       $loginType = $this->session->userdata('loginType');
       if($loginType == 'user'){
         redirect('halaman-pelamar');
       }else{
-        redirect('dashboard');
+        redirect('halaman-admin');  
       }
     }
   }
@@ -108,19 +108,52 @@ class Auth extends BaseController
   public function authgoogle(){
     $profile    = $this->userlogin->oauth2_google()['profile'];
     $email      = $profile['email'];
-    $result     = $this->Login_model->authgoogle($email);
-    if(isset($result->error)){
-        $response = $result->error;
-        $this->index($response);
+    $result     = $this->auth_model->authgoogle($email);
+    if($result->num_rows()>0){
+        $row = $result->row();
+
+        $sessionArray = array(
+          'userId'=>$row->userId,
+          'nama_lengkap'=>$row->nama_lengkap,
+          'kandidat_id'=>$row->kandidat_id,
+          'roleId'=>$row->roleId,
+          'isLoggedIn' => TRUE
+        );
+                          
+          $this->session->set_userdata($sessionArray);
+
+        $data   = array(
+            'session_at'    => date('Y-m-d H:i:sa')
+        );
+        $this->auth_model->update_session($row->userId,$data);
+
+        if($row->roleId != 1){
+          redirect('halaman-pelamar');
+        }else{
+          redirect('halaman-admin');
+        }
     }else{
-        redirect('halaman-pelamar');
+        $this->session->set_flashdata('error', 'anda tidak terdaftar !');
+        redirect('login');
     }
   }
 
   public function insert_authGoogle(){
     $post    = $this->userlogin->register_oauth2_google()['profile'];
-    $response = $this->Register_model->insert_authGoogle($post);
-    return $this->index($response);
+    $checkid = $this->crud_model->ShowData('MAX(id_kandidat) AS id', 'tbl_kandidat');
+    $checkUserid = $this->crud_model->ShowData('MAX(userId) AS userId', 'tbl_users');
+
+    $id = $checkid->id +1;
+    $userId = $checkUserid->userId +1;
+
+    $data = array(
+      'post' => $post,
+      'id' => $id,
+      'userId' => $userId
+    );
+
+    $response = $this->auth_model->insert_authGoogle($data);
+    redirect('auth');
   }
 
   public function loginAdmin()
